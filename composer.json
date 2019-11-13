@@ -1,0 +1,31 @@
+{
+	"name" : "kudu-comp/gc-coolstuff",
+	"description" : "Libraries with really cool stuff",
+	"type" : "project",
+	"authors" : [{
+			"name" : "Aernout",
+			"email" : "aernout@kudu-comp.org"
+		}
+	],
+	"repositories" : [{
+			"type" : "vcs",
+			"url" : "https://github.com/kudu-comp/gc-coolstuff"
+		}
+	],
+	"autoload" : {
+		"classmap" : [
+			"src/cipher/ciphertoolkit.php"
+		],
+		"psr-4" : {
+			"" : "src/cipher",
+			"cipher\\" : "src/cipher",
+			"cipher\\multisubstitutioncipher\\" : "src/cipher/multisubstitutioncipher",
+			"cipher\\polyalphabeticcipher\\" : "src/cipher/polyalphabeticcipher",
+			"cipher\\polyalphabeticcipher\\vigenere\\" : "src/cipher/polyalphabeticcipher/vigenerecipher",
+			"cipher\\polybiuscipher\\" : "src/cipher/polybiuscipher"
+		}
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "6.5"
+	}
+}
