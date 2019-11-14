@@ -20,7 +20,7 @@ class NihilistTest extends TestCase
         $res = $c->decode ($res);
         $this->assertEquals("THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG",$res, "Error decoding nihilist");
 	    
-	$c->setaddkey ("KABOUTER";
+	$c->setaddkey ("KABOUTER");
 	$res = $c->encode ($msg);
 	$this->assertEquals("78 46 25 86 102 77 34 47 46 29 55 95 92 69 54 68 65 66 48 85 72 87 64 26 47 60 44 54 85 60 23 69 56 57 38",$res, "Error encoding nihilist");
         $res = $c->decode ($res);
