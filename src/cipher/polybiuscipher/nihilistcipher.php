@@ -62,7 +62,6 @@ class nihilistcipher extends \cipher\polybiuscipher {
     	}
     	
 	// Decode the result as polybius
-	    return $s;
         return parent::decode(substr($s,0,-1));
     }
     
