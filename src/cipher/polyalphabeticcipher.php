@@ -61,8 +61,7 @@ class polyalphabeticcipher extends cipher {
             $pos = $this->strpos2($this->plainalphabet, $msg[$i]);
             if ($pos !== FALSE) {
                 $row =($i % $this->iterkeylen);
-                ($this->matchcase) ? $c = $this->keyiterator[$row] : $c = strtoupper($this->keyiterator[$row]);
-                $s .= $this->tableau[$c][$pos];
+                $s .= $this->tableau[$this->keyiterator[$row]][$pos];
             }
         }
         return $s;
@@ -76,8 +75,7 @@ class polyalphabeticcipher extends cipher {
         $s = "";
         for ($i = 0; $i < strlen($msg); $i++) {
             $row =($i % $this->iterkeylen);
-            ($this->matchcase) ? $c = $this->keyiterator[$row] : $c = strtoupper($this->keyiterator[$row]);
-            $pos = $this->strpos2($this->tableau[$c], $msg[$i]);
+            $pos = $this->strpos2($this->tableau[$this->keyiterator[$row]], $msg[$i]);
             if ($pos !== FALSE) {
                 $s .= $this->plainalphabet[$pos];
             }
