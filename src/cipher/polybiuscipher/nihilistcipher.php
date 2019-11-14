@@ -46,7 +46,7 @@ class nihilistcipher extends \cipher\polybiuscipher {
     	    $idx++;
     	}
     	
-        return $s;
+        return substr($s,0,-1);
     }
     
     public function decode ($msg) {
@@ -61,10 +61,8 @@ class nihilistcipher extends \cipher\polybiuscipher {
     	    $idx++;
     	}
     	
-	    // Decode the result as polybius
-	        echo $s;
-        $msg = parent::decode(substr($s,0,-1));
-        return $msg;
+	// Decode the result as polybius
+        return parent::decode(substr($s,0,-1));
     }
     
 } // Class nihilistcipher
