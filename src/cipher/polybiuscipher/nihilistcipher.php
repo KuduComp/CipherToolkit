@@ -2,7 +2,7 @@
 
 namespace cipher\polybiuscipher;
 
-class nihilistcipher extends polybiuscipher {
+class nihilistcipher extends \cipher\polybiuscipher {
 
     protected $addkey = "";
     protected $addkeylen = 0;
