@@ -127,10 +127,7 @@ abstract class cipher {
 
 	// Helper function to create a reorganize a alphabet with a key
 	public function shufflealphabet ($alphabet, $key) {
-	    if ($this->matchcase)
-		return implode("", array_values (array_unique (array_merge (str_split($key), str_split($alphabet)))));
-	    else
-		return implode("", array_values (array_unique (array_merge (str_split(strtoupper($key)), str_split(strtoupper($alphabet))))));
+	    return implode("", array_values (array_unique (array_merge (str_split($key), str_split($alphabet)))));
 	}
 	
 	// Help function to position keeping in mind setting of matchcase
