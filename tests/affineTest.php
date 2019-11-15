@@ -5,9 +5,9 @@ use cipher\affinecipher;
 
 //All test files must be named *Test.php (case sensitive T)
 
-class CaesarTest extends TestCase
+class AffineTest extends TestCase
 {
-    public function testCaesar()
+    public function testAffinne()
     {
         // Test affine
         $c = new affinecipher(UPPER_ALPHABET, 5, 5);
