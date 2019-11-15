@@ -16,6 +16,9 @@ class affinecipher extends cipher {
       $this->b = $b;
       $ainv = $this->modinvers ($this->a, strlen($this->alphabet));
     }
+  
+    function geta () { return $this->a; }
+    function getb () { return $this->b; }
     
     function modinvers ($a, $m) {
         
@@ -40,12 +43,12 @@ class affinecipher extends cipher {
     
     function decode ($msg) {
         
-        if ($ainv == 0) return "Error decoding as a and size of the alphabet are not coprime";
+        if ($this->ainv == 0) return "Error decoding as a and size of the alphabet are not coprime";
         $s = "";
         for ($i=0; $i < strlen($msg); $i++) {
             $pos = strpos ($this->alphabet, $msg[$i]);
             if ($pos !== FALSE) {
-                $s .= $this->alphabet [($ainv * ($pos - $this-> b)) % strlen($this->alphabet)];
+                $s .= $this->alphabet [($this->ainv * ($pos - $this-> b)) % strlen($this->alphabet)];
             } else 
                 if (!$this->remove) $s .= $msg[$i]; else return "Illegal character found";
         }
