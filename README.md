@@ -9,6 +9,7 @@ Dummy cipher - no encoding or decoding
 Simple 1 on 1 substitution cipher
 - Generic version using an alphabet
 - Atbash cipher (reversed alphabet)
+- Affine cipher (uses function y = ax + b)
 - Caesar cipher (rotated alphabet, default 13)
 
 Simple 1 to many substitution ciphers
