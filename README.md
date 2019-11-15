@@ -1,4 +1,4 @@
-# gc-coolstuff/ciphers
+# CipherToolkit
 
 PHP class library with plenty of hand ciphers.
 
