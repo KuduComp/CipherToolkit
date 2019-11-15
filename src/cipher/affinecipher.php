@@ -14,14 +14,13 @@ class affinecipher extends cipher {
     function setab ($a, $b) {
       $this->a = $a; 
       $this->b = $b;
-      $ainv = $this->modinvers ($this->a, strlen($this->alphabet));
+      $this->ainv = $this->modinvers ($this->a, strlen($this->alphabet));
     }
   
     function geta () { return $this->a; }
     function getb () { return $this->b; }
     
-    function modinvers ($a, $m) {
-        
+    function modinvers ($a, $m) {   
         $a = $a % $m; 
         for ($x=1; $x < $m; $x++) 
            if (($a*$x) % $m == 1) 
@@ -43,12 +42,12 @@ class affinecipher extends cipher {
     
     function decode ($msg) {
         
-        if ($this->ainv == 0) return "Error decoding as a and size of the alphabet are not coprime";
+        if ($this->ainv == 0) return "Error decoding as a results in duplicates in decoding";
         $s = "";
         for ($i=0; $i < strlen($msg); $i++) {
             $pos = strpos ($this->alphabet, $msg[$i]);
             if ($pos !== FALSE) {
-                $s .= $this->alphabet [($this->ainv * ($pos - $this-> b)) % strlen($this->alphabet)];
+                $s .= $this->alphabet [($this->ainv * ($pos - $this->b)) % strlen($this->alphabet)];
             } else 
                 if (!$this->remove) $s .= $msg[$i]; else return "Illegal character found";
         }
