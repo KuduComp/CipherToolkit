@@ -16,6 +16,7 @@ Simple 1 to many substitution ciphers
 - Kenny code
 - Morse code
 - Polybius cipher (uses a square)
+- Nihilist cipher (a variant of the Polybius cipher)
 
 Polyalphabetic ciphers
 - Vigenere cipher
