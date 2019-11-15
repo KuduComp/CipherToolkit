@@ -25,7 +25,7 @@ class nihilistcipher extends \cipher\polybiuscipher {
 
     	// Convert the coded key to an array of integers
     	$this->addkeyarr = array();
-    	preg_match_all ("/([0-9]{2})[.]*/", $addkeycoded, $parsed);
+    	preg_match_all ("/([0-9]{2,3})[.]*/", $addkeycoded, $parsed);
     	foreach ($parsed[1] as $p) $this->addkeyarr[] = intval($p);
     }
     
