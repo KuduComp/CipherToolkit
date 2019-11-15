@@ -1,6 +1,6 @@
 <?php
 
-namespace cipher/affinecipher;
+namespace cipher;
 
 class affinecipher extends cipher {
   
