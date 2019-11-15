@@ -53,7 +53,7 @@ class nihilistcipher extends \cipher\polybiuscipher {
 
     	// Substract the key to the encoded message and convert to string
     	$s = "";
-        preg_match_all ("/([0-9]{2})[.]*/", $msg, $parsed);
+        preg_match_all ("/([0-9]{2,3})[.]*/", $msg, $parsed);
     	$idx = 0;
     	foreach ($parsed[1] as $p) {
     	    $n = intval($p) - $this->addkeyarr[$idx % $this->addkeylen];
