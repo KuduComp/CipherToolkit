@@ -1,5 +1,6 @@
 <?php
 
+namespace cipher\polyalphabeticcipher\vigenerecipher;
 
 class beaufortcipher extends vigenerecipher {
 
