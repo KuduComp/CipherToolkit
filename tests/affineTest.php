@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use cipher\affinecipher;
+use const cipher\UPPER_ALPHABET;
 
 //All test files must be named *Test.php (case sensitive T)
 
