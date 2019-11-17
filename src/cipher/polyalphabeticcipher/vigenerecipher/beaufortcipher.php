@@ -9,7 +9,7 @@ class beaufortcipher extends \cipher\polyalphabeticcipher\vigenerecipher {
           $this->alphabet    = strrev ($this->alphabet);
           parent::settableau ($keyiterator, $keycipher, $keyplain, $keycol);
           $this->alphabet    = strrev ($this->alphabet);
-          var_dump ($this->tableau);
+          
   }
   
 }
