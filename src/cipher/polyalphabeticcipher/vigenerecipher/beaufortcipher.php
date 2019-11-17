@@ -28,7 +28,7 @@ class beaufortcipher extends \cipher\polyalphabeticcipher\vigenerecipher {
         }
         $s = $this->cipheralphabet;
         for ($i=0; $i<strlen($this->cipheralphabet); $i++) {
-            $this->tableau[$this->cipheralphabet[($i + $pos) % strlen($this->cipheralphabet) ]]= strrev($s);
+            $this->tableau[$this->cipheralphabet[($i + $pos + 1) % strlen($this->cipheralphabet) ]]= strrev($s);
             $s = substr($s,1) . $s[0];
         }
     var_dump($this->tableau);
