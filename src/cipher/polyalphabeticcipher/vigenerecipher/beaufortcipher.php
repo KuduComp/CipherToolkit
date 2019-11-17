@@ -22,15 +22,16 @@ class beaufortcipher extends \cipher\polyalphabeticcipher\vigenerecipher {
         $this->tableau = array();
         if ($keycol == "")
             $pos = 0;
-            else {
-                $pos = $this->strpos2($this->plainalphabet, $keycol);
-                if ($pos === FALSE) $pos=0;
-            }
-            $s = $this->cipheralphabet;
-            for ($i=0; $i<strlen($this->cipheralphabet); $i++) {
-                $this->tableau[$this->cipheralphabet[($i + $pos) % strlen($this->cipheralphabet) ]]= strrev($s);
-                $s = substr($s,1) . $s[0];
-            }
+        else {
+            $pos = $this->strpos2($this->plainalphabet, $keycol);
+            if ($pos === FALSE) $pos=0;
+        }
+        $s = $this->cipheralphabet;
+        for ($i=0; $i<strlen($this->cipheralphabet); $i++) {
+            $this->tableau[$this->cipheralphabet[($i + $pos) % strlen($this->cipheralphabet) ]]= strrev($s);
+            $s = substr($s,1) . $s[0];
+        }
+    var_dump($this->tableau);
           
   }
   
