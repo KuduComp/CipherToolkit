@@ -50,6 +50,14 @@ class DummyTest extends TestCase
         $res = $c->formatoutput("ABCDEABCDEABCDEABCDEABCDEABCDEABCDEABCDEABCDEABCDEABCD");
         $this->assertEquals("ABCDE-ABCDE-ABCDE-ABCDE-ABCDE-ABCDE-ABCDE-ABCDE-ABCDE-ABCDE-ABCD",$res, "Error format output");
         
+        $msg="thequickbrownfoxjumpsoverthelazydog";
+        $key=array (2, 1, 0);
+        $res = $c->encodecolumnartransposition ($msg, $key);
+        $this->assertEquals("eibwousehadhukofjpvtlygtqcrnxmorezo",$res, "Error columnar transposition encoding");
+        //eibwousehadhukofjpvtlygtqcrnxmorezo
+        $res = decodecolumnartransposition ($res, $key);
+        $this->assertEquals("thequickbrownfoxjumpsoverthelazydog",$res, "Error columnar transposition decoding");
+                
     }
 }
 ?>
