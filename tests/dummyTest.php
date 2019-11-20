@@ -55,7 +55,7 @@ class DummyTest extends TestCase
         $res = $c->encodecolumnartransposition ($msg, $key);
         $this->assertEquals("eibwousehadhukofjpvtlygtqcrnxmorezo",$res, "Error columnar transposition encoding");
         //eibwousehadhukofjpvtlygtqcrnxmorezo
-        $res = decodecolumnartransposition ($res, $key);
+        $res = $c->decodecolumnartransposition ($res, $key);
         $this->assertEquals("thequickbrownfoxjumpsoverthelazydog",$res, "Error columnar transposition decoding");
                 
     }
