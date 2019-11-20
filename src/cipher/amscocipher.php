@@ -33,19 +33,18 @@ class amscocipher extends cipher {
         	$table[$col][$row] = $msg[$i];
         	if ($col < ($ncol-1)) 
         		$col++;
-        	else if ($i < (strlen($msg)-1)) {
+        	else {
         		$col = 0;
         		$row++;
         	}
         }
     
-        // Wrtie output column after colum in array table, taking into account order of key
+        // Write output column after colum in array table, taking into account order of key
         $s = "";
-        for ($i = 0; $i < $ncol; $i++)
-            echo $i,"\t", $nrow,"\t", $nlongcol, "\n";
-        	for ($j = 0; $j < ($nrow - ($i > $nlongcol)); $j++) {
-        		$s .= $table[$key[$i]][$j];
-        		if return $s;
+        for ($i = 0; $i < $ncol; $i++) 
+        	for ($j = 0; $j < ($nrow - ($key[$i] >= $nlongcol)); $j++) 
+                $s .= $table[$key[$i]][$j];
+        return $s;
     }
 
 	function decodecolumnartransposition ($msg = "", $key) {
@@ -54,27 +53,41 @@ class amscocipher extends cipher {
 	    $msglen = strlen($msg);
 	    $nrow = ceil ($msglen / $ncol);
         $nlongcol = $msglen % $ncol;
-	    $col = 0;
 	    $table = array();
 
 	    // Write message column after column in array table
-	    $idx = 0;
-	    for ($i = 0; ($i < $ncol) && ($idx < $msglen); $i++) {
-    		$collen = $nrow + ($nlongcol < $i);
-    		for ($j = 0; ($j < $collen) && ($idx < $msglen); $j++) {
-    		    $table[$key[$i]][$j] = $msg[$idx];
-    		    $idx++;
-    		}
-	    }
-
-	    // Write output column after colum in array table, taking into account order of key
+	    $colidx = 0;
+	    $col = array_search ($colidx++, $key);
+	    $row = 0;
+	    for ($i = 0; $i < $msglen; $i++) {
+        	$table[$col][$row] = $msg[$i];
+        	$row++;
+        	if ($row >= ($nrow - ($col >= $nlongcol))) {
+        		$col = array_search ($colidx++, $key);
+        		$row = 0;
+        	}
+        }
+        
+	    // Write output row after row in array table, taking into account order of key
 	    $s = "";
-	    for ($i = 0; ($i < $ncol) && (strlen($s) < $msglen); $i++)
-	    	for ($j = 0; ($j < $nrow) && (strlen($s) < $msglen); $j++)
-			    $s .= $table[$key[$i]][$j];
-
+	    for ($i = 0; $i < $nrow; $i++) {
+	        ($i < ($nrow-1)) ? $rowlen = $ncol : $rowlen = $nlongcol;
+	    	for ($j = 0; $j < $rowlen; $j++)
+			    $s .= $table[$j][$i];
+	    }
 	    return $s;
 	}
+
+    function makearray ($msg) {
+    
+    	switch (gettype($msg)) {
+    		case "string"   : $a = str_split($msg); break;
+    		case "array"    : $a = $msg; break;
+    		case "integer"  : $a = str_split (sprintf("%d", $msg)); break;
+    	}
+    	return TRUE;
+    }
+
 
     	function getnumkey () { return $this->numkey; }
 
@@ -98,8 +111,11 @@ $msg="thequickbrownfoxjumpsoverthelazydog";
 $key=array (2, 1, 0);
 
 $res = encodecolumnartransposition ($msg, $key);
+//eibwousehadhukofjpvtlygtqcrnxmorezo
 echo $res, "\n\n";
 $res = decodecolumnartransposition ($msg, $key);
 echo $res, "\n\n";
+
+
 
 ?>
