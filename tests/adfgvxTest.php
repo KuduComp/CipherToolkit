@@ -25,3 +25,4 @@ class ADFGVXTest extends TestCase
         $this->assertEquals("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG123",$res, "Error decoding ADFGX");
     }
 }
+

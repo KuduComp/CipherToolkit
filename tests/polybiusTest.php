@@ -19,3 +19,5 @@ class PolybiusTest extends TestCase
         $this->assertEquals("THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG",$res, "Error decoding ADFGX");
     }
 }
+
+?>

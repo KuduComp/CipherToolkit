@@ -1,3 +1,4 @@
+
 <?php
 
 use PHPUnit\Framework\TestCase;
@@ -9,7 +10,6 @@ class KennyTest extends TestCase
     public function testKenny()
     {
         $c = new kennycode();
-        $c->setsep("/");
         $res = $c->encode ("thequickbrownfoxjumpsoverthelazydog");
         $this->assertEquals("fmpmfpmpppfpfmfmffmmfpmpmmppffppffpppppmpfppffpfpmmfmfppmpfmfmmppffpmmpppfffmpmfpmpppmfmmmffpffmmpmppfmfm",$res, "Error encoding kenny");
         $res = $c->decode ($res);
@@ -17,4 +17,4 @@ class KennyTest extends TestCase
     }
 }
 
-
+?>
