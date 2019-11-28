@@ -77,7 +77,4 @@ class polybiuscipher extends cipher {
     
 } // End of polybiuscipher
 
-
-
-
 ?>

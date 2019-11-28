@@ -12,7 +12,10 @@ class MorseTest extends TestCase
         $c->setsep("/");
         $res = $c->encode ("thequickbrownfoxjumpsoverthelazydog");
         $this->assertEquals("-/...././--.-/..-/../-.-./-.-/-.../.-./---/.--/-./..-./---/-..-/.---/..-/--/.--./.../---/...-/./.-./-/...././.-../.-/--../-.--/-../---/--.",$res, "Error encoding morse");
+        $c->setsep("");
         $res = $c->decode ($res);
         $this->assertEquals("thequickbrownfoxjumpsoverthelazydog",$res, "Error decoding morse");
     }
 }
+
+?>

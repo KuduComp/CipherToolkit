@@ -16,3 +16,4 @@ class PlayfairTest extends TestCase {
         $this->assertEquals("HIDETHEGOLDINTHETRXEESTUMP",$res, "Error decoding ADFGX");
     }
 }
+?>
