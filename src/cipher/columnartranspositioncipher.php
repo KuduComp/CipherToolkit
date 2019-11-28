@@ -8,7 +8,7 @@ class columnartranspositioncipher extends cipher {
     
     function __construct ($alphabet  = UPPER_ALPHABET, $key = "") {
         parent::__construct ($alphabet);
-        $this->setkey ($key1, $key2);
+        $this->setkey ($key);
     }
     
     function setkey ($key) {
