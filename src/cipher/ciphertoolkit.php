@@ -502,10 +502,11 @@ abstract class cipher {
 		// Transpose columns
 		$table3 = array();
 		for ($r = 0; $r < $size; $r++) $table3[$r] = array();
-		for ($r = 0; $r < $size; $r++) {
-			$col = array_search ($r, $key);
-			for ($c = 0; $c < $size; $c++) $table3[$r][$col] = $table2[$r][$c];
-		}
+		for ($r = 0; $r < $size; $r++)
+			for ($c = 0; $c < $size; $c++) {
+				$col = array_search ($c, $key);
+				$table3[$r][$col] = $table2[$r][$c];
+			}
 		
 		// Print row after row
 		$s = "";
