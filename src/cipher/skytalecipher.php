@@ -19,12 +19,12 @@ class skytalecipher extends cipher {
     function getkey () { return $key; }
     
     function encode ($msg = "") {
-        return $this->encodecolumnartransposition ($res, $this->keymap);
+        return $this->encodecolumnartransposition ($msg, $this->keymap);
     }
     
     
     function decode ($msg = "") {
-        return $this->decodecolumnartransposition ($res, $this->keymap);
+        return $this->decodecolumnartransposition ($msg, $this->keymap);
     }
     
 } // skytalecipher
