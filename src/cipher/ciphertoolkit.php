@@ -352,7 +352,7 @@ abstract class cipher {
 		if ($msglen == 0) return "Nothing to encode";
 
 		//Append message with random characters if needed
-		for ($i = 0; $i < (strlen($msg) % $keysquaresize); $i++) $msg .= "X";
+		for ($i = 0; $i < ($msglen % $keysquaresize); $i++) $msg .= "X";
 		$rowlen = (integer) ceil(strlen($msg) / $keysquaresize);
 
 		// Organize message in keysize rows
