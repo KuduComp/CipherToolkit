@@ -266,7 +266,7 @@ abstract class cipher {
 		// Message can be a text string, a number or an array
 		// For transposition an array is used as elements might have different length (e.g. amsco cipher)
 		// Key should be an array of integers e.g. 2,1,0 reorders columns as 0,1,2
-	    $ncol = sizeof($key);
+	    	$ncol = sizeof($key);
 		if ($ncol < 2) return "Cannot encode message there should be at least two columns";
 
 		$msg      = $this->makearray($msgtxt);
@@ -298,18 +298,18 @@ abstract class cipher {
 
 	public function decodecolumnartransposition ($msgtxt, $key) {
 
-	    $ncol = sizeof($key);
+	    	$ncol = sizeof($key);
 		if ($ncol < 2) return "Cannot decode message there should be at least two columns";
 		
 		$msg  = $this->makearray($msgtxt);
 		$msglen = sizeof($msg);
 		$nrow = ceil ($msglen / $ncol);
-        $nlongcol = $msglen % $ncol;
+        	$nlongcol = $msglen % $ncol;
 
 		// Write message column after column in array table
-        $table = array();
-        $idx = 0;
-        for ($c = 0; $c < $ncol; $c++) {
+		$table = array();
+		$idx = 0;
+		for ($c = 0; $c < $ncol; $c++) {
 			$col = array_search($c, $key);
 			(($col < $nlongcol) || ($nlongcol == 0)) ? $rowlen = $nrow : $rowlen = $nrow  - 1;
 			for ($r = 0; $r < $rowlen; $r++) $table[$r][$col] = $msg[$idx++];
@@ -405,7 +405,57 @@ abstract class cipher {
 		return $s2;
 	}
 	
-    // Fractionation causes the codes for a single character to be spread across the message
+	<?php
+
+	function nihilisttransposition ($msg, $key, $readrow = TRUE) {
+
+		// NIHILIST TRANSPOSITION (10x10 maximum)
+		// The same key is applied to rows and columns.
+		// Enter the plaintext in square 1 by rows as shown. Transpose columns by key order
+		// into square 2. Transpose rows of square 2 by key order into square 3. The ciphertext
+		// is taken off by columns or rows from square 3.
+
+		// Checks
+		if ($key == null) return "No key specified";
+		if ($msg == "") return "Nothing to encode";
+
+		// Append message to fill square
+		$size = sizeof ($key);
+		for ($i = 0; $i < ($size**2 - strlen($msg)); $i++) $msg .= 'X';	
+
+		// Fill square
+		$table = array();
+		for ($r = 0; $r < $size; $r++) {
+			$table[$r] = array ();
+			for ($c = 0; $c < $size; $c++) $table[$r][$c] = $msg[$r * $size + $c];
+		}
+
+		// Transpose columns
+		$table2 = array();
+		for ($r = 0; $r < $size; $r++) {
+			$table2[$r] = array ();
+			for ($c = 0; $c < $size; $c++) $table2[$r][$key[$c]-1] = $table[$r][$c];
+		}
+
+
+		// Transpose rows
+		$table3 = array();
+		for ($r = 0; $r < $size; $r++) $table3[$r] = array();
+		for ($r = 0; $r < $size; $r++) {
+			for ($c = 0; $c < $size; $c++) $table3[$key[$r]-1][$c] = $table2[$r][$c];
+		}
+
+		// Print row after row
+		$s = "";
+		for ($r = 0; $r < $size; $r++)
+			for ($c = 0; $c < $size; $c++) 
+			    ($readrow) ? $s .= $table3[$r][$c] :  $s .= $table3[$c][$r];
+
+		return $s;
+
+	}
+	
+    	// Fractionation causes the codes for a single character to be spread across the message
 	public function fractionate ($input = "", $nrows) {
 	    
 	    //Check input
