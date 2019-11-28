@@ -7,7 +7,7 @@
   
       protected $key = "";
       protected $keymap;
-      protected $readrow;
+      protected $readrow;  // If true output is row by row, if false column by column
       
       public function __construct ($alphabet, $key, $readrow = TRUE) {
         parent::__construct($alphabet);
@@ -15,7 +15,7 @@
         $this->readrow = $readrow;
       }
       
-      public function setkey ($key {
+      public function setkey ($key) {
         $this->key = $key;
         $this->size = sizeof($key);
         $this->keymap = $this->createtranspositionkey($key);
@@ -42,7 +42,7 @@
         if ($this->key == "") return "No key specified";
         if ($this->keymap == null) return "No key specified";
         if ($msg == "") return "Nothing to encode";
-        if (strlen($msg) != $this->size**2) return "Message should be a square of the key";
+        if (strlen($msg) != $this->size**2) return "Message length should be the square of the key";
 
         return $this->nihilisttransposition($msg, $this->keymap, $this->readrow); 
       }
