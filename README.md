@@ -55,6 +55,7 @@ Dummy cipher - no encoding or decoding
 - Jefferson wheel cipher
 
 ###### Transposition ciphers
+- Skytale (rows become columns, very easy)
 - Columnar transposition cipher
 - Double transposition cipher
 - Swagman cipher
