@@ -2,7 +2,7 @@
 
 #### Description
 
-PHP class library with plenty of hand ciphers. Hand ciphers where used in pre computer days to exchange secret communications. They could as simple as replacing on character with another. Hand ciphers were still in use in World War II. Using this ciphers can still be fun. One of the reasons I wrote this library is just for fun and in some cases it comes in handy. As a fanatical geocacher I often have to solve mysterie caches that are encoded with some archaic hand cipher.
+PHP class library with plenty of hand ciphers. Hand ciphers where used in pre computer days to exchange secret communications. They could be as simple as replacing one character with another. Hand ciphers were still in use in World War II and even in during the Cold War. Using this ciphers can still be fun. One of the reasons I wrote this library is just for fun and in some cases it comes in handy. As a fanatical geocacher I often have to solve mysterie caches that are encoded with some archaic hand cipher.
 
 #### Example
 ---
