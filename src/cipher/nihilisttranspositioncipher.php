@@ -26,25 +26,13 @@
       public function getreadrow () { return $this->readrow; }
               
       public function encode ($msg) { 
-        // Checks
-        if ($this->key == "") return "No key specified";
-        if ($this->keymap == null) return "No key specified";
-        if ($msg == "") return "Nothing to encode";
-
-	      // Append message to fill square
+	// Append message to fill square
         for ($i = 0; $i < ($this->size**2 - strlen($msg)); $i++) $msg .= 'X';
-        
-        return $this->nihilisttransposition($msg, $this->keymap, $this->readrow);
+        return $this->encodenihilisttransposition($msg, $this->keymap, $this->readrow);
       }
       
       public function decode ($msg) { 
-        // Checks
-        if ($this->key == "") return "No key specified";
-        if ($this->keymap == null) return "No key specified";
-        if ($msg == "") return "Nothing to encode";
-        if (strlen($msg) != $this->size**2) return "Message length should be the square of the key";
-
-        return $this->nihilisttransposition($msg, $this->keymap, $this->readrow); 
+        return $this->decodenihilisttransposition($msg, $this->keymap, $this->readrow); 
       }
       
   } // nihilisttranspositioncipher
