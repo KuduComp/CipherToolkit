@@ -25,7 +25,7 @@
       public function setreadrow ($readrow = TRUE) { $this->readrow = $readrow; }
       public function getreadrow () { return $this->readrow; }
               
-      public function encode ($text) { 
+      public function encode ($msg) { 
         // Checks
         if ($this->key == "") return "No key specified";
         if ($this->keymap == null) return "No key specified";
@@ -37,7 +37,7 @@
         return $this->nihilisttransposition($msg, $this->keymap, $this->readrow);
       }
       
-      public function decode ($text) { 
+      public function decode ($msg) { 
         // Checks
         if ($this->key == "") return "No key specified";
         if ($this->keymap == null) return "No key specified";
