@@ -1,6 +1,6 @@
 <?php
 namespace cipher;
-class columnartranspositioncipher extends cipher {
+class skytalecipher extends cipher {
     
     protected $key = 0;
     protected $keymap;
@@ -27,5 +27,5 @@ class columnartranspositioncipher extends cipher {
         return $this->decodecolumnartransposition ($res, $this->keymap);
     }
     
-} // columnartranspositioncipher
+} // skytalecipher
 ?>
