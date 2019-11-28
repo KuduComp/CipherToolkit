@@ -4,9 +4,9 @@ use PHPUnit\Framework\TestCase;
 use cipher\nihilisttranspositioncipher;
 use const \cipher\UPPER_ALPHABET;
 
-class OTPTest extends TestCase
+class NihilisttranspositionTest extends TestCase
 {
-    public function testOTP()
+    public function testNihilisttransposition()
     {
         // Test caesar
         $pt = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGA";
