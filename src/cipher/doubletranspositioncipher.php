@@ -10,7 +10,6 @@ class doubletranspositioncipher extends cipher {
     protected $keylen2 = 0;
     protected $keymap1;
     protected $keymap2;
-    protected $alphabet = "ABCDEFGHIJKLMNOPQRSTUVXYZ";
     
     function __construct ($alphabet  = UPPER_ALPHABET, $key1 = "", $key2 = "") {
         parent::__construct ($alphabet);
