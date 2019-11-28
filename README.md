@@ -25,12 +25,17 @@ All ciphers use defaults which can be accessed using get and set functions
 Abstract class containing common functions, functions encode and decode should be implemented.
 Dummy cipher - no encoding or decoding
 
-###### Simple substitution ciphers (1 on 1)
+###### Simple substitution ciphers, replace 1 by 1
 - Generic version using an alphabet
 - Atbash cipher (reversed alphabet)
 - Affine cipher (uses function y = ax + b)
 - Caesar cipher (rotated alphabet, default 13)
-- Ragbaby cipher (advanced substitution taking into account position)
+- Ragbaby cipher (more advanced substitution taking into account position)
+
+###### Simple substitution ciphers, replace 1 with many
+- Generic version using an array of substitutions
+- Kenny code
+- Morse code
 
 ###### Polygraphic substitution (substitutes more than one character at a time)
 - Playfair (replaces digrams)
