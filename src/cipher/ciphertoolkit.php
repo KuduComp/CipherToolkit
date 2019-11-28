@@ -393,7 +393,7 @@ abstract class cipher {
 		$msg      = $this->makearray($msgtxt);
 		$msglen   = sizeof($msg);
 		if ($msglen == 0) return "Nothing to encode";
-		if ($msglen % $keysquaresize) != 0) return "Incorrect message length";
+		if (($msglen % $keysquaresize) != 0) return "Incorrect message length";
 
 		// Create mapping for each column
 		$map = array();
