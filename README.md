@@ -1,10 +1,10 @@
 # CipherToolkit
 
-####Description
+#### Description
 
 PHP class library with plenty of hand ciphers. Hand ciphers where used in pre computer days to exchange secret communications. They could as simple as replacing on character with another. Hand ciphers were still in use in World War II. Using this ciphers can still be fun. One of the reasons I wrote this library is just for fun and in some cases it comes in handy. As a fanatical geocacher I often have to solve mysterie caches that are encoded with some archaic hand cipher.
 
-####Example
+#### Example
 ---
     use cipher;
     $c = new Caesarcipher();
@@ -20,39 +20,24 @@ All ciphers use defaults which can be accessed using get and set functions
 ---
 
 
-####Available ciphers
-=======
-PHP class library with plenty of hand ciphers.
+#### Available ciphers
 
 Abstract class containing common functions, functions encode and decode should be implemented.
-
 Dummy cipher - no encoding or decoding
 
-Simple substitution cipher
-=======
-Simple 1 on 1 substitution cipher
+###### Simple substitution ciphers (1 on 1)
 - Generic version using an alphabet
 - Atbash cipher (reversed alphabet)
 - Affine cipher (uses function y = ax + b)
 - Caesar cipher (rotated alphabet, default 13)
 - Ragbaby cipher (advanced substitution taking into account position)
 
-Polygraphic substitution
+###### Polygraphic substitution (substitutes more than one character at a time)
 - Playfair (replaces digrams)
 - Foursquare cipher (replaces digrams)
 - Condi cipher (advanced substitution working on consecutive digrams)
 
-Simple 1 to many substitution ciphers (each character is substituted with two or more)
-=======
-
-Simple 1 to many substitution ciphers
-- Generic version using an array of translations
-- Kenny code
-- Morse code
-- Polybius cipher (uses a square)
-- Nihilist cipher (a variant of the Polybius cipher)
-
-Polyalphabetic substitution ciphers
+###### Polyalphabetic substitution ciphers
 - Vigenere cipher
 - Gronsfield cipher
 - Beaufort cipher
@@ -61,13 +46,13 @@ Polyalphabetic substitution ciphers
 - Quagmire I, II, III and IV
 - Porta cipher (reciprocal cipher using 13 alphabets)
 
-Transposition ciphers
+###### Transposition ciphers
 - Double transposition cipher
 - Swagman cipher
 - Cadenus cipher
 - Nicodemus cipher (Vigenere combined with columnar transposition)
 
-More complex ciphers
+###### More complex ciphers (combinations of techniques above)
 - Bifid cipher    (Substitution cipher combined with fractionation)
 - Trifid cipher   (Substitution cipher combined with fractionation)
 - ADFG(V)X cipher (Polybius cipher combined with columnar transposition)
