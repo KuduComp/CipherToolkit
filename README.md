@@ -58,9 +58,10 @@ Dummy cipher - no encoding or decoding
 - Double transposition cipher
 - Swagman cipher
 - Cadenus cipher
-- Nicodemus cipher (Vigenere combined with columnar transposition)
+- Nihilist transposition (transposition of columns followed by rows)
 
 ###### More complex ciphers (combinations of techniques above)
+- Nicodemus cipher (Vigenere combined with columnar transposition)
 - Bifid cipher    (Substitution cipher combined with fractionation)
 - Trifid cipher   (Substitution cipher combined with fractionation)
 - ADFG(V)X cipher (Polybius cipher combined with columnar transposition)
