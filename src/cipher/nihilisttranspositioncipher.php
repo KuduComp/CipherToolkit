@@ -17,7 +17,7 @@
       
       public function setkey ($key) {
         $this->key = $key;
-        $this->size = sizeof($key);
+        $this->size = strlen($key);
         $this->keymap = $this->createtranspositionkey($key);
       }
       
