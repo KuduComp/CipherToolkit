@@ -408,7 +408,7 @@ abstract class cipher {
 		for ($r = 0; $r < $keysquaresize; $r++) $s[$r+1] = array();
 
 		// Print message in columns
-		$rowlen = (integer) ceil(strlen($msg) / $keysquaresize);
+		$rowlen = (integer) ceil($msglen / $keysquaresize);
 		$idx = 0;
 		for ($c = 0; $c < $rowlen; $c++) {
 			$keycol = ($c % $keysquaresize);
@@ -497,7 +497,7 @@ abstract class cipher {
 		$table2 = array();
 		for ($r = 0; $r < $size; $r++) $table2[$r] = array();
 		for ($r = 0; $r < $size; $r++) {
-			for ($c = 0; $c < $size; $c++) $table[$key[$r]][$c] = $table[$r][$c];
+			for ($c = 0; $c < $size; $c++) $table2[$key[$r]][$c] = $table[$r][$c];
 		}
 
 		// Transpose columns
