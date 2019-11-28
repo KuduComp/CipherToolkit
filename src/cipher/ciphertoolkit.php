@@ -415,6 +415,7 @@ abstract class cipher {
 
 		// Fill square
 		$table = array();
+		$size = sizeof($key);
 		for ($r = 0; $r < $size; $r++) {
 			$table[$r] = array ();
 			for ($c = 0; $c < $size; $c++) $table[$r][$c] = $msg[$r * $size + $c];
