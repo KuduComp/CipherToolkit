@@ -55,6 +55,7 @@ Dummy cipher - no encoding or decoding
 - Jefferson wheel cipher
 
 ###### Transposition ciphers
+- Columnar transposition cipher
 - Double transposition cipher
 - Swagman cipher
 - Cadenus cipher
