@@ -477,7 +477,6 @@ abstract class cipher {
 		// check stuff
 		if ($key == null) return "No key specified, empty";
 		if (gettype($key) != "array") return "No key specified, not an array";
-		if ($msg == "") return "Nothing to decode";
 		$size = sizeof($key);
 		$msg      = $this->makearray($msgtxt);
 		$msglen   = sizeof($msg);
