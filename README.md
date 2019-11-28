@@ -6,7 +6,7 @@ PHP class library with plenty of hand ciphers. Hand ciphers where used in pre co
 
 #### Example
 ---
-    use cipher;
+    use cipher\caesarcipher;
     $c = new Caesarcipher();
     echo $c->encode("the quick brown fox jumps over the lazy dog");
     echo $c->decode("gur dhvpx oebja sbk whzcf bire gur ynml qbt");
