@@ -88,5 +88,4 @@ class playfaircipher extends cipher {
     
 } // End of playfieldcipher
 
-
 ?>

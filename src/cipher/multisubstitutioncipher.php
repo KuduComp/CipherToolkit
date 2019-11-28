@@ -17,20 +17,13 @@ class multisubstitutioncipher extends cipher {
     }
     
     public function encode ($msg) {
-        $s2 = "";
-        for ($i=0; $i<strlen($msg); $i++) {
-            if (array_search ($msg[$i], $this->codetable, TRUE) !== FALSE)
-                $s2 .= array_search ($msg[$i], $this->codetable, TRUE);
-                else
-                    if (!$this->remove) $s2 .= $msg[$i];
-        }
-        return $s2;
+       return $this->arraysubstitution ($msg, $this->codetable);
     }
     
     public function decode ($msg) {
         
         // Decode
-        $s2 = "";
+        $msgarr = array();
         $i = 0;
         while ($i<strlen($msg)) {
             $key = "";
@@ -46,19 +39,20 @@ class multisubstitutioncipher extends cipher {
                         $cnt++;
                         $key .= $msg[$i];
                     } else
-                        if (!$this->remove) $s2 .= $msg[$i];;
+                        if (!$this->remove) $msgarr[] = $msg[$i];;
                         $i++;
                 }
             }
-            $s2 .= $this->codetable[$key];
+            $msgarr[] = $key;
             // Skip stuff until start of new code
             while (($i<strlen($msg)) &&(strpos($this->validcodes, $msg[$i]) === FALSE)) {
-                if (!$this->remove) $s2 .= $msg[$i];
+                if (!$this->remove) $msgarr[] = $msg[$i];
                 $i++;
             }
         }
-        
-        return $s2;
+		
+		// Create reverse codetable
+		return $this->arraysubstitution ($msgarr, array_flip($this->codetable));
     }
     
 } // multisubstitutioncipher
