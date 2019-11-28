@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use cipher\columnartransposition;
+use cipher\columnartranspositioncipher;
 use const \cipher\UPPER_ALPHABET;
 
 //All test files must be named *Test.php (case sensitive T)
@@ -12,7 +12,7 @@ class ColumnarTranspositionTest extends TestCase
         
         $pt = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG";
         $ct = "HCWJOHYTIOXSTZUROPRAGQBFMELOEKNUVED";
-        $c = new columnartransposition(UPPER_ALPHABET, "21543");
+        $c = new columnartranspositioncipher(UPPER_ALPHABET, "21543");
         $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding columnartransposition");
         $res = $c->decode ($ct);
