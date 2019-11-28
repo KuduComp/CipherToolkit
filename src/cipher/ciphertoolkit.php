@@ -405,8 +405,6 @@ abstract class cipher {
 		return $s2;
 	}
 	
-	<?php
-
 	function nihilisttransposition ($msg, $key, $readrow = TRUE) {
 
 		// NIHILIST TRANSPOSITION (10x10 maximum)
