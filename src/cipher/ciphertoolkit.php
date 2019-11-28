@@ -424,15 +424,15 @@ abstract class cipher {
 		$table2 = array();
 		for ($r = 0; $r < $size; $r++) {
 			$table2[$r] = array ();
-			for ($c = 0; $c < $size; $c++) $table2[$r][$key[$c]-1] = $table[$r][$c];
+			for ($c = 0; $c < $size; $c++) $table2[$r][$key[$c]] = $table[$r][$c];
 		}
 		// Transpose rows
 		$table3 = array();
 		for ($r = 0; $r < $size; $r++) $table3[$r] = array();
 		for ($r = 0; $r < $size; $r++) {
-			for ($c = 0; $c < $size; $c++) $table3[$key[$r]-1][$c] = $table2[$r][$c];
+			for ($c = 0; $c < $size; $c++) $table3[$key[$r]][$c] = $table2[$r][$c];
 		}
-		// Print row after row
+		// Print row after row or column after column
 		$s = "";
 		for ($r = 0; $r < $size; $r++)
 			for ($c = 0; $c < $size; $c++) 
