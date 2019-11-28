@@ -353,7 +353,7 @@ abstract class cipher {
 
 		//Append message with random characters if needed
 		for ($i = 0; $i < ($msglen % $keysquaresize); $i++) $msg .= "X";
-		$rowlen = (integer) ceil(strlen($msg) / $keysquaresize);
+		$rowlen = (integer) ceil($msglen / $keysquaresize);
 
 		// Organize message in keysize rows
 		$s = array();
@@ -497,7 +497,7 @@ abstract class cipher {
 		$table2 = array();
 		for ($r = 0; $r < $size; $r++) $table2[$r] = array();
 		for ($r = 0; $r < $size; $r++) {
-			for ($c = 0; $c < $size; $c++) $table[key[$r]][$c] = $table[$r][$c];
+			for ($c = 0; $c < $size; $c++) $table[$key[$r]][$c] = $table[$r][$c];
 		}
 
 		// Transpose columns
