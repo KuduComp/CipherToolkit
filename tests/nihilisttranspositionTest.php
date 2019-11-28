@@ -14,16 +14,16 @@ class NihilisttranspositionTest extends TestCase
         $ct = "KCBOWRHTEUIQFNOJUXTRHLAEYZDGAOPMSVEO";
         $c = new nihilisttranspositioncipher(UPPER_ALPHABET, $ky);
         $res = $c->encode ($pt);
-        $this->assertEquals($ct,$res, "Error encoding nihilisttranspositioncipher");
+        $this->assertEquals($ct,$res, "Error encoding nihilisttranspositioncipher row by row");
         $res = $c->decode ($ct);
-        $this->assertEquals($pt,$res, "Error decoding nihilisttranspositioncipher");
+        $this->assertEquals($pt,$res, "Error decoding nihilisttranspositioncipher row by row");
         
         // Test but with printing col after col
         $c->setreadrow (FALSE);
         $res = $c->encode ($pt);
-        $this->assertEquals($ct,$res, "Error encoding nihilisttranspositioncipher");
+        $this->assertEquals($ct,$res, "Error encoding nihilisttranspositioncipher col by col");
         $res = $c->decode ($ct);
-        $this->assertEquals($pt,$res, "Error decoding nihilisttranspositioncipher");
+        $this->assertEquals($pt,$res, "Error decoding nihilisttranspositioncipher col by col");
     }
 }
 
