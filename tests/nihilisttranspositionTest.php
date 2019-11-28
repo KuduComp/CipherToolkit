@@ -20,6 +20,7 @@ class NihilisttranspositionTest extends TestCase
         
         // Test but with printing col after col
         $c->setreadrow (FALSE);
+        $ct = "KHFTYPCTNRZMBEOHDSOUJLGVWIUAAERQXEOO";
         $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding nihilisttranspositioncipher col by col");
         $res = $c->decode ($ct);
