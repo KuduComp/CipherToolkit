@@ -487,24 +487,24 @@ abstract class cipher {
 		$table = array();
 		$size = sizeof($key);
 		for ($r = 0; $r < $size; $r++) $table[$r] = array();
-		for ($r = 0; $r < $size; $r++) {
-			$table[$r] = array ();
+		for ($r = 0; $r < $size; $r++)
 			for ($c = 0; $c < $size; $c++) 
 				($readrow) ? $table[$r][$c] = $msg[$r * $size + $c] : $table[$c][$r] = $msg[$r * $size + $c];
-		}
 		
 		// Transpose rows
 		$table2 = array();
 		for ($r = 0; $r < $size; $r++) $table2[$r] = array();
 		for ($r = 0; $r < $size; $r++) {
-			for ($c = 0; $c < $size; $c++) $table2[$key[$r]][$c] = $table[$r][$c];
+			$row = array_search ($r, $key);
+			for ($c = 0; $c < $size; $c++) $table2[$row][$c] = $table[$r][$c];
 		}
 
 		// Transpose columns
 		$table3 = array();
 		for ($r = 0; $r < $size; $r++) $table3[$r] = array();
 		for ($r = 0; $r < $size; $r++) {
-			for ($c = 0; $c < $size; $c++) $table3[$r][$key[$c]] = $table2[$r][$c];
+			$col = array_search ($r, $key);
+			for ($c = 0; $c < $size; $c++) $table3[$r][$col] = $table2[$r][$c];
 		}
 		
 		// Print row after row
