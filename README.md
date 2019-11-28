@@ -36,6 +36,8 @@ Dummy cipher - no encoding or decoding
 - Generic version using an array of substitutions
 - Kenny code
 - Morse code
+- Polybius cipher (using a square)
+- Nihilist substitution cipher (a variant on Polybius)
 
 ###### Polygraphic substitution (substitutes more than one character at a time)
 - Playfair (replaces digrams)
@@ -50,6 +52,7 @@ Dummy cipher - no encoding or decoding
 - Keyed vigenere cipher
 - Quagmire I, II, III and IV
 - Porta cipher (reciprocal cipher using 13 alphabets)
+- Jefferson wheel cipher
 
 ###### Transposition ciphers
 - Double transposition cipher
