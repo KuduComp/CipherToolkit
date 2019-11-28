@@ -9,5 +9,4 @@ class vigenerecipher extends \cipher\polyalphabeticcipher {
     }
 }
 
-
 ?>
