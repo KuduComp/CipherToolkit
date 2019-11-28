@@ -7,7 +7,7 @@ PHP class library with plenty of hand ciphers. Hand ciphers where used in pre co
 #### Example
 ---
     use cipher\caesarcipher;
-    $c = new Caesarcipher();
+    $c = new caesarcipher();
     echo $c->encode("the quick brown fox jumps over the lazy dog");
     echo $c->decode("gur dhvpx oebja sbk whzcf bire gur ynml qbt");
 ---
@@ -22,8 +22,7 @@ All ciphers use defaults which can be accessed using get and set functions
 
 #### Available ciphers
 
-Abstract class containing common functions, functions encode and decode should be implemented.
-Dummy cipher - no encoding or decoding
+Abstract class containing common functions, functions encode and decode should be implemented. It also contains all the functions for substitution, transposition, fractionation, formatting and cleaning message, generating keys and some other stuff. You can use these to build your own unique cipher.
 
 ###### Simple substitution ciphers, replace 1 by 1
 - Generic version using an alphabet
