@@ -16,7 +16,6 @@ const ALPHABET_94            = "!\"#\$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
 // Abstract cipher class
 // It provides all the standard functions
 // In order to make it a working cipher the abstract encode and decode should be defined
-
 abstract class cipher {
 	
 	protected $alphabet = "";		// The alphabet of characters than can be encoded
@@ -47,7 +46,6 @@ abstract class cipher {
 	public function setsep ($sep) { $this->sep = $sep; }
 	public function addReplacement ($c1, $c2) { if (array_key_exists($c1, $this->repl)) return; $this->repl[$c1] = $c2; }
 	public function clearrepl () { $this->repl = array(); }
-
 	public function getalphabet () { return $this->alphabet; }
 	public function getvalidcodes () { return $this->validcodes; }
 	public function getmatchcase () { return $this->matchcase; }
@@ -205,6 +203,7 @@ abstract class cipher {
 		
 		// Checks
 		if ($repl == null) return "Empty replacement table";
+		if (gettype($repl) != "array") return "No replacement table specified, not an array";
 		$msg = $this->makearray($msgtxt);
 		if (sizeof($msg) == 0) return "Nothing to encode or decode";
 		
@@ -264,11 +263,16 @@ abstract class cipher {
 		// Message can be a text string, a number or an array
 		// For transposition an array is used as elements might have different length (e.g. amsco cipher)
 		// Key should be an array of integers e.g. 2,1,0 reorders columns as 0,1,2
-	    $ncol = sizeof($key);
-		if ($ncol < 2) return "Cannot encode message there should be at least two columns";
-
+	    	
+		// check stuff
+		if ($key == null) return "No key square specified, empty";
+		if (gettype($key) != "array") return "No key specified, not an array";
+	    	$ncol = sizeof($key);
+		if ($ncol < 2) return "Cannot decode message there should be at least two columns";
+		
 		$msg      = $this->makearray($msgtxt);
 		$msglen   = sizeof($msg);
+		if ($msglen == 0) return "Nothing to encode";
 		$nrow     = (int) ceil ($msglen / $ncol);
 		$nlongcol = $msglen % $ncol;        
 		
@@ -281,7 +285,6 @@ abstract class cipher {
 				$table[$r][$c] = $msg[$idx++];
 			}
 		}
-
 		// Write output column after colum in array table, taking into account order of key
 		$s = "";
 		for ($c = 0; $c < $ncol; $c++) {
@@ -293,21 +296,22 @@ abstract class cipher {
 		}
 		return $s;
 	}
-
 	public function decodecolumnartransposition ($msgtxt, $key) {
-
-	    $ncol = sizeof($key);
+		// check stuff
+		if ($key == null) return "No key square specified, empty";
+		if (gettype($key) != "array") return "No key specified, not an array";
+	    	$ncol = sizeof($key);
 		if ($ncol < 2) return "Cannot decode message there should be at least two columns";
 		
 		$msg  = $this->makearray($msgtxt);
 		$msglen = sizeof($msg);
+		if ($msglen == 0) return "Nothing to decode";
 		$nrow = ceil ($msglen / $ncol);
-        $nlongcol = $msglen % $ncol;
-
+        	$nlongcol = $msglen % $ncol;
 		// Write message column after column in array table
-        $table = array();
-        $idx = 0;
-        for ($c = 0; $c < $ncol; $c++) {
+		$table = array();
+		$idx = 0;
+		for ($c = 0; $c < $ncol; $c++) {
 			$col = array_search($c, $key);
 			(($col < $nlongcol) || ($nlongcol == 0)) ? $rowlen = $nrow : $rowlen = $nrow  - 1;
 			for ($r = 0; $r < $rowlen; $r++) $table[$r][$col] = $msg[$idx++];
@@ -323,20 +327,21 @@ abstract class cipher {
 		
 		return $s;
 	}
-
-	public function encodeswagmantransposition ($msg = "", $keysquare = null) {
-
+	public function encodeswagmantransposition ($msgtxt = "", $keysquare = null) {
+		// Key is an array of arrays with indexes starting at 1, 2, 3, ...
+		
 		// check stuff
 		if ($keysquare == null) return "No key square specified, empty";
+		if (gettype($keysquare) != "array") return "No key square specified, not an array";
 		$keysquaresize = sizeof($keysquare);
 		if (!array_key_exists(1, $keysquare)) return "No key square specified, 1st row is missing";
 		if ($keysquaresize != sizeof($keysquare[1])) return "Key square is not a square";
-		if ($msg == "") return "Nothing to encode";
-
+		$msg      = $this->makearray($msgtxt);
+		$msglen   = sizeof($msg);
+		if ($msglen == 0) return "Nothing to encode";
 		//Append message with random characters if needed
-		for ($i = 0; $i < (strlen($msg) % $keysquaresize); $i++) $msg .= "X";
-		$rowlen = (integer) ceil(strlen($msg) / $keysquaresize);
-
+		for ($i = 0; $i < ($msglen % $keysquaresize); $i++) $msg .= "X";
+		$rowlen = (integer) ceil($msglen / $keysquaresize);
 		// Organize message in keysize rows
 		$s = array();
 		for ($c = 0; $c < $keysquaresize; $c++) {
@@ -344,7 +349,6 @@ abstract class cipher {
 			for ($r = 0; $r < $rowlen; $r++)
 				$s[$c+1] .= $msg[$c * $rowlen + $r];
 		}
-
 		// Create mapping for each column
 		$map = array();
 		for ($c = 0; $c < $this->keysquaresize; $c++) {
@@ -352,7 +356,6 @@ abstract class cipher {
 			for ($r = 0; $r < $keysquaresize; $r++)
 				$map[$c][$r+1] = $keysquare[$r+1][$c];
 		}
-
 		// For each column reorder and print
 		$s2 = "";
 		for ($c = 0; $c < $rowlen; $c++) {
@@ -362,17 +365,18 @@ abstract class cipher {
 		}
 		return $s2;
 	}
-
-	public function decodeswagmantransposition ($msg = "", $keysquare = null) {
-
+	public function decodeswagmantransposition ($msgtxt = "", $keysquare = null) {
 		// check stuff
 		if ($keysquare == null) return "No key square specified, empty";
+		if (gettype($keysquare) != "array") return "No key swuare specified, not an array";
 		$keysquaresize = sizeof($keysquare);
 		if (!array_key_exists(1, $keysquare)) return "No key square specified, 1st row is missing";
 		if ($keysquaresize != sizeof($keysquare[1])) return "Key square is not a square";
-		if ($msg == "") return "Nothing to decode";
-		if ((strlen($msg) % $keysquaresize) != 0) return "Incorrect message length";
-
+		
+		$msg      = $this->makearray($msgtxt);
+		$msglen   = sizeof($msg);
+		if ($msglen == 0) return "Nothing to encode";
+		if (($msglen % $keysquaresize) != 0) return "Incorrect message length";
 		// Create mapping for each column
 		$map = array();
 		for ($c = 0; $c < $keysquaresize; $c++) {
@@ -380,13 +384,11 @@ abstract class cipher {
 			for ($r = 0; $r < $keysquaresize; $r++)
 				$map[$c][$r+1] = $keysquare[$r+1][$c];
 		}
-
 		// Init table
 		$s = array();
 		for ($r = 0; $r < $keysquaresize; $r++) $s[$r+1] = array();
-
 		// Print message in columns
-		$rowlen = (integer) ceil(strlen($msg) / $keysquaresize);
+		$rowlen = (integer) ceil($msglen / $keysquaresize);
 		$idx = 0;
 		for ($c = 0; $c < $rowlen; $c++) {
 			$keycol = ($c % $keysquaresize);
@@ -399,11 +401,98 @@ abstract class cipher {
 		for ($r = 0; $r < $keysquaresize; $r++)
 			for ($c = 0; $c < $rowlen; $c++)
 				$s2 .= $s[$r+1][$c];
-
 		return $s2;
 	}
 	
-    // Fractionation causes the codes for a single character to be spread across the message
+	function encodenihilisttransposition ($msgtxt = "", $key, $readrow = TRUE) {
+		// NIHILIST TRANSPOSITION (10x10 maximum)
+		// The same key is applied to rows and columns.
+		// Enter the plaintext in square 1 by rows as shown. Transpose columns by key order
+		// into square 2. Transpose rows of square 2 by key order into square 3. The ciphertext
+		// is taken off by columns or rows from square 3.
+		
+		// Key should be an array with index starting at 0, 1, 2, ....
+		
+		// check stuff
+		if ($key == null) return "No key specified, empty";
+		if (gettype($key) != "array") return "No key specified, not an array";
+		$msg      = $this->makearray($msgtxt);
+		$msglen   = sizeof($msg);
+		if ($msglen == 0) return "Nothing to encode";
+		$size = sizeof($key);
+		if ($msglen != $size**2) return "Message not a sqyuare";
+		// Fill square
+		$table = array();
+		for ($r = 0; $r < $size; $r++) {
+			$table[$r] = array ();
+			for ($c = 0; $c < $size; $c++) $table[$r][$c] = $msg[$r * $size + $c];
+		}
+		// Transpose columns
+		$table2 = array();
+		for ($r = 0; $r < $size; $r++) {
+			$table2[$r] = array ();
+			for ($c = 0; $c < $size; $c++) $table2[$r][$key[$c]] = $table[$r][$c];
+		}
+		// Transpose rows
+		$table3 = array();
+		for ($r = 0; $r < $size; $r++) $table3[$r] = array();
+		for ($r = 0; $r < $size; $r++) {
+			for ($c = 0; $c < $size; $c++) $table3[$key[$r]][$c] = $table2[$r][$c];
+		}
+		// Print row after row or column after column
+		$s = "";
+		for ($r = 0; $r < $size; $r++)
+			for ($c = 0; $c < $size; $c++) 
+			    ($readrow) ? $s .= $table3[$r][$c] :  $s .= $table3[$c][$r];
+		// Return result
+		return $s;
+	}
+	
+	function decodenihilisttransposition ($msgtxt, $key, $readrow = TRUE) {
+		// check stuff
+		if ($key == null) return "No key specified, empty";
+		if (gettype($key) != "array") return "No key specified, not an array";
+		$size = sizeof($key);
+		$msg      = $this->makearray($msgtxt);
+		$msglen   = sizeof($msg);
+		if ($msglen == 0) return "Nothing to encode";
+		if ($msglen != $size**2) return "Message not a sqyuare";
+		
+		// Fill square
+		$table = array();
+		$size = sizeof($key);
+		for ($r = 0; $r < $size; $r++) $table[$r] = array();
+		for ($r = 0; $r < $size; $r++)
+			for ($c = 0; $c < $size; $c++) 
+				($readrow) ? $table[$r][$c] = $msg[$r * $size + $c] : $table[$c][$r] = $msg[$r * $size + $c];
+		
+		// Transpose rows
+		$table2 = array();
+		for ($r = 0; $r < $size; $r++) $table2[$r] = array();
+		for ($r = 0; $r < $size; $r++) {
+			$row = array_search ($r, $key);
+			for ($c = 0; $c < $size; $c++) $table2[$row][$c] = $table[$r][$c];
+		}
+		// Transpose columns
+		$table3 = array();
+		for ($r = 0; $r < $size; $r++) $table3[$r] = array();
+		for ($r = 0; $r < $size; $r++)
+			for ($c = 0; $c < $size; $c++) {
+				$col = array_search ($c, $key);
+				$table3[$r][$col] = $table2[$r][$c];
+			}
+		
+		// Print row after row
+		$s = "";
+		for ($r = 0; $r < $size; $r++)
+			for ($c = 0; $c < $size; $c++) 
+			    $s .= $table3[$r][$c];
+		
+		// Return result
+		return $s;
+	}
+	
+    	// Fractionation causes the codes for a single character to be spread across the message
 	public function fractionate ($input = "", $nrows) {
 	    
 	    //Check input
@@ -436,5 +525,3 @@ abstract class cipher {
 	
 } // End cipher
 
-
-?>
