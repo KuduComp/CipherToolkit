@@ -37,6 +37,8 @@ Abstract class containing common functions, functions encode and decode should b
 - Morse code
 - Polybius cipher (using a square)
 - Nihilist substitution cipher (a variant on Polybius)
+- Straddling checkerboard
+- Monome-dinome
 
 ###### Polygraphic substitution (substitutes more than one character at a time)
 - Playfair (replaces digrams)
