@@ -1,35 +1,71 @@
 # CipherToolkit
 
-PHP class library with plenty of hand ciphers.
+#### Description
 
-Abstract class containing common functions, functions encode and decode should be implemented.
+PHP class library with plenty of hand ciphers. Hand ciphers where used in pre computer days to exchange secret communications. They could be as simple as replacing one character with another. Hand ciphers were still in use in World War II and even in during the Cold War. Using this ciphers can still be fun. One of the reasons I wrote this library is just for fun and in some cases it comes in handy. As a fanatical geocacher I often have to solve mysterie caches that are encoded with some archaic hand cipher.
 
-Dummy cipher - no encoding or decoding
+#### Example
+---
+    use cipher\caesarcipher;
+    $c = new caesarcipher();
+    echo $c->encode("the quick brown fox jumps over the lazy dog");
+    echo $c->decode("gur dhvpx oebja sbk whzcf bire gur ynml qbt");
+---
 
-Simple 1 on 1 substitution cipher
+All ciphers use defaults which can be accessed using get and set functions
+
+---
+    $c->setalphabet("aeioubcdfghjklmnpqrstvwxyz");
+    echo $c->getalphabet();
+---
+
+
+#### Available ciphers
+
+Abstract class containing common functions, functions encode and decode should be implemented. It also contains all the functions for substitution, transposition, fractionation, formatting and cleaning message, generating keys and some other stuff. You can use these to build your own unique cipher.
+
+###### Simple substitution ciphers, replace 1 by 1
 - Generic version using an alphabet
 - Atbash cipher (reversed alphabet)
 - Affine cipher (uses function y = ax + b)
 - Caesar cipher (rotated alphabet, default 13)
+- Ragbaby cipher (more advanced substitution taking into account position)
 
-Simple 1 to many substitution ciphers
-- Generic version using an array of translations
+###### Simple substitution ciphers, replace 1 with many
+- Generic version using an array of substitutions
 - Kenny code
 - Morse code
-- Polybius cipher (uses a square)
-- Nihilist cipher (a variant of the Polybius cipher)
+- Polybius cipher (using a square)
+- Nihilist substitution cipher (a variant on Polybius)
+- Straddling checkerboard
+- Monome-dinome
 
-Polyalphabetic ciphers
+###### Polygraphic substitution (substitutes more than one character at a time)
+- Playfair (replaces digrams)
+- Foursquare cipher (replaces digrams)
+- Condi cipher (advanced substitution working on consecutive digrams)
+
+###### Polyalphabetic substitution ciphers
 - Vigenere cipher
 - Gronsfield cipher
+- Beaufort cipher
 - Autokey cipher
 - Keyed vigenere cipher
 - Quagmire I, II, III and IV
+- Porta cipher (reciprocal cipher using 13 alphabets)
+- Jefferson wheel cipher
 
-Fractionating complex ciphers
-- Bifid cipher
-- Trifid cipher
-- ADFG(V)X cipher
+###### Transposition ciphers
+- Skytale (rows become columns, very easy)
+- Columnar transposition cipher
+- Double transposition cipher
+- Swagman cipher
+- Cadenus cipher
+- Nihilist transposition (transposition of columns followed by rows)
 
-Polygraphic substitution
-- Playfair (replaces digrams)
+###### More complex ciphers (combinations of techniques above)
+- Nicodemus cipher (Vigenere combined with columnar transposition)
+- Bifid cipher    (Substitution cipher combined with fractionation)
+- Trifid cipher   (Substitution cipher combined with fractionation)
+- ADFG(V)X cipher (Polybius cipher combined with columnar transposition)
+- One time pad    (the only truly unbreakable cipher)
