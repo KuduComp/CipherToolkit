@@ -26,6 +26,8 @@ Abstract class containing common functions, functions encode and decode should b
 
 ###### Simple substitution ciphers, replace 1 by 1
 - Generic version using an alphabet
+- Caesar cipher (shifted alphabet, default 13)
+- Vatsyayana or kamasutra cipher (13 paired letters)
 - Atbash cipher (reversed alphabet)
 - Affine cipher (uses function y = ax + b)
 - Caesar cipher (rotated alphabet, default 13)
