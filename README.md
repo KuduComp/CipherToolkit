@@ -54,6 +54,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Quagmire I, II, III and IV
 - Porta cipher (reciprocal cipher using 13 alphabets)
 - Jefferson wheel cipher
+- Chaocipher (a cipher with dynamically changing alphabets)
 
 ###### Transposition ciphers
 - Skytale (rows become columns, very easy)
