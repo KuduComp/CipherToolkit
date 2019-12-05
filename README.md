@@ -46,7 +46,8 @@ Abstract class containing common functions, functions encode and decode should b
 - Playfair (replaces digrams)
 - Foursquare cipher (replaces digrams)
 - Condi cipher (substitution working on consecutive digrams)
-- Portax cipher (polygrapic, polyalphabetical)
+- Portax cipher (polygraphic, polyalphabetical)
+- Digraphfid cipher (digrams with fractionation)
 
 ###### Polyalphabetic substitution ciphers
 - Vigenere cipher
