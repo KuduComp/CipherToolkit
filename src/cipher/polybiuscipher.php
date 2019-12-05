@@ -17,7 +17,7 @@ class polybiuscipher extends cipher {
         $this->setsquare ($rows, $cols);
     }
     
-    public function sethorizontal ($dir = TRUE) { $this->horizontal = $dir; $this->setsquare($this->rows; $this->cols); }
+    public function sethorizontal ($dir = TRUE) { $this->horizontal = $dir; $this->setsquare($this->rows, $this->cols); }
     public function gethorizontal ($dir = TRUE) { return $this->horizontal; }
     public function setsquare ($rows="12345", $cols="12345") {
         
