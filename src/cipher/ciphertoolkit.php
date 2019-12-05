@@ -266,7 +266,7 @@ abstract class cipher {
 	    if ($nrows < 0) return "Number of rows should be greater than zero";
 	    $msg      = $this->makearray($msgtxt);
 	    $msglen   = sizeof($msg);
-	    if ($nrows > $msglen) return "Input message shorter than number of rows";
+	    if ($nrows > $msglen) return $msgtxt;
 	    if ($msglen == 0) return "Nothing to transpose";
 
 	    //Initialize stuff
