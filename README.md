@@ -37,6 +37,8 @@ Abstract class containing common functions, functions encode and decode should b
 - Generic version using an array of substitutions
 - Kenny code
 - Morse code
+- Fractionated morse cipher (morse code with some fractionation)
+- Morbit cipher (morse code with anothe fractionation)
 - Polybius cipher (using a square)
 - Nihilist substitution cipher (a variant on Polybius)
 - Straddling checkerboard (with a light version of fractionation)
