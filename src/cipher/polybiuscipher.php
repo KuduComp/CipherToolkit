@@ -34,8 +34,8 @@ class polybiuscipher extends cipher {
         for ($r = 0; $r < $this->size; $r++) $this->square[$r] = array();
         for ($r = 0; $r < $this->size; $r++) 
             for ($c = 0; $c < $this->size; $c++)
-                ($this->horizontal) ? $square[$this->alphabet[$r * $this->size + $c]] = $rows[$r] . $cols[$c] :
-                                              $square[$this->alphabet[$r * $this->size + $c]] = $cols[$r] . $rows[$c];
+                ($this->horizontal) ? $this->square[$this->alphabet[$r * $this->size + $c]] = $rows[$r] . $cols[$c] :
+                                      $this->square[$this->alphabet[$r * $this->size + $c]] = $cols[$r] . $rows[$c];
     }
     
     public function encode ($msg) {
