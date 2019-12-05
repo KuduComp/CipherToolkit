@@ -52,21 +52,18 @@ class nihilistcipher extends \cipher\polybiuscipher {
     
     public function decode ($msg) {
 
-    	// Force separator if not there (as numbers can become >99 due to addition)
-	if ($this->getsep() == "") $this->setsep(" ");
-	
-	// Substract the key to the encoded message and convert to string
+    	// Substract the key to the encoded message and convert to string
     	$s = "";
         preg_match_all ("/([0-9]{2,3})[.]*/", $msg, $parsed);
     	$idx = 0;
     	foreach ($parsed[1] as $p) {
     	    $n = intval($p) - $this->addkeyarr[$idx % $this->addkeylen];
-    	    $s = $s . sprintf("%02d", $n) . $this->sep;
+    	    $s = $s . sprintf("%02d", $n);
     	    $idx++;
     	}
     	
 	// Decode the result as polybius
-        return parent::decode(substr($s,0,-1));
+        return parent::decode($s);
     }
     
 } // Class nihilistcipher
