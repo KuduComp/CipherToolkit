@@ -12,7 +12,7 @@ class polybiuscipher extends cipher {
     
     public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $rows="12345", $cols="12345", $horizontal = TRUE) {
         parent::__construct ($alphabet, $rows . $cols, TRUE, 0, " ");
-        $this->size = (int) sqrt (strlen($alphabet));
+        $this->size = strlen($rows);
         $this->horizontal = $horizontal;
         $this->setsquare ($rows, $cols);
     }
@@ -34,13 +34,14 @@ class polybiuscipher extends cipher {
         for ($r = 0; $r < $this->size; $r++) $this->square[$r] = array();
         for ($r = 0; $r < $this->size; $r++) 
             for ($c = 0; $c < $this->size; $c++)
-                ($this->horizontal) ? $square[$this->alphabet[$r * $this->size + $c]] = $rows . $cols :
-                                              $square[$this->alphabet[$r * $this->size + $c]] = $cols . $rows;
+                ($this->horizontal) ? $square[$this->alphabet[$r * $this->size + $c]] = $rows[$r] . $cols[$c] :
+                                              $square[$this->alphabet[$r * $this->size + $c]] = $cols[$r] . $rows[$c];
     }
     
     public function encode ($msg) {
         
         // Encode message
+        var_dump($this->square);
         $this->setsep = " ";
         return $this->arraysubstitution ($msg, $this->square);
     }
