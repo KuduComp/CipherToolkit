@@ -23,7 +23,7 @@ class polybiuscipher extends cipher {
     public function setsquare ($rows="12345", $cols="12345") {
         
         // Check square
-        if ((strlen($rows) != strlen($cols)) { $this->square = null; return; }
+        if (strlen($rows) != strlen($cols)) { $this->square = null; return; }
         if (($this->size**2) != strlen($this->alphabet)) { $this->square = null; return; }
         
         // Fill square
