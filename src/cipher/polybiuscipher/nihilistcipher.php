@@ -52,7 +52,10 @@ class nihilistcipher extends \cipher\polybiuscipher {
     
     public function decode ($msg) {
 
-    	// Substract the key to the encoded message and convert to string
+    	// Force separator if not there (as numbers can become >99 due to addition)
+	if ($this->getsep() == "") $this->setsep(" ");
+	
+	// Substract the key to the encoded message and convert to string
     	$s = "";
         preg_match_all ("/([0-9]{2,3})[.]*/", $msg, $parsed);
     	$idx = 0;
