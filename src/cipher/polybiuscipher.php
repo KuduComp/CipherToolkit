@@ -9,9 +9,11 @@ class polybiuscipher extends cipher {
     protected $cols;        //Col headers
     protected $horizontal;  //Direction of cipher
     protected $square;      //The polybius square
+    protected $cipher;      //Keyed alphabet used in some polybius related ciphers
     
     public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $rows="12345", $cols="12345", $horizontal = TRUE) {
-        parent::__construct ($alphabet, $rows . $cols, TRUE, 0, " ");
+        parent::__construct ($alphabet, $rows . $cols);
+        $this->cipher = $alphabet;
         $this->size = strlen($rows);
         $this->horizontal = $horizontal;
         $this->setsquare ($rows, $cols);
@@ -24,17 +26,17 @@ class polybiuscipher extends cipher {
         
         // Check square
         if (strlen($rows) != strlen($cols)) { $this->square = null; return; }
-        if (($this->size**2) != strlen($this->alphabet)) { $this->square = null; return; }
+        if (($this->size**2) != strlen($this->cipher)) { $this->square = null; return; }
         
         // Fill square
         $this->rows = $rows; 
         $this->cols = $cols; 
-        $this->validcodes = $rows . $cols;
+        $this->setvalidcodes ($rows . $cols);
         $this->square = array();
         for ($r = 0; $r < $this->size; $r++) 
             for ($c = 0; $c < $this->size; $c++)
-                ($this->horizontal) ? $this->square[$this->alphabet[$r * $this->size + $c]] = $rows[$r] . $cols[$c] :
-                                      $this->square[$this->alphabet[$r * $this->size + $c]] = $cols[$r] . $rows[$c];
+                ($this->horizontal) ? $this->square[$this->cipher[$r * $this->size + $c]] = $rows[$r] . $cols[$c] :
+                                      $this->square[$this->cipher[$r * $this->size + $c]] = $cols[$r] . $rows[$c];
     }
     
     public function encode ($msg) {
@@ -43,9 +45,10 @@ class polybiuscipher extends cipher {
     }
     
     public function decode ($msg) {
-        // Split msg in array of pairs assume separator
+        // Clean input including separators
+        $msg = $this->cleanencodedmessage($msg, TRUE);
         $msgarr = array();
-        for ($i=0; $i < strlen($msg); $i+=3) $msgarr[]=substr($msg, $i, 2);
+        for ($i=0; $i < strlen($msg); $i+=2) $msgarr[]=substr($msg, $i, 2);
         // Decode
         return $this->arraysubstitution ($msgarr, array_flip($this->square));
     }
