@@ -25,7 +25,7 @@ class nihilistcipher extends \cipher\polybiuscipher {
 
     	// Convert the coded key to an array of integers
     	$this->addkeyarr = array();
-    	For ($i=0; $i < strlen ($addkeycoded); $i +=2 $this->addkeyarr[] = intval(substr($addkeycoded,$i,2));
+    	For ($i=0; $i < strlen ($addkeycoded); $i +=2) $this->addkeyarr[] = intval(substr($addkeycoded,$i,2));
     }
     
     public function getaddkey() { return $this->addkey; }
