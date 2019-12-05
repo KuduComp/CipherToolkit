@@ -19,9 +19,10 @@ class polybiuscipher extends cipher {
     
     public function sethorizontal ($dir = TRUE) { $this->horizontal = $dir; $this->setsquare($this->rows, $this->cols); }
     public function gethorizontal ($dir = TRUE) { return $this->horizontal; }
+    
     public function setsquare ($rows="12345", $cols="12345") {
         
-        // Check ssquare
+        // Check square
         if ((strlen($rows) != strlen($cols)) { $this->square = null; return; }
         if (($this->size**2) != strlen($this->alphabet)) { $this->square = null; return; }
         
