@@ -13,16 +13,21 @@ class PolybiusTest extends TestCase
     public function testPolybius()
     {
 	$pt = "THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG";
-	$ct = "44 23 15 41 45 24 13 25 12 42 34 52 33 21 34 53 24 45 32 35 43 34 51 15 42 44 23 15 31 11 55 54 14 34 22";
+	$ct = "4423154145241325124234523321345324453235433451154244231531115554143422";
 	    
         $c = new polybiuscipher (UPPER_ALPHABET_REDUCED,"12345", "12345");
-	$c->setsep(" ");
 	$res = $c->encode ($pt);
-        $this->assertEquals($ct, $res, "Error encoding ADFGX");
+        $this->assertEquals($ct, $res, "Error encoding polybius");
+	$res = $c->decode ($ct);
+        $this->assertEquals($pt, $res, "Error decoding polybius");
+	    
+	$ct = "4432511454423152212443253312433542542353344315512444325113115545414322";
+	$c->sethorizontal (FALSE);
+	$res = $c->encode ($pt);
+        $this->assertEquals($ct, $res, "Error encoding polybius");
         $c->setsep("");
 	$res = $c->decode ($ct);
-        $this->assertEquals($pt, $res, "Error decoding ADFGX");
-	
+        $this->assertEquals($pt, $res, "Error decoding polybius");
     }
 }
 
