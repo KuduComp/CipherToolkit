@@ -9,6 +9,7 @@ class polybiuscipher extends cipher {
     protected $cols;        //Col headers
     protected $horizontal;  //Direction of cipher
     protected $square;      //The polybius square
+    protected $key;         //Key used to generate cipher alphabet
     protected $cipher;      //Keyed alphabet used in some polybius related ciphers
     
     public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $rows="12345", $cols="12345", $horizontal = TRUE) {
@@ -21,6 +22,12 @@ class polybiuscipher extends cipher {
     
     public function sethorizontal ($dir = TRUE) { $this->horizontal = $dir; $this->setsquare($this->rows, $this->cols); }
     public function gethorizontal ($dir = TRUE) { return $this->horizontal; }
+    public function setkey ($key) {
+        $this->cipher = $this->shufflealphabet ($this->alphabet, $key);
+        $this->key = $key;
+        $this->setsquare ($this->rows, $this->cols);
+    }
+    public function getkey () { return $this->key; }
     
     public function setsquare ($rows="12345", $cols="12345") {
         
