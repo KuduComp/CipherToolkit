@@ -34,6 +34,8 @@ class nihilistcipher extends \cipher\polybiuscipher {
 
         // Encode message as polybiuscipher
         $msg = parent::encode ($msg);
+	// Force separator if not there (as numbers can become >99 due to addition)
+	if ($this->getsep == "") $this->setsep(" ");
 
         // Add the key to the encoded message and convert to string
 	$s = "";
