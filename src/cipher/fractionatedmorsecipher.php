@@ -102,7 +102,7 @@ class fractionatedmorsecipher extends cipher {
 			if ($s[$i] == 'x') {
 				$s2 .= " ";
 			} else {
-				while ( ($s[$i] != 'x') && ($i < strlen($s)) ) $c .= $s[$i++];
+				while ( ($i < strlen($s)) && ($s[$i] != 'x') ) $c .= $s[$i++];
 				$s2 .= array_search($c, $this->morsecode);
 			}
 			$i++;
