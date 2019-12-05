@@ -31,7 +31,6 @@ class polybiuscipher extends cipher {
         $this->cols = $cols; 
         $this->validcodes = $rows . $cols;
         $this->square = array();
-        for ($r = 0; $r < $this->size; $r++) $this->square[$r] = array();
         for ($r = 0; $r < $this->size; $r++) 
             for ($c = 0; $c < $this->size; $c++)
                 ($this->horizontal) ? $this->square[$this->alphabet[$r * $this->size + $c]] = $rows[$r] . $cols[$c] :
