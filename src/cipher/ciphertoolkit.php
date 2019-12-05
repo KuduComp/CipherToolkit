@@ -264,20 +264,20 @@ abstract class cipher {
 	    //Simple tranposition: write message in rows and read the columns
 	    //Check input
 	    if ($nrows < 0) return "Number of rows should be greater than zero";
-	    if ($nrows > strlen($input)) return "Input message shorter than number of rows";
 	    $msg      = $this->makearray($msgtxt);
 	    $msglen   = sizeof($msg);
-	    if ($msglen == 0) return "Nothing to encode";
-		
+	    if ($nrows > $msglen) return "Input message shorter than number of rows";
+	    if ($msglen == 0) return "Nothing to transpose";
+
 	    //Initialize stuff
 	    $a = array();
 	    for ($i = 1; $i <= $nrows; $i++) $a[$i]="";
 		
 	    //Distribute across columns
 	    $i=0;
-	    while ($i < sizeof ($msg)) {
+	    while ($i < $msglen) {
 	        $row = 1;
-	        while (($row <= $nrows) && ($i < sizeof($msg))) {
+	        while (($row <= $nrows) && ($i < $msglen)) {
 	            $a[$row] .= $msg[$i];
 	            $i++; $row++;
 	        }
