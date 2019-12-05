@@ -9,8 +9,8 @@ class nihilistcipher extends \cipher\polybiuscipher {
     protected $addkeyarr;
     
     public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $key = "", $addkey = "") {
-        $alphabet = $this->shufflealphabet($alphabet, $key);
         parent::__construct ($alphabet);
+	$this->setkey($key);
 	$this->setaddkey ($addkey);
 	$this->addkeylen = strlen($addkey);
     }
@@ -21,12 +21,11 @@ class nihilistcipher extends \cipher\polybiuscipher {
     	$this->addkey    = $addkey;
     
     	// Encode the key to be added with the same polybiuscode
-        $addkeycoded = parent::encode($addkey);
+        $addkeycoded = $this->cleanencodedmessage(parent::encode($addkey));
 
     	// Convert the coded key to an array of integers
     	$this->addkeyarr = array();
-    	preg_match_all ("/([0-9]{2,3})[.]*/", $addkeycoded, $parsed);
-    	foreach ($parsed[1] as $p) $this->addkeyarr[] = intval($p);
+    	For ($i=0; $i < strlen ($addkeycoded); $i +=2 $this->addkeyarr[] = intval(substr($addkeycoded,$i,2));
     }
     
     public function getaddkey() { return $this->addkey; }
@@ -37,7 +36,7 @@ class nihilistcipher extends \cipher\polybiuscipher {
         $msg = parent::encode ($msg);
 
         // Add the key to the encoded message and convert to string
-	    $s = "";
+	$s = "";
         preg_match_all ("/([0-9]{2})[.]*/", $msg, $parsed);
     	$idx = 0;
     	foreach ($parsed[1] as $p) {
