@@ -16,6 +16,7 @@ class NihilistTest extends TestCase
         $c = new nihilistcipher ("ABCDEFGHIKLMNOPQRSTUVWXYZ","ZEBRAS", "SCHAPEN");
 	$res = $c->encode ($pt);
 	$this->assertEquals($ct, $res, "Error encoding nihilist");
+	$c->setsep("");
         $res = $c->decode ($ct);
         $this->assertEquals($pt, $res, "Error decoding nihilist");
 	
