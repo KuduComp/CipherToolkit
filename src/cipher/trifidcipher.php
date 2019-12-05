@@ -55,7 +55,7 @@ class trifidcipher extends cipher{
         }
         
         // Fractionate message
-        $s = $this->fractionate($s, strlen($s) / 3);
+        $s = $this->rowtocolumntransposition($s, strlen($s) / 3);
         
         // Translate back
         $s2 = "";
@@ -97,7 +97,7 @@ class trifidcipher extends cipher{
         }
         
         // Make the new string
-        $s = $this->fractionate($s, 3);
+        $s = $this->rowtocolumntransposition($s, 3);
         
         // Take three numbers from the string and find letter
         $s2 = "";

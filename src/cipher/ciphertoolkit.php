@@ -234,8 +234,9 @@ abstract class cipher {
 		return $s;
 	}
 	
-	// Transposing a message reorganizes the message
-	
+	// Transposing a message reorganizes the message. Different methods are used
+	// depending on the cipher.
+
 	public function createtranspositionkey ($s) {
 	    
 	    // Creates array of integers e.g. 2,1,0 reorders columns as 0,1,2
@@ -257,12 +258,44 @@ abstract class cipher {
 	    for ($i = 0; $i<$len; $i++) $a[$i] = array_search ($s[$i] . sprintf("%04d",$i), $tmparr);
 	    return $a;  
 	}
+		
+	public function rowtocolumntransposition ($msgtxt, $nrows) {
+	    
+	    //Simple tranposition: write message in rows and read the columns
+	    //Check input
+	    if ($nrows < 0) return "Number of rows should be greater than zero";
+	    $msg      = $this->makearray($msgtxt);
+	    $msglen   = sizeof($msg);
+	    if ($nrows > $msglen) return "Input message shorter than number of rows";
+	    if ($msglen == 0) return "Nothing to transpose";
+
+	    //Initialize stuff
+	    $a = array();
+	    for ($i = 1; $i <= $nrows; $i++) $a[$i]="";
+		
+	    //Distribute across columns
+	    $i=0;
+	    while ($i < $msglen) {
+	        $row = 1;
+	        while (($row <= $nrows) && ($i < $msglen)) {
+	            $a[$row] .= $msg[$i];
+	            $i++; $row++;
+	        }
+	    }
+	    
+	    //Print rows
+	    $s="";
+	    for ($i=1; ($i <= $nrows); $i++) $s .= $a[$i];
+	    
+	    return $s;
+	}
 	
 	public function encodecolumnartransposition ($msgtxt, $key) {
     
 		// Message can be a text string, a number or an array
-		// For transposition an array is used as elements might have different length (e.g. amsco cipher)
 		// Key should be an array of integers e.g. 2,1,0 reorders columns as 0,1,2
+		// Message is written in rows and columns are read in the given order
+		// Function works both on complete and incomplete columns, it just depends on the input
 	    	
 		// check stuff
 		if ($key == null) return "No key square specified, empty";
@@ -490,33 +523,6 @@ abstract class cipher {
 		
 		// Return result
 		return $s;
-	}
-	
-    	// Fractionation causes the codes for a single character to be spread across the message
-	public function fractionate ($input = "", $nrows) {
-	    
-	    //Check input
-	    if ($nrows < 0) return "Number of rows should be greater than zero";
-	    if ($nrows > strlen($input)) return "Input message shorter than number of rows";
-	    
-	    //Initialize stuff
-	    $a = array();
-	    for ($i = 1; $i <= $nrows; $i++) $a[$i]="";
-	    //Distribute across columns
-	    $i=0;
-	    while ($i < strlen ($input)) {
-	        $row = 1;
-	        while (($row <= $nrows) && ($i < strlen($input))) {
-	            $a[$row] .= $input[$i];
-	            $i++; $row++;
-	        }
-	    }
-	    
-	    //Print rows
-	    $s="";
-	    for ($i=1; ($i <= $nrows); $i++) $s .= $a[$i];
-	    
-	    return $s;
 	}
 	
 	// Default functions must always be implemented

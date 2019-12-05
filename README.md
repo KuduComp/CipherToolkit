@@ -26,6 +26,8 @@ Abstract class containing common functions, functions encode and decode should b
 
 ###### Simple substitution ciphers, replace 1 by 1
 - Generic version using an alphabet
+- Caesar cipher (shifted alphabet, default 13)
+- Vatsyayana or kamasutra cipher (13 paired letters)
 - Atbash cipher (reversed alphabet)
 - Affine cipher (uses function y = ax + b)
 - Caesar cipher (rotated alphabet, default 13)
@@ -37,13 +39,14 @@ Abstract class containing common functions, functions encode and decode should b
 - Morse code
 - Polybius cipher (using a square)
 - Nihilist substitution cipher (a variant on Polybius)
-- Straddling checkerboard
-- Monome-dinome
+- Straddling checkerboard (with a light version of fractionation)
+- Monome-dinome (with a light version of fractionation)
 
 ###### Polygraphic substitution (substitutes more than one character at a time)
 - Playfair (replaces digrams)
 - Foursquare cipher (replaces digrams)
-- Condi cipher (advanced substitution working on consecutive digrams)
+- Condi cipher (substitution working on consecutive digrams)
+- Portax cipher (polygrapic, polyalphabetical)
 
 ###### Polyalphabetic substitution ciphers
 - Vigenere cipher
@@ -54,6 +57,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Quagmire I, II, III and IV
 - Porta cipher (reciprocal cipher using 13 alphabets)
 - Jefferson wheel cipher
+- Chaocipher (a cipher with dynamically changing alphabets)
 
 ###### Transposition ciphers
 - Skytale (rows become columns, very easy)
