@@ -11,11 +11,14 @@ class BifidTest extends TestCase
 {
     public function testBifid()
     {
+        
+        $pt = "THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG";
+        $ct = "TBODBUPUTQTWMHIZCTERCYVHMDVASKHFGPG";
         $c = new bifidcipher ("ABCDEFGHIKLMNOPQRSTUVWXYZ","STILLGOTTHEBLUES");
-        $res = $c->encode ("THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG");
-        $this->assertEquals("TBODBUPUTQTWMHIZCTERCYVHMDVASKHFGPG",$res, "Error encoding bifid");
-        $res = $c->decode ($res);
-        $this->assertEquals("THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG",$res, "Error decoding bifid");
+        $res = $c->encode ($pt);
+        $this->assertEquals ($ct, $res, "Error encoding bifid");
+        $res = $c->decode ($ct);
+        $this->assertEquals($pt, $res, "Error decoding bifid");
     }
 }
 
