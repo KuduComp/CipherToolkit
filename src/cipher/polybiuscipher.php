@@ -38,10 +38,7 @@ class polybiuscipher extends cipher {
     }
     
     public function encode ($msg) {
-        
         // Encode message
-        var_dump($this->square);
-        $this->setsep = " ";
         return $this->arraysubstitution ($msg, $this->square);
     }
     
