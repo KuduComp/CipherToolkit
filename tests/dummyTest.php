@@ -164,7 +164,7 @@ class DummyTest extends TestCase
         $ct = $c->fillsquare (UPPER_ALPHABET_REDUCED, "DIAV", "TL", FALSE);
         $this->assertEquals($pt, $ct, "Error filling square DIAV TL");
 
-        $pt = "ACFKPBEIOTDHNSWGMRVYLQUXZ";
+        $pt = "ACDKLBEIMTFHNSUGORVYPQWXZ";
         $ct = $c->fillsquare (UPPER_ALPHABET_REDUCED, "DIAV", "TL", TRUE);
         $this->assertEquals($pt, $ct, "Error filling square DIAV TL FLIP");       
 
