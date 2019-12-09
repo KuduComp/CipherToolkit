@@ -162,6 +162,157 @@ abstract class cipher {
 		return $a;
 	}
 	
+	// Help function to create a square with various options, default is the default Polybius square
+	// returns a string
+	function fillsquare ($text = "ABCDEFGHIKLMNOPQRSTUVWXYZ", $dir = "HOR", $c = "TL", $flip = FALSE) {
+
+	    $size = (int) sqrt(strlen($text));
+	    if ($size ** 2 != strlen($text)) return "Not a square";
+	    $dir = strtoupper ($dir);
+	    $c = strtoupper ($c);
+	    $sq = array();
+	    for ($i = 0; $i < $size; $i++) $sq[$i] = array();
+	    $idx = 0;
+	    $fliprow = $flip;
+
+	    switch ($dir) {
+
+		case "DIAH" :
+		    for ($i = 0; $i < $size; $i++) {
+			for ($j = 0; $j <= $i; $j++) {
+			    if (!$fliprow) {
+					if ($c == "TL") $sq[$j][$i-$j] = $text[$idx++];
+					if ($c == "TR") $sq[$j][$size - $i - 1 + $j] = $text[$idx++];
+					if ($c == "BL") $sq[$size - $j - 1][$i - $j] = $text[$idx++];
+					if ($c == "BR") $sq[$size - 1 - $j][$size - $i - 1 + $j] = $text[$idx++];
+				} else {
+					if ($c == "TL") $sq[$i-$j][$j] = $text[$idx++];
+					if ($c == "BL") $sq[$size - $i - 1 + $j][$j] = $text[$idx++];
+					if ($c == "TR") $sq[$i - $j][$size - $j - 1] = $text[$idx++];
+					if ($c == "BR") $sq[$size - $i - 1 + $j][$size - 1 - $j] = $text[$idx++];
+				}
+			}
+			if ($flip) $fliprow = !$fliprow;
+		    }
+
+		    for ($i = 1; $i < $size; $i++) {
+			for ($j = 0; $j < $size - $i; $j++) {
+				if (!$fliprow) {
+					if ($c == "TL") $sq[$i+$j][$size-$j-1] = $text[$idx++];
+					if ($c == "TR") $sq[$i+$j][$j] = $text[$idx++];
+					if ($c == "BL") $sq[$size - $i - 1 - $j][$size - $j - 1] = $text[$idx++];
+					if ($c == "BR") $sq[$size - $i - 1 - $j][$j] = $text[$idx++];
+				} else {
+					if ($c == "TL") $sq[$size-$j-1][$i+$j] = $text[$idx++];
+					if ($c == "BL") $sq[$j][$i+$j] = $text[$idx++];
+					if ($c == "TR") $sq[$size - $j - 1][$size - $i - 1 - $j] = $text[$idx++];
+					if ($c == "BR") $sq[$j][$size - $i - 1 - $j] = $text[$idx++];
+			    }
+			}
+			if ($flip) $fliprow = !$fliprow;
+		    }
+		    break;
+
+		case "DIAV" :
+		    for ($i = 0; $i < $size; $i++) {
+			for ($j = 0; $j <= $i; $j++) {
+				if (!$fliprow) {
+					if ($c == "TL") $sq[$i-$j][$j] = $text[$idx++];
+					if ($c == "BL") $sq[$size - $i - 1 + $j][$j] = $text[$idx++];
+					if ($c == "TR") $sq[$i - $j][$size - $j - 1] = $text[$idx++];
+					if ($c == "BR") $sq[$size - $i - 1 + $j][$size - 1 - $j] = $text[$idx++];
+				} else {
+					if ($c == "TL") $sq[$j][$i-$j] = $text[$idx++];
+					if ($c == "TR") $sq[$j][$size - $i - 1 + $j] = $text[$idx++];
+					if ($c == "BL") $sq[$size - $j - 1][$i - $j] = $text[$idx++];
+					if ($c == "BR") $sq[$size - 1 - $j][$size - $i - 1 + $j] = $text[$idx++];
+				}
+			}
+			if ($flip) $fliprow = !$fliprow;
+		    }
+
+		    for ($i = 1; $i < $size; $i++) {
+			for ($j = 0; $j < $size - $i; $j++) {
+				if (!$fliprow) {
+					if ($c == "TL") $sq[$size-$j-1][$i+$j] = $text[$idx++];
+					if ($c == "BL") $sq[$j][$i+$j] = $text[$idx++];
+					if ($c == "TR") $sq[$size - $j - 1][$size - $i - 1 - $j] = $text[$idx++];
+					if ($c == "BR") $sq[$j][$size - $i - 1 - $j] = $text[$idx++];
+				} else {
+					if ($c == "TL") $sq[$i+$j][$size-$j-1] = $text[$idx++];
+					if ($c == "TR") $sq[$i+$j][$j] = $text[$idx++];
+					if ($c == "BL") $sq[$size - $i - 1 - $j][$size - $j - 1] = $text[$idx++];
+					if ($c == "BR") $sq[$size - $i - 1 - $j][$j] = $text[$idx++];
+				}
+			}
+			if ($flip) $fliprow = !$fliprow;
+		    }
+		    break;
+
+		case "HOR" :
+		    for ($i = 0; $i < $size; $i++) {
+			if ($flip) $fliprow = !$fliprow;
+			for ($j = 0; $j < $size; $j++) {
+				if (!$fliprow) {
+					if ($c == "TL") $sq[$i][$j] = $text[$idx++];
+					if ($c == "TR") $sq[$i][$size - $j - 1] = $text[$idx++];
+					if ($c == "BL") $sq[$size - $i - 1][$j] = $text[$idx++];
+					if ($c == "BR") $sq[$size - $i - 1][$size - $j - 1] = $text[$idx++];
+				} else {
+					if ($c == "TL") $sq[$i][$size - $j - 1] = $text[$idx++];
+					if ($c == "TR") $sq[$i][$j] = $text[$idx++];
+					if ($c == "BL") $sq[$size - $i - 1][$size - $j - 1] = $text[$idx++];
+					if ($c == "BR") $sq[$size - $i - 1][$j] = $text[$idx++];
+				}
+			}
+		    }
+		    break;
+
+		case "VER" :
+		    for ($i = 0; $i < $size; $i++) {
+			if ($flip) $fliprow = !$fliprow;
+			for ($j = 0; $j < $size; $j++) {
+				if (!$fliprow) {
+					if ($c == "TL") $sq[$j][$i] = $text[$idx++];
+					if ($c == "TR") $sq[$j][$size - $i - 1] = $text[$idx++];
+					if ($c == "BL") $sq[$size - $j - 1][$i] = $text[$idx++];
+					if ($c == "BR") $sq[$size - $j - 1][$size - $i - 1] = $text[$idx++];
+				} else {
+					if ($c == "TL") $sq[$size - $j - 1][$i] = $text[$idx++];
+					if ($c == "TR") $sq[$size - $j - 1][$size - $i - 1] = $text[$idx++];
+					if ($c == "BL") $sq[$j][$i] = $text[$idx++];
+					if ($c == "BR") $sq[$j][$size - $i - 1] = $text[$idx++];
+				}
+			}
+		    }
+		    break;
+
+		case "SI" :
+		    // Spiral inwards start at specified corner and rotate towards center
+		    if (!$flip) {
+
+			//Clockwise
+			$corners = array ("TL", "TR", "BR", "BL");
+			$loop = 0;
+			for ($i = $size - 1; $i >= 0; $i -=2) {
+					fz
+			}
+			if ($size % 2 == 1) $sq[intdiv($size,2)][intdiv($size,2)] = $text[$idx++];
+		    }
+		    break;
+			default :
+				for ($i = 0; $i < $size; $i++)
+					for ($j = 0; $j < $size; $j++) $sq[$i][$j] = "X";		
+	    } // end case
+
+		$s = "";
+		for ($i = 0; $i < $size; $i++)
+		for ($j = 0; $j < $size; $j++) $s .= $sq[$i][$j];
+
+	    return $s;
+
+	}
+
 	// Below are placeholders for common cipher functions
 	
 	// Substitute replace each character in the input with something else
