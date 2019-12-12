@@ -61,6 +61,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Porta cipher (reciprocal cipher using 13 alphabets)
 - Jefferson wheel cipher
 - Chaocipher (a cipher with dynamically changing alphabets)
+- Zygazyfa (a cipher with dynamically changing alphabets) 
 
 ###### Transposition ciphers
 - Skytale (rows become columns, very easy)
