@@ -37,6 +37,8 @@ Abstract class containing common functions, functions encode and decode should b
 - Generic version using an array of substitutions
 - Kenny code
 - Morse code
+- Fractionated morse cipher (morse code with some fractionation)
+- Morbit cipher (morse code with anothe fractionation)
 - Polybius cipher (using a square)
 - Nihilist substitution cipher (a variant on Polybius)
 - Straddling checkerboard (with a light version of fractionation)
@@ -46,7 +48,8 @@ Abstract class containing common functions, functions encode and decode should b
 - Playfair (replaces digrams)
 - Foursquare cipher (replaces digrams)
 - Condi cipher (substitution working on consecutive digrams)
-- Portax cipher (polygrapic, polyalphabetical)
+- Portax cipher (polygraphic, polyalphabetical)
+- Digraphfid cipher (digrams with fractionation)
 
 ###### Polyalphabetic substitution ciphers
 - Vigenere cipher
@@ -58,6 +61,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Porta cipher (reciprocal cipher using 13 alphabets)
 - Jefferson wheel cipher
 - Chaocipher (a cipher with dynamically changing alphabets)
+- Zygazyfa (a cipher with dynamically changing alphabets) 
 
 ###### Transposition ciphers
 - Skytale (rows become columns, very easy)
