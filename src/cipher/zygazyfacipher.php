@@ -35,10 +35,6 @@ class zygazyfacipher extends cipher {
 	
 	public function getkey () { return $this->key; }
 	
-	public function shufflealphabet ($alphabet, $key) {
-	    return implode("", array_values (array_unique (str_split($key . $alphabet))));
-	}
-	
 	public function encode ($msg = "") {
 		$s = "";
 		$cipher = $this->cipher;
