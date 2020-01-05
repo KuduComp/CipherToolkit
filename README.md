@@ -2,7 +2,7 @@
 
 #### Description
 
-PHP class library with plenty of hand ciphers. Hand ciphers where used in pre computer days to exchange secret communications. They could be as simple as replacing one character with another. Hand ciphers were still in use in World War II and even in during the Cold War. Using this ciphers can still be fun. One of the reasons I wrote this library is just for fun and in some cases it comes in handy. As a fanatical geocacher I often have to solve mysterie caches that are encoded with some archaic hand cipher.
+PHP class library with plenty of hand ciphers. Hand ciphers where used in pre computer days to exchange secret communications. They could be as simple as replacing one character with another. Hand ciphers were still in use in World War II and even in use during the Cold War. Using these ciphers can still be fun. One of the reasons I wrote this library is for fun and in some cases it comes in handy. As a fanatical geocacher I often have to solve mysterie caches that are encoded with some archaic hand cipher.
 
 #### Example
 ---
@@ -30,13 +30,13 @@ Abstract class containing common functions, functions encode and decode should b
 - Vatsyayana or kamasutra cipher (13 paired letters)
 - Atbash cipher (reversed alphabet)
 - Affine cipher (uses function y = ax + b)
-- Caesar cipher (rotated alphabet, default 13)
 - Ragbaby cipher (more advanced substitution taking into account position)
 
 ###### Simple substitution ciphers, replace 1 with many
 - Generic version using an array of substitutions
 - Kenny code
 - Morse code
+- Pollux cipher (morse code translated back into numbers)
 - Fractionated morse cipher (morse code with some fractionation)
 - Morbit cipher (morse code with anothe fractionation)
 - Polybius cipher (using a square)
