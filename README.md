@@ -36,6 +36,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Generic version using an array of substitutions
 - Kenny code
 - Morse code
+- Shadok numbers (funny transcription of numbers based on a French cartoon)
 - Pollux cipher (morse code translated back into numbers)
 - Fractionated morse cipher (morse code with some fractionation)
 - Morbit cipher (morse code with anothe fractionation)
