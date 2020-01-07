@@ -54,7 +54,7 @@ class phillipscipher extends cipher {
 		$this->squares[7] = substr($this->cipher, 2*$sz, 3*$sz) . substr($this->cipher, $sz, $sz) . substr($this->cipher, 0, $sz);
     }
     
-    public function encode ($msg) {
+    protected function endecode ($msg, $action) {
 		
 		$s = "";
 		$sq = 0;
@@ -64,41 +64,31 @@ class phillipscipher extends cipher {
 			if ($pos !== FALSE) {
 				$r = intdiv($pos, $this->size);
 				$c = $pos % $this->size;
-				($r == ($this->size - 1)) ? $r1 = 0 : $r1 = $r + 1;
-				($c == ($this->size - 1)) ? $c1 = 0 : $c1 = $c + 1;
+				if ($action = "en") {
+					($r == ($this->size - 1)) ? $r1 = 0 : $r1 = $r + 1;
+					($c == ($this->size - 1)) ? $c1 = 0 : $c1 = $c + 1;
+                } else {
+                    ($r == 0) ? $r1 = $this->size - 1 : $r1 = $r - 1;
+                    ($c == 0) ? $c1 = $this->size - 1 : $c1 = $c - 1;
+                }
 				$s .= $this->squares[$sq][$r1 * $this->size + $c1];
 				$cnt++;
 				if ($cnt == $this->size) { $sq++; $cnt = 0; }
 				if ($sq == 8) $sq = 0;
 			}
-		}
-		
+		}	
         return $s;
     }
     
     public function decode ($msg) {
-        // Decode
-		
-		$s = "";
-		$sq = 0;
-		$cnt = 0;
-		for ($i = 0; $i <strlen($msg); $i++) {
-			$pos = stripos ($this->squares[$sq], $msg[$i]);
-			if ($pos !== FALSE) {
-				$r = intdiv($pos, $this->size);
-				$c = $pos % $this->size;
-				($r == 0) ? $r1 = $this->size - 1 : $r1 = $r - 1;
-				($c == 0) ? $c1 = $this->size - 1 : $c1 = $c - 1;
-				$s .= $this->squares[$sq][$r1 * $this->size + $c1];
-				$cnt++;
-				if ($cnt == $this->size) { $sq++; $cnt = 0; }
-				if ($sq == 8) $sq = 0;
-			}
-		}
-		
-        return $s;
+        // Decode		
+        return $this->endecode ($msg, "de");
     }
     
+     public function encode ($msg) {
+        // Encode		
+        return $this->endecode ($msg, "en");
+    }
 } // End of phillipscipher
 
 ?>
