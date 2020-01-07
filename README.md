@@ -37,9 +37,8 @@ Abstract class containing common functions, functions encode and decode should b
 - Kenny code
 - Morse code
 - Shadok numbers (funny transcription of numbers based on a French cartoon)
-- Pollux cipher (morse code translated back into numbers)
 - Fractionated morse cipher (morse code with some fractionation)
-- Morbit cipher (morse code with anothe fractionation)
+- Morbit cipher (morse code with another fractionation)
 - Polybius cipher (using a square)
 - Nihilist substitution cipher (a variant on Polybius)
 - Straddling checkerboard (with a light version of fractionation)
@@ -59,7 +58,9 @@ Abstract class containing common functions, functions encode and decode should b
 - Autokey cipher
 - Keyed vigenere cipher
 - Quagmire I, II, III and IV
+- Phillips cipher (uses 8 Polybius squares)
 - Porta cipher (reciprocal cipher using 13 alphabets)
+- Pollux cipher (morse code encoded as digits/letters)
 - Jefferson wheel cipher
 - Chaocipher (a cipher with dynamically changing alphabets)
 - Zygazyfa (a cipher with dynamically changing alphabets) 
