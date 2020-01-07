@@ -19,7 +19,7 @@ class bibibinarycipher extends cipher {
 		    "C" => "DO", "D" => "DA", "E" => "DE", "F" => "DI");
 		$s = "";
         foreach ($matches[0] as $m) {
-            $msg = base_convert ($m, 10, 16);
+            $msg = strtoupper (base_convert ($m, 10, 16));
             for ($i = 0 ; $i < strlen($msg); $i++) $s .= $s .= $codes[$msg[$i]];
             $s .= " ";
         }
