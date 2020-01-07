@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use cipher\bazeriescipher;
-use const \cipher\UPPER_ALPHABET;
+use const \cipher\UPPER_ALPHABET_REDUCED;
 
 class BazeriesTest extends TestCase
 {
