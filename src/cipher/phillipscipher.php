@@ -21,7 +21,7 @@ class phillipscipher extends cipher {
     protected $cipher;      //Keyed alphabet used in some polybius related ciphers
     
     public function __construct ($alphabet = "", $key = "") {
-	parent::__construct ($alphabet, $rows . $cols);
+	parent::__construct ($alphabet);
 	$this->size = (int) ceil(sqrt (strlen($alphabet)));
         $this->cipher = $alphabet;
         $this->setkey ($key);
