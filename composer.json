@@ -2,7 +2,7 @@
 	"name" : "kudu-comp/cipher-toolkit",
 	"description" : "Libraries with ciphers for encrypting/decrypting messages",
 	"type" : "library",
-	"keywords" : ["cipher", "ciphers"],
+	"keywords" : ["cipher", "ciphers", "cryptography", "cryptogram"],
 	"license" : "MIT",
 	"authors" : [{
 			"name"  : "Aernout",
