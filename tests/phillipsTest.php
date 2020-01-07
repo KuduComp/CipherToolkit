@@ -9,8 +9,8 @@ class PhillipsTest extends TestCase
     public function testPhillips()
     {
         // Test condicipher
-        $pt = "THETHINGSTHATCOMETOTHOSEWHOWAITMAYBETHETHINGSLEFTBYTHOSEWHOGOTTHEREFURST");
-		    $ct = "DRNDRMAQZLTRSKWOVYAYRWZNTBWTKMLOKEYGLRGLRFHQZUGPLIFSTWZVBRAQWDDRNYGOMYFL";
+        $pt = "THETHINGSTHATCOMETOTHOSEWHOWAITMAYBETHETHINGSLEFTBYTHOSEWHOGOTTHEREFURST";
+	    $ct = "DRNDRMAQZLTRSKWOVYAYRWZNTBWTKMLOKEYGLRGLRFHQZUGPLIFSTWZVBRAQWDDRNYGOMYFL";
         $c = new phillipscipher(UPPER_ALPHABET_REDUCED, "PATIENCE");
         $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding phillipscipher");
