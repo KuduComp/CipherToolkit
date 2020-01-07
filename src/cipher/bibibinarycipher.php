@@ -18,12 +18,12 @@ class bibibinarycipher extends cipher {
 		    "8" => "KO", "9" => "KA", "A" => "KE", "B" => "KI",
 		    "C" => "DO", "D" => "DA", "E" => "DE", "F" => "DI");
 		$s = "";
-        foreach ($matches[0] as $m) {
-            $msg = strtoupper (base_convert ($m, 10, 16));
-            for ($i = 0 ; $i < strlen($msg); $i++) $s .= $s .= $codes[$msg[$i]];
-            $s .= " ";
-        }
-        return substr($s, 0, -1);
+		foreach ($matches[0] as $m) {
+		    $msg = strtoupper (base_convert ($m, 10, 16));
+		    for ($i = 0 ; $i < strlen($msg); $i++) $s .= $s .= $codes[$msg[$i]];
+		    $s .= " ";
+		}
+		return substr($s, 0, -1);
 	}
   
 	function decode ($msg = "") {
