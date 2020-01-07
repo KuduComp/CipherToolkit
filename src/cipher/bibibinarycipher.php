@@ -20,7 +20,7 @@ class bibibinarycipher extends cipher {
 		$s = "";
 		foreach ($matches[0] as $m) {
 		    $msg = strtoupper (base_convert ($m, 10, 16));
-		    for ($i = 0 ; $i < strlen($msg); $i++) $s .= $s .= $codes[$msg[$i]];
+		    for ($i = 0 ; $i < strlen($msg); $i++) $s .= $codes[$msg[$i]];
 		    $s .= " ";
 		}
 		return substr($s, 0, -1);
@@ -32,11 +32,17 @@ class bibibinarycipher extends cipher {
 		    "BO" => "4", "BA" => "5", "BE" => "6", "BI" => "7",
 		    "KO" => "8", "KA" => "9", "KE" => "A", "KI" => "B",
 		    "D)" => "C", "DA" => "D", "DE" => "E", "DI" => "F");
-		if (strlen($msg) % 2 == 1) return "Invalid encoded message";
-        $msg = strtoupper ($msg);
+		
+        preg_match_all ('/(\b[^\s]+\b)/', $msg, $matches);
         $s = "";
-	    for ($i = 0; $i < strlen($msg); $i += 2)
-            $s = $s . base_convert ($codes[$msg[$i]] . $codes[$msg[$i+1]], 4, 10) . " ";
+        foreach ($matches[0] as $m) {
+            $msg = strtoupper ($m);
+            if (strlen($msg) % 2 == 1) return "Invalid message";
+            $s2 = "";
+            for ($i = 0; $i < strlen($msg); $i += 2)
+                $s2 = $s2 . $codes[$msg[$i] . $msg[$i+1]];
+            $s = $s . base_convert ($s2, 16, 10) . " ";
+        }
 	    return substr($s, 0 , -1);
 	}
     
