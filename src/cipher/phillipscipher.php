@@ -1,6 +1,8 @@
 <?php
 
-class phillipscipher {
+namespace cipher;
+
+class phillipscipher extends cipher {
     
 	// The Phillips cipher system was devised by the British during the First World War. It is based 
 	// on a Polybius square whose rows, columns or both are reordered to form 8 different squares. 
@@ -17,20 +19,14 @@ class phillipscipher {
     protected $squares;     //The polybius squares used
     protected $key;         //Key used to generate cipher alphabet
     protected $cipher;      //Keyed alphabet used in some polybius related ciphers
-	protected $alphabet;
     
     public function __construct ($alphabet = "", $key = "") {
-        $this->alphabet = $alphabet;
-		$this->size = (int) ceil(sqrt (strlen($alphabet)));
-		//parent::__construct ($alphabet, $rows . $cols);
+	parent::__construct ($alphabet, $rows . $cols);
+	$this->size = (int) ceil(sqrt (strlen($alphabet)));
         $this->cipher = $alphabet;
         $this->setkey ($key);
     }
     
-	public function shufflealphabet ($alphabet, $key) {
-	    return implode("", array_values (array_unique (str_split($key . $alphabet))));
-	}
-	
     public function setkey ($key) {
         $this->cipher = $this->shufflealphabet ($this->alphabet, $key);
         $this->key = $key;
@@ -103,11 +99,6 @@ class phillipscipher {
         return $s;
     }
     
-} // End of polybiuscipher
-
-$c = new phillipscipher ("ABCDEFGHIKLMNOPQRSTUVWXYZ", "PATIENCE");
-
-echo $c->encode ("The things that come to those who wait, may be the things left by those who got there first");
-echo $c->decode("DRNDRMAQZLTRSKWOVYAYRWZNTBWTKMLOKEYGLRGLRFHQZUGPLIFSTWZVBRAQWDDRNYGOMYFL");
+} // End of phillipscipher
 
 ?>
