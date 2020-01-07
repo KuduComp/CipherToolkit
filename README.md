@@ -41,6 +41,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Morbit cipher (morse code with anothe fractionation)
 - Polybius cipher (using a square)
 - Nihilist substitution cipher (a variant on Polybius)
+- Collon cipher (a variant on Polybius)
 - Straddling checkerboard (with a light version of fractionation)
 - Monome-dinome (with a light version of fractionation)
 
