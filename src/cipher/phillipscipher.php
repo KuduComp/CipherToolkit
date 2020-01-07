@@ -59,7 +59,7 @@ class phillipscipher extends cipher {
 		$s = "";
 		$sq = 0;
 		$cnt = 0;
-        if ($chunk == 0) $chunk = $this->$size;
+        if ($chunk == 0) $chunk = $this->size;
 		for ($i = 0; $i <strlen($msg); $i++) {
 			$pos = stripos ($this->squares[$sq], $msg[$i]);
 			if ($pos !== FALSE) {
