@@ -1,17 +1,18 @@
 {
-	"name" : "kudu-comp/gc-coolstuff",
-	"description" : "Libraries with really cool stuff",
-	"type" : "project",
+	"name" : "kudu-comp/cipher-toolkit",
+	"description" : "Libraries with ciphers for encrypting/decrypting messages",
+	"type" : "library",
+	"keywords" : ["cipher", "ciphers", "cryptography", "cryptogram"],
+	"license" : "MIT",
 	"authors" : [{
-			"name" : "Aernout",
-			"email" : "aernout@kudu-comp.org"
+			"name"  : "Aernout",
+			"email" : "trotamundos@quicknet.nl",
+			"role"  : "developer"
 		}
 	],
-	"repositories" : [{
-			"type" : "vcs",
-			"url" : "https://github.com/kudu-comp/gc-coolstuff"
-		}
-	],
+	"require": {
+        	"php": ">=7.0.0"
+    	},
 	"autoload" : {
 		"classmap" : [
 			"src/cipher/ciphertoolkit.php"
