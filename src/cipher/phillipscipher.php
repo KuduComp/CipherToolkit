@@ -54,17 +54,18 @@ class phillipscipher extends cipher {
 		$this->squares[7] = substr($this->cipher, 2*$sz, 3*$sz) . substr($this->cipher, $sz, $sz) . substr($this->cipher, 0, $sz);
     }
     
-    protected function endecode ($msg, $action) {
+    protected function endecode ($msg, $action, $chunk) {
 		
 		$s = "";
 		$sq = 0;
 		$cnt = 0;
+        if ($chunk == 0) $chunk = $this->$size;
 		for ($i = 0; $i <strlen($msg); $i++) {
 			$pos = stripos ($this->squares[$sq], $msg[$i]);
 			if ($pos !== FALSE) {
 				$r = intdiv($pos, $this->size);
 				$c = $pos % $this->size;
-				if ($action = "en") {
+				if ($action == "en") {
 					($r == ($this->size - 1)) ? $r1 = 0 : $r1 = $r + 1;
 					($c == ($this->size - 1)) ? $c1 = 0 : $c1 = $c + 1;
                 } else {
@@ -73,21 +74,21 @@ class phillipscipher extends cipher {
                 }
 				$s .= $this->squares[$sq][$r1 * $this->size + $c1];
 				$cnt++;
-				if ($cnt == $this->size) { $sq++; $cnt = 0; }
+				if ($cnt == $chunk) { $sq++; $cnt = 0; }
 				if ($sq == 8) $sq = 0;
 			}
 		}	
         return $s;
     }
     
-    public function decode ($msg) {
+    public function decode ($msg, $chunk = 0) {
         // Decode		
-        return $this->endecode ($msg, "de");
+        return $this->endecode ($msg, "de", $chunk);
     }
     
-     public function encode ($msg) {
+     public function encode ($msg, $chunk = 0) {
         // Encode		
-        return $this->endecode ($msg, "en");
+        return $this->endecode ($msg, "en", $chunk);
     }
 } // End of phillipscipher
 
