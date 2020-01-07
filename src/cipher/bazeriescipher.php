@@ -63,7 +63,7 @@ class bazeriescipher extends cipher {
 		// Code the string
 		$s2 = "";
 		for ($i = 0; $i < strlen ($s); $i++) {
-			$pos = stripos ($this->sq1, $s[$i]);
+			$pos = $this->strpos2 ($this->sq1, $s[$i]);
 			if ($pos !== FALSE) $s2 .= $this->sq2[$pos];
 		}
 		return $s2;
@@ -77,7 +77,7 @@ class bazeriescipher extends cipher {
 		// Decode the string
 		$s = "";
 		for ($i = 0; $i < strlen ($msg); $i++) {
-			$pos = stripos ($this->sq2, $msg[$i]);
+			$pos = $this->strpos2 ($this->sq2, $msg[$i]);
 			if ($pos !== FALSE) $s .= $this->sq1[$pos];
 		}
 
