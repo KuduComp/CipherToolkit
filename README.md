@@ -32,11 +32,14 @@ Abstract class containing common functions, functions encode and decode should b
 - Affine cipher (uses function y = ax + b)
 - Ragbaby cipher (more advanced substitution taking into account position)
 
-###### Simple substitution ciphers, replace 1 with many
-- Generic version using an array of substitutions
+###### Codes (not really ciphers)
 - Kenny code
 - Morse code
 - Shadok numbers (funny transcription of numbers based on a French cartoon)
+- Bibi-binary numbers
+
+###### Simple substitution ciphers, replace 1 with many
+- Generic version using an array of substitutions
 - Fractionated morse cipher (morse code with some fractionation)
 - Morbit cipher (morse code with another fractionation)
 - Polybius cipher (using a square)
