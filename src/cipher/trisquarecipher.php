@@ -1,11 +1,15 @@
 <?php
 
-class trisquarecipher {
+namespace cipher;
+
+class trisquarecipher extends cipher {
 
 	protected $sq1, $sq2, $sq3 = "ABCDKLMNOEFGHIPQRSTUVWXYZ";
 	protected $sz  = 5;
 	
-	public function __construct ($alphabet, $sq1, $sq2, $sq3) {
+	public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $sq1= UPPER_ALPHABET_REDUCED, 
+                                 $sq2= UPPER_ALPHABET_REDUCED, $sq3= UPPER_ALPHABET_REDUCED) {
+        parent::__construct ($alphabet);
 	    $this->setsquares ($sq1, $sq2, $sq3);
 	}
     public function setsquares ($sq1, $sq2, $sq3) {
