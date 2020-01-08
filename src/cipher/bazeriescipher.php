@@ -3,8 +3,10 @@
 namespace cipher;
 
 // Bazeries cipher
-// Uses two squares
-// Locate character in 1st square and replaces with the 2nd square
+// Split message in chunks, reverse each chunk before encoding
+// Uses two squares - locate character in 1st square and replaces with the 2nd square
+// Default square 1 is vertically transcribed alphabet
+// Default square 2 uses spelled number
 
 class bazeriescipher extends cipher {
 
@@ -23,9 +25,21 @@ class bazeriescipher extends cipher {
 
 	public function setkeys ($key1 = "", $key2 = "") {
 		$this->key1 = $key1;
-		$this->sq1  = $this->shufflealphabet ($this->alphabet, $key1);
+		if ($key1 != "")
+			$this->sq1 = $this->shufflealphabet ($this->alphabet, $key1);
+		else
+    		$this->key1 = "Unused";
+			$this->sq1 = $this->fillsquare ($this->alphabet, "VERT", "TL");
 		$this->key2 = $key2;
-		$this->sq2  = $this->shufflealphabet ($this->alphabet, $key2);
+		if ($key2 != "")
+			$this->sq2  = $this->shufflealphabet ($this->alphabet, $key2);
+		else {
+    		$this->key2 = "Unused";
+            $f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+            $s = $f->format($n);
+            $s = cleaninput($s);
+			$this->sq2  = $this->shufflealphabet ($this->alphabet, $s);
+		}
 	}
 
 	public function setsquares ($sq1, $sq2) {
