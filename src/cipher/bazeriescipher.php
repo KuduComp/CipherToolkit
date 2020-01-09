@@ -20,8 +20,8 @@ class bazeriescipher extends cipher {
 
 	public function __construct ($alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ", $key1 = "", $key2 = "", $n = 1) {
 		parent::__construct ($alphabet);
-		$this->setkeys ($key1, $key2);
 		$this->setn ($n);
+		$this->setkeys ($key1, $key2);
 	}
 
 	public function setkeys ($key1 = "", $key2 = "") {
@@ -37,7 +37,7 @@ class bazeriescipher extends cipher {
 		else {
             $this->key2 = "Unused";
             $f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
-            $s = $f->format($n);
+            $s = $f->format($this->n);
             $s = cleaninput($s);
 			$this->sq2  = $this->shufflealphabet ($this->alphabet, $s);
 		}
