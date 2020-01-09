@@ -15,8 +15,8 @@ PHP class library with plenty of hand ciphers. Hand ciphers where used in pre co
 All ciphers use defaults which can be accessed using get and set functions
 
 ---
-    $c->setalphabet("aeioubcdfghjklmnpqrstvwxyz");
-    echo $c->getalphabet();
+    $c->setkey("thisisakey");
+    echo $c->getkey();
 ---
 
 
@@ -26,60 +26,63 @@ Abstract class containing common functions, functions encode and decode should b
 
 ###### Simple substitution ciphers, replace 1 by 1
 - Generic version using an alphabet
-- Caesar cipher (shifted alphabet, default 13)
-- Vatsyayana or kamasutra cipher (13 paired letters)
 - Atbash cipher (reversed alphabet)
 - Affine cipher (uses function y = ax + b)
+- Bazeries cipher (split message, reverse chunks and then substitute)
+- Caesar cipher (shifted alphabet, default 13)
 - Ragbaby cipher (more advanced substitution taking into account position)
+- Vatsyayana or kamasutra cipher (13 paired letters)
 
 ###### Codes (not really ciphers)
-- Kenny code
+- Base91 code (similar to Base64 or uuencode)
+- Bibi-binary numbers
+- Kenny code (as if Kenny from Southpark is talking)
 - Morse code
 - Shadok numbers (funny transcription of numbers based on a French cartoon)
-- Bibi-binary numbers
 
 ###### Simple substitution ciphers, replace 1 with many
 - Generic version using an array of substitutions
-- Fractionated morse cipher (morse code with some fractionation)
-- Morbit cipher (morse code with another fractionation)
-- Polybius cipher (using a square)
-- Nihilist substitution cipher (a variant on Polybius)
 - Collon cipher (a variant on Polybius)
-- Straddling checkerboard (with a light version of fractionation)
+- Fractionated morse cipher (morse code with some fractionation)
 - Monome-dinome (with a light version of fractionation)
+- Morbit cipher (morse code with another fractionation)
+- Nihilist substitution cipher (a variant on Polybius)
+- Polybius cipher (using a square)
+- Straddling checkerboard (with a light version of fractionation)
 
 ###### Polygraphic substitution (substitutes more than one character at a time)
-- Playfair (replaces digrams)
-- Foursquare cipher (replaces digrams)
 - Condi cipher (substitution working on consecutive digrams)
+- Digrafid cipher (digrams with fractionation)
+- Foursquare cipher (replaces digrams)
+- Playfair (replaces digrams)
 - Portax cipher (polygraphic, polyalphabetical)
-- Digraphfid cipher (digrams with fractionation)
+- Trisquare cipher (replaces digrams with trigrams)
 
 ###### Polyalphabetic substitution ciphers
-- Vigenere cipher
-- Gronsfield cipher
-- Beaufort cipher
 - Autokey cipher
+- Beaufort cipher
+- Chaocipher (a cipher with dynamically changing alphabets)
+- Gronsfield cipher
+- Jefferson wheel cipher
 - Keyed vigenere cipher
 - Quagmire I, II, III and IV
 - Phillips cipher (uses 8 Polybius squares)
-- Porta cipher (reciprocal cipher using 13 alphabets)
 - Pollux cipher (morse code encoded as digits/letters)
-- Jefferson wheel cipher
-- Chaocipher (a cipher with dynamically changing alphabets)
+- Porta cipher (reciprocal cipher using 13 alphabets)
+- Vigenere cipher
 - Zygazyfa (a cipher with dynamically changing alphabets) 
 
 ###### Transposition ciphers
-- Skytale (rows become columns, very easy)
+- Cadenus cipher
 - Columnar transposition cipher
 - Double transposition cipher
-- Swagman cipher
-- Cadenus cipher
 - Nihilist transposition (transposition of columns followed by rows)
+- Skytale (rows become columns, very easy)
+- Swagman cipher
 
 ###### More complex ciphers (combinations of techniques above)
-- Nicodemus cipher (Vigenere combined with columnar transposition)
-- Bifid cipher    (Substitution cipher combined with fractionation)
-- Trifid cipher   (Substitution cipher combined with fractionation)
 - ADFG(V)X cipher (Polybius cipher combined with columnar transposition)
+- Bifid cipher    (Substitution cipher combined with fractionation)
+- Nicodemus cipher (Vigenere combined with columnar transposition)
 - One time pad    (the only truly unbreakable cipher)
+- Trifid cipher   (Substitution cipher combined with fractionation)
