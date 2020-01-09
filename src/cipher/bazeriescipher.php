@@ -28,27 +28,22 @@ class bazeriescipher extends cipher {
 		if ($key1 != "")
 			$this->sq1 = $this->shufflealphabet ($this->alphabet, $key1);
 		else
-    		$this->key1 = "Unused";
 			$this->sq1 = $this->fillsquare ($this->alphabet, "VERT", "TL");
 		$this->key2 = $key2;
 		if ($key2 != "")
 			$this->sq2  = $this->shufflealphabet ($this->alphabet, $key2);
 		else {
-            $this->key2 = "Unused";
             $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
             $s = $f->format($this->n);
-            echo $s, "\n";
             $s = strtoupper ($this->cleaninput($s));
-			echo $s, "\n";
             $this->sq2  = $this->shufflealphabet ($this->alphabet, $s);
-            echo $this->sq2, "\n";
 		}
 	}
 
 	public function setsquares ($sq1, $sq2) {
 		// Set squares directly
-		$this->key1 = "Unused";
-		$this->key2 = "Unused";
+		$this->key1 = "";
+		$this->key2 = "";
 		$this->sq1  = $sq1;
 		$this->sq2  = $sq2;
 	}
