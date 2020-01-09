@@ -13,7 +13,7 @@ class BazeriesTest extends TestCase
        
         // Test default with square 1 vertical and square 2 uses spelled out n
 	    $pt = "THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG";
-		$ct = "MTYAVKRHDWISSLNRPXGYSOHVBMTCEVUZFSQ";
+		$ct = "MFKNUPVCXEGHIDGCWQAXFKNMOGYLZTRMGBS";
         $res = $c->encode ($pt);
         $this->assertEquals($ct, $res, "Error encoding bazeriescipher default");
         $res = $c->decode ($ct);
