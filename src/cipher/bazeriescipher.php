@@ -37,8 +37,11 @@ class bazeriescipher extends cipher {
             $this->key2 = "Unused";
             $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
             $s = $f->format($this->n);
+            echo $s, "\n";
             $s = strtoupper ($this->cleaninput($s));
-			$this->sq2  = $this->shufflealphabet ($this->alphabet, $s);
+			echo $s, "\n";
+            $this->sq2  = $this->shufflealphabet ($this->alphabet, $s);
+            echo $this->sq2, "\n";
 		}
 	}
 
