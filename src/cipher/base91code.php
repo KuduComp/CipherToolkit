@@ -17,7 +17,7 @@ class base91code {
 	    '%', '&', '(', ')', '*', '+', ',', '.', '/', ':', ';', '<', '=',
 	    '>', '?', '@', '[', ']', '^', '_', '`', '{', '|', '}', '~', '"');
     
-    function base91_decode($msg) {
+    function decode($msg) {
         
         $b91_dectab = array_flip($this->$b91_enctab);
         $l = strlen($msg);
@@ -45,7 +45,7 @@ class base91code {
         return $o;
     }
 
-    function base91_encode($msg) {
+    function encode($msg) {
         $l = strlen($msg);
         for ($i = 0; $i < $l; ++$i) {
             $b |= ord($msg{$i}) << $n;
