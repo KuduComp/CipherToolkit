@@ -8,7 +8,7 @@ namespace cipher;
 
 class base91code {
 	
-	protected $b91_enctab = array(
+    protected $b91_enctab = array(
 	    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 	    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 	    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -16,13 +16,14 @@ class base91code {
 	    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '#', '$',
 	    '%', '&', '(', ')', '*', '+', ',', '.', '/', ':', ';', '<', '=',
 	    '>', '?', '@', '[', ']', '^', '_', '`', '{', '|', '}', '~', '"');
-    protected $b91_dectab = array_flip($b91_enctab);
-
+    
     function base91_decode($msg) {
+        
+        $b91_dectab = array_flip(this->$b91_enctab);
         $l = strlen($msg);
         $v = -1;
         for ($i = 0; $i < $l; ++$i) {
-            $c = $this->b91_dectab[$msg{$i}];
+            $c = $b91_dectab[$msg{$i}];
             if (!isset($c))
                 continue;
             if ($v < 0)
