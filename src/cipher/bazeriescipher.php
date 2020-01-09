@@ -1,7 +1,6 @@
 <?php
 
 namespace cipher;
-use \NumberFormatter;
 
 // Bazeries cipher
 // Split message in chunks, reverse each chunk before encoding
