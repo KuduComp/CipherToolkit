@@ -1,6 +1,7 @@
 <?php
 
 namespace cipher;
+use \NumberFormatter;
 
 // Bazeries cipher
 // Split message in chunks, reverse each chunk before encoding
@@ -35,7 +36,7 @@ class bazeriescipher extends cipher {
 			$this->sq2  = $this->shufflealphabet ($this->alphabet, $key2);
 		else {
             $this->key2 = "Unused";
-            $f = new \\NumberFormatter("en", NumberFormatter::SPELLOUT);
+            $f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
             $s = $f->format($n);
             $s = cleaninput($s);
 			$this->sq2  = $this->shufflealphabet ($this->alphabet, $s);
