@@ -19,7 +19,7 @@ class base91code {
     
     function decode($msg) {
         
-        $b91_dectab = array_flip($this->$b91_enctab);
+        $b91_dectab = array_flip($this->b91_enctab);
         $l = strlen($msg);
         $v = -1;
 	$n = 0; $b = 0; $o = "";
