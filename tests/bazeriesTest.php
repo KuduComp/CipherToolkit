@@ -10,17 +10,11 @@ class BazeriesTest extends TestCase
     {
         // Test condicipher
         $pt = "SIMPLESUBSTITUTIONPLUSTRANSPOSITION";
-		$ct = "ACYYUXYMRQKXKCKGCRQIYITNKYXKCYGQGCI";
+        $ct = "ACYYUXYMRQKXKCKGCRQIYITNKYXKCYGQGCI";
         
         $c = new bazeriescipher(UPPER_ALPHABET_REDUCED, "", "", 3752);
 	    $pt = "THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG";
 		$ct = "MTYAVKRHDWISSLNRPXGYSOHVBMTCEVUZFSQ";
-        
-        // Test default with square 1 vertical and square 2 uses spelled out n
-        $res = $c->encode ($pt);
-        $this->assertEquals($ct,$res, "Error encoding bazeriescipher default");
-        $res = $c->decode ($ct);
-        $this->assertEquals($pt,$res, "Error decoding bazeriescipher default"); 
         
         // Test manually set square and n
         $c->setsquares ("AFLQVBGMRWCHNSXDIOTYEKPUZ", "CLEABDFGHIKMNOPQRSTUVWXYZ");
@@ -29,7 +23,14 @@ class BazeriesTest extends TestCase
         $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding bazeriescipher squares set");
         $res = $c->decode ($ct);
-        $this->assertEquals($pt,$res, "Error decoding bazeriescipher squares set");           
+        $this->assertEquals($pt,$res, "Error decoding bazeriescipher squares set");
+        
+        // Test default with square 1 vertical and square 2 uses spelled out n
+        $res = $c->encode ($pt);
+        $this->assertEquals($ct,$res, "Error encoding bazeriescipher default");
+        $res = $c->decode ($ct);
+        $this->assertEquals($pt,$res, "Error decoding bazeriescipher default"); 
+        
     }
 }
 
