@@ -47,7 +47,7 @@ class base91code {
 
     function encode($msg) {
         $l = strlen($msg);
-	    $n = 0;
+	    $n = 0; $b = 0;
         for ($i = 0; $i < $l; ++$i) {
             $b |= ord($msg{$i}) << $n;
             $n += 8;
