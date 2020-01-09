@@ -28,11 +28,11 @@ class bazeriescipher extends cipher {
 		if ($key1 != "")
 			$this->sq1 = $this->shufflealphabet ($this->alphabet, $key1);
 		else
-			$this->sq1 = $this->fillsquare ($this->alphabet, "VERT", "TL");
+			$this->sq1 = $this->fillsquare ($this->alphabet, "VER", "TL");
 		$this->key2 = $key2;
-		if ($key2 != "")
+        if ($key2 != "")
 			$this->sq2  = $this->shufflealphabet ($this->alphabet, $key2);
-		else {
+        else {
             $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
             $s = $f->format($this->n);
             $s = strtoupper ($this->cleaninput($s));
