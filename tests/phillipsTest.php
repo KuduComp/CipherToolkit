@@ -10,7 +10,8 @@ class PhillipsTest extends TestCase
     {
         // Test phillipscipher
         $pt = "THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG";
-		    $ct = "DRNXVMTSIYWBHGWDZPOWZWANYLBGFKPEZCQ";
+		$ct = "DRNXVMTSIYWBHGWDZPOWZWANYLBGFKPEZCQ";
+		
         $c = new phillipscipher(UPPER_ALPHABET_REDUCED, "PATIENCE");
         $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding phillipscipher");
