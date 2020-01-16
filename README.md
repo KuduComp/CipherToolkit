@@ -54,6 +54,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Condi cipher (substitution working on consecutive digrams)
 - Digrafid cipher (digrams with fractionation)
 - Foursquare cipher (replaces digrams)
+- Hill cipher (uses a n x n matrix to convert n-grams)
 - Playfair (replaces digrams)
 - Portax cipher (polygraphic, polyalphabetical)
 - Trisquare cipher (replaces digrams with trigrams)
@@ -76,6 +77,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Cadenus cipher
 - Columnar transposition cipher
 - Double transposition cipher
+- Myszkowski transposition (a variant on columnar transposition)
 - Nihilist transposition (transposition of columns followed by rows)
 - Skytale (rows become columns, very easy)
 - Swagman cipher

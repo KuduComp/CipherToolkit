@@ -11,7 +11,8 @@
 		}
 	],
 	"require": {
-        	"php": ">=7.0.0"
+        	"php": ">=7.0.0",
+			"markbaker/matrix" : ">1.0.0"
     	},
 	"autoload" : {
 		"classmap" : [
