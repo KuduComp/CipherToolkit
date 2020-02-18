@@ -53,7 +53,7 @@ class hillcipher extends cipher {
 		foreach ($keys as $k) {
 			$this->keymat[++$ky] = array();
 			for ($i = 0; $i < $this->sz; $i++) {
-				$this->keymat[$ky][$i] = stripos ($this->alphabet, $k[$i]);
+				$this->keymat[$ky][$i] = $this->strpos2 ($this->alphabet, $k[$i]);
 			}
 		}
 		
@@ -105,7 +105,7 @@ class hillcipher extends cipher {
 			$va = [];
 			// Convert chunk to vector
 			for ($i = 0; $i < strlen($v); $i++)
-				$va[$i] = stripos ($this->alphabet, $v[$i]);
+				$va[$i] = $this->strpos2 ($this->alphabet, $v[$i]);
 			
 			// Multiply vector with matrix
 			$m3 = \Matrix\multiply($this->keymat, $va);
@@ -134,7 +134,7 @@ class hillcipher extends cipher {
 			$va = [];
 			// Convert chunk to vector
 			for ($i = 0; $i < strlen($v); $i++)
-				$va[$i] = stripos ($this->alphabet, $v[$i]);
+				$va[$i] = $this->strpos2 ($this->alphabet, $v[$i]);
 			
 			// Multiply vector with inverse matrix
 			$m3 = \Matrix\multiply($this->keyinv, $va);

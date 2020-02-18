@@ -78,13 +78,5 @@ class condicipher extends cipher{
 
 } // Class condicipher
 
-$c = new condicipher ();
-$c->setkey ("STRANGE", 25);
-
-$pt = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
-$ct = "SJP SKBVX WFUKT LRL HCHDQ PJRD NJP WQAY CTX";
-
-$res = $c->encode ($pt);
-$res = $c->decode ($ct);
 
 ?>

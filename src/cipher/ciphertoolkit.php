@@ -8,8 +8,10 @@ use phpDocumentor\Reflection\Types\Null_;
 const UPPER_ALPHABET         = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const UPPER_ALPHABET_REDUCED = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
 const LOWER_ALPHABET         = "abcdefghijklmnopqrstuvwxyz";
+const LOWER_ALPHABET_REDUCED = "abcdefghiklmnopqrstuvwxyz";
 const NUMBER_ALPHABET        = "0123456789";
 const MIXED_ALPHABET         = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const ROMAN_NUMBERS          = "IVXLDCM";
 const ALPHANUMERIC_ALPHABET  = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const ALPHABET_94            = "!\"#\$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
@@ -123,12 +125,12 @@ abstract class cipher {
 		return $s;
 	}
 	
-	// Helper function to create a reorganize a alphabet with a key
+	// Help function to create a reorganized alphabet using a key
 	public function shufflealphabet ($alphabet, $key) {
 	    return implode("", array_values (array_unique (str_split($key . $alphabet))));
 	}
 	
-	// Help function to position keeping in mind setting of matchcase
+	// Help function to position in string keeping in mind setting of matchcase
 	public function strpos2 ($s, $c) {
 	    if ($this->matchcase) 
 	        return strpos($s,$c);
@@ -164,15 +166,14 @@ abstract class cipher {
 	
 	// Help function to create a square with various options, default is the default Polybius square
 	// returns a string
-	function fillsquare ($text = "ABCDEFGHIKLMNOPQRSTUVWXYZ", $dir = "HOR", $c = "TL", $flip = FALSE) {
+	function fillsquare ($text = UPPER_ALPHABET_REDUCED, $dir = "HOR", $c = "TL", $flip = FALSE) {
 
 	    $size = (int) sqrt(strlen($text));
 	    if ($size ** 2 != strlen($text)) return "Not a square";
 	    $dir = strtoupper ($dir);
 	    $c = strtoupper ($c);
-	    $sq = array();
-	    for ($i = 0; $i < $size; $i++) $sq[$i] = array();
-	    $idx = 0;
+	    
+		$idx = 0;
 	    $fliprow = $flip;
 
 	    switch ($dir) {
@@ -429,20 +430,21 @@ abstract class cipher {
 	        default         : return null;
 	    }
 	    
-	    $tmparr = array();
+	    $tmparr = [];
 	    $len = strlen($s);
 	    for ($i = 0; $i<$len; $i++) {
 	        $tmparr[$i] = $s[$i] . sprintf("%04d",$i);
 	    }
 	    sort ($tmparr);
-	    $a = array();
+	    $a = [];
 	    for ($i = 0; $i<$len; $i++) $a[$i] = array_search ($s[$i] . sprintf("%04d",$i), $tmparr);
 	    return $a;  
 	}
-		
+	
 	public function rowtocolumntransposition ($msgtxt, $nrows) {
 	    
 	    //Simple tranposition: write message in rows and read the columns
+		
 	    //Check input
 	    if ($nrows < 0) return "Number of rows should be greater than zero";
 	    $msg      = $this->makearray($msgtxt);
@@ -450,8 +452,8 @@ abstract class cipher {
 	    if ($nrows > $msglen) return $msgtxt;
 	    if ($msglen == 0) return "Nothing to transpose";
 
-	    //Initialize stuff
-	    $a = array();
+		//Initialize stuff
+	    $a = [];
 	    for ($i = 1; $i <= $nrows; $i++) $a[$i]="";
 		
 	    //Distribute across columns
@@ -478,10 +480,10 @@ abstract class cipher {
 		// Message is written in rows and columns are read in the given order
 		// Function works both on complete and incomplete columns, it just depends on the input
 	    	
-		// check stuff
+		// Check stuff
 		if ($key == null) return "No key square specified, empty";
 		if (gettype($key) != "array") return "No key specified, not an array";
-	    	$ncol = sizeof($key);
+		$ncol = sizeof($key);
 		if ($ncol < 2) return "Cannot decode message there should be at least two columns";
 		
 		$msg      = $this->makearray($msgtxt);
@@ -491,7 +493,7 @@ abstract class cipher {
 		$nlongcol = $msglen % $ncol;        
 		
 		// Write message row after row in array table
-		$table = array();
+		$table = [];
 		$idx = 0;
 		for ($r = 0; $r < $nrow; $r++) {
 		    (($r == ($nrow-1)) && ($nlongcol != 0)) ? $rowlen = $nlongcol : $rowlen = $ncol;
@@ -511,7 +513,8 @@ abstract class cipher {
 		return $s;
 	}
 	public function decodecolumnartransposition ($msgtxt, $key) {
-		// check stuff
+		
+		// Check stuff
 		if ($key == null) return "No key square specified, empty";
 		if (gettype($key) != "array") return "No key specified, not an array";
 	    	$ncol = sizeof($key);
@@ -521,9 +524,10 @@ abstract class cipher {
 		$msglen = sizeof($msg);
 		if ($msglen == 0) return "Nothing to decode";
 		$nrow = ceil ($msglen / $ncol);
-        	$nlongcol = $msglen % $ncol;
+        $nlongcol = $msglen % $ncol;
+		
 		// Write message column after column in array table
-		$table = array();
+		$table = [];
 		$idx = 0;
 		for ($c = 0; $c < $ncol; $c++) {
 			$col = array_search($c, $key);
@@ -541,10 +545,119 @@ abstract class cipher {
 		
 		return $s;
 	}
+	
+	public function encodemyszkowskitransposition ($msgtxt = "", $key) {
+
+		// Kind of columnar transposition, when columns share the same key
+		// they are printed together before proceeding with the next row
+		
+		// Check stuff
+		if ($key == null) return "No key specified, empty";
+		if (gettype($key) != "string") return "No key specified, not an string";
+		$msg      = $this->makearray($msgtxt);
+		$msglen   = sizeof($msg);
+		if ($msglen == 0) return "Nothing to encode";
+		
+		$n1 = 0;  
+		$na = []; 
+		$na[$n1] = 1;
+		$colkey = $this->createtranspositionkey ($key);
+
+		// Create the aggregated column map
+		for ($i = 0; $i < (sizeof($colkey) -1); $i++) {
+			if ($key[array_search ($i, $colkey)] == $key[array_search($i+1,$colkey)])
+				$na[$n1]++;
+			else {
+				$n1++; $na[$n1] = 1;
+			}
+		}
+
+		$s = "";
+		$nrow = (integer) ceil($msglen / sizeof($colkey));
+		$colcnt = 0;
+		$nlongcol = $msglen % sizeof($colkey);
+
+		// Put msg in table
+		for ($i = 0; $i < $msglen; $i++)
+			$table[intdiv ($i, sizeof($colkey))][ $i % sizeof($colkey)] = $msg[$i];
+
+		// for each aggregated column
+		for ($i = 0; $i < sizeof($na); $i++) {
+
+			// Print all rows for the aggregated column
+			for ($row = 0; $row < $nrow; $row++) {
+
+				// Print each column in the aggregated column
+				for ($c = 0; $c < $na[$i]; $c++) {
+					$col = array_search($colcnt + $c, $colkey);
+					if (($col >= $nlongcol) && ($nlongcol != 0) && ($row == $nrow-1)) continue;
+					$s .= $table [$row][$col];
+				}
+			}
+			$colcnt += $na[$i];
+		}
+		return $s;
+	}
+
+	public function decodemyszkowskitransposition ($msgtxt = "", $key) {
+
+		// Check stuff
+		if ($key == null) return "No key specified, empty";
+		if (gettype($key) != "string") return "No key specified, not an string";
+		$msg      = $this->makearray($msgtxt);
+		$msglen   = sizeof($msg);
+		if ($msglen == 0) return "Nothing to encode";
+
+		$n1 = 0;  
+		$na = [];
+		$na[$n1] = 1;
+		$colkey = $this->createtranspositionkey ($key);
+
+		// Create the aggregated column map
+		for ($i = 0; $i < (sizeof($colkey) -1); $i++) {
+			if ($key[array_search ($i, $colkey)] == $key[array_search($i+1,$colkey)])
+				$na[$n1]++;
+			else {
+				$n1++; $na[$n1] = 1;
+			}
+		}
+
+		$s = "";
+		$idx = 0;
+		$colcnt = 0;
+		$nrow = (integer) ceil($msglen / sizeof($colkey));
+		$nlongcol = $msglen % sizeof($colkey);
+
+		// For each aggregated column
+		for ($i = 0; $i < sizeof($na); $i++) {
+
+			// Print all rows for the aggregated column
+			for ($row = 0; $row < $nrow; $row++) {
+
+				// Print each column in the aggregated column
+				for ($c = 0; $c < $na[$i]; $c++) {
+					$col = array_search ($c + $colcnt, $colkey);
+					if (($col > $nlongcol-1) && ($nlongcol != 0) && ($row == $nrow - 1)) continue;
+					$table[$row][$col] = $msg[$idx++];
+				}
+			}
+			$colcnt += $na[$i];
+		}
+
+		$s = "";
+		for ($row = 0; $row < $nrow; $row++) {
+			(($row == $nrow - 1)  && ($nlongcol != 0)) ? $collen = $nlongcol : $collen = sizeof($colkey);
+			for ($col = 0; $col < $collen; $col++)  {
+					$s .= $table[$row][$col];
+				}
+			}
+		return $s;
+	}
+	
 	public function encodeswagmantransposition ($msgtxt = "", $keysquare = null) {
 		// Key is an array of arrays with indexes starting at 1, 2, 3, ...
 		
-		// check stuff
+		// Check stuff
 		if ($keysquare == null) return "No key square specified, empty";
 		if (gettype($keysquare) != "array") return "No key square specified, not an array";
 		$keysquaresize = sizeof($keysquare);
@@ -553,9 +666,11 @@ abstract class cipher {
 		$msg      = $this->makearray($msgtxt);
 		$msglen   = sizeof($msg);
 		if ($msglen == 0) return "Nothing to encode";
+		
 		//Append message with random characters if needed
 		for ($i = 0; $i < ($msglen % $keysquaresize); $i++) $msg .= "X";
 		$rowlen = (integer) ceil($msglen / $keysquaresize);
+		
 		// Organize message in keysize rows
 		$s = array();
 		for ($c = 0; $c < $keysquaresize; $c++) {
@@ -563,10 +678,10 @@ abstract class cipher {
 			for ($r = 0; $r < $rowlen; $r++)
 				$s[$c+1] .= $msg[$c * $rowlen + $r];
 		}
+		
 		// Create mapping for each column
-		$map = array();
+		$map = [];
 		for ($c = 0; $c < $this->keysquaresize; $c++) {
-			$map[$c] = array();
 			for ($r = 0; $r < $keysquaresize; $r++)
 				$map[$c][$r+1] = $keysquare[$r+1][$c];
 		}
@@ -579,7 +694,9 @@ abstract class cipher {
 		}
 		return $s2;
 	}
+	
 	public function decodeswagmantransposition ($msgtxt = "", $keysquare = null) {
+		
 		// check stuff
 		if ($keysquare == null) return "No key square specified, empty";
 		if (gettype($keysquare) != "array") return "No key swuare specified, not an array";
@@ -591,19 +708,18 @@ abstract class cipher {
 		$msglen   = sizeof($msg);
 		if ($msglen == 0) return "Nothing to encode";
 		if (($msglen % $keysquaresize) != 0) return "Incorrect message length";
+		
 		// Create mapping for each column
-		$map = array();
+		$map = [];
 		for ($c = 0; $c < $keysquaresize; $c++) {
-			$map[$c] = array();
 			for ($r = 0; $r < $keysquaresize; $r++)
 				$map[$c][$r+1] = $keysquare[$r+1][$c];
 		}
-		// Init table
-		$s = array();
-		for ($r = 0; $r < $keysquaresize; $r++) $s[$r+1] = array();
+		
 		// Print message in columns
 		$rowlen = (integer) ceil($msglen / $keysquaresize);
 		$idx = 0;
+		$s = [];
 		for ($c = 0; $c < $rowlen; $c++) {
 			$keycol = ($c % $keysquaresize);
 			for ($r = 0; $r < $keysquaresize; $r++)
@@ -619,6 +735,7 @@ abstract class cipher {
 	}
 	
 	function encodenihilisttransposition ($msgtxt = "", $key, $readrow = TRUE) {
+		
 		// NIHILIST TRANSPOSITION (10x10 maximum)
 		// The same key is applied to rows and columns.
 		// Enter the plaintext in square 1 by rows as shown. Transpose columns by key order
@@ -627,7 +744,7 @@ abstract class cipher {
 		
 		// Key should be an array with index starting at 0, 1, 2, ....
 		
-		// check stuff
+		// Check stuff
 		if ($key == null) return "No key specified, empty";
 		if (gettype($key) != "array") return "No key specified, not an array";
 		$msg      = $this->makearray($msgtxt);
@@ -635,35 +752,35 @@ abstract class cipher {
 		if ($msglen == 0) return "Nothing to encode";
 		$size = sizeof($key);
 		if ($msglen != $size**2) return "Message not a sqyuare";
+		
 		// Fill square
-		$table = array();
 		for ($r = 0; $r < $size; $r++) {
-			$table[$r] = array ();
 			for ($c = 0; $c < $size; $c++) $table[$r][$c] = $msg[$r * $size + $c];
 		}
+		
 		// Transpose columns
-		$table2 = array();
 		for ($r = 0; $r < $size; $r++) {
-			$table2[$r] = array ();
 			for ($c = 0; $c < $size; $c++) $table2[$r][$key[$c]] = $table[$r][$c];
 		}
+		
 		// Transpose rows
-		$table3 = array();
-		for ($r = 0; $r < $size; $r++) $table3[$r] = array();
 		for ($r = 0; $r < $size; $r++) {
 			for ($c = 0; $c < $size; $c++) $table3[$key[$r]][$c] = $table2[$r][$c];
 		}
+		
 		// Print row after row or column after column
 		$s = "";
 		for ($r = 0; $r < $size; $r++)
 			for ($c = 0; $c < $size; $c++) 
 			    ($readrow) ? $s .= $table3[$r][$c] :  $s .= $table3[$c][$r];
+			
 		// Return result
 		return $s;
 	}
 	
 	function decodenihilisttransposition ($msgtxt, $key, $readrow = TRUE) {
-		// check stuff
+		
+		// Check stuff
 		if ($key == null) return "No key specified, empty";
 		if (gettype($key) != "array") return "No key specified, not an array";
 		$size = sizeof($key);
@@ -673,23 +790,18 @@ abstract class cipher {
 		if ($msglen != $size**2) return "Message not a sqyuare";
 		
 		// Fill square
-		$table = array();
 		$size = sizeof($key);
-		for ($r = 0; $r < $size; $r++) $table[$r] = array();
 		for ($r = 0; $r < $size; $r++)
 			for ($c = 0; $c < $size; $c++) 
 				($readrow) ? $table[$r][$c] = $msg[$r * $size + $c] : $table[$c][$r] = $msg[$r * $size + $c];
 		
 		// Transpose rows
-		$table2 = array();
-		for ($r = 0; $r < $size; $r++) $table2[$r] = array();
 		for ($r = 0; $r < $size; $r++) {
 			$row = array_search ($r, $key);
 			for ($c = 0; $c < $size; $c++) $table2[$row][$c] = $table[$r][$c];
 		}
+		
 		// Transpose columns
-		$table3 = array();
-		for ($r = 0; $r < $size; $r++) $table3[$r] = array();
 		for ($r = 0; $r < $size; $r++)
 			for ($c = 0; $c < $size; $c++) {
 				$col = array_search ($c, $key);
@@ -705,6 +817,114 @@ abstract class cipher {
 		// Return result
 		return $s;
 	}
+	
+	public function encodeburrowswheelertransposition ($msg, $eof = "|") {
+		
+		$msg = $msg . $eof;
+		$sz = strlen ($msg);
+		$table[0] = $msg;
+		for ($i = 1; $i < $sz; $i++)
+			$table [$i] = substr($msg, $i) . substr($msg, 0, $i);
+		sort ($table);
+  
+		$s = "";
+		for ($i = 0; $i < strlen ($msg); $i++) $s .= $table[$i][$sz-1];
+		return $s;
+	}
+	
+	public function decodeburrowswheelertransposition ($msg, $eof = "|") {
+		
+		$sz = strlen ($msg);
+
+		// Calculate transfomatievector
+		$firstcol = str_split($msg);
+		sort ($firstcol);
+		$firstcol = implode ("", $firstcol);
+
+		$keeptrack = [];
+		$transvec  = [];
+		for ($i = 0; $i < $sz; $i++) {
+			(array_key_exists ($msg[$i], $keeptrack)) ? $start = $keeptrack[$msg[$i]]+1 : $start = 0;
+			$transvec[$i] = strpos ($firstcol, $msg[$i],$start);
+			$keeptrack[$msg[$i]] = $transvec[$i];
+		}
+	 
+		// Reverse start at EOF pos
+		$pos = strpos ($msg, $eof);
+		$end = $pos;
+	   
+		$s = "";
+		do {
+			$s   = $msg[$pos] . $s;
+			$pos = $transvec[$pos];
+		} while ($pos != $end);
+
+		return substr($s, 0, -1);
+	}
+	
+	public function encoderedefencetransposition ($msg, $nrail = 3, $offset = 0, $railseq = null) {
+
+		// Init rows a.k.a as rails
+		for ($i=0; $i < $nrail; $i++) $rails[$i] = "";
+
+		// Calculate right offset
+		$down = ($offset < $nrail - 1);
+		($down) ? $rail = $offset : $rail = ($nrail - 1)*2 - $offset;
+
+		// Append each char to the next row   
+		for ($i = 0; $i < strlen($msg); $i++) {
+			$rails[$rail] .= $msg[$i];
+			if ($down) {
+				$rail++;
+				if ($rail == ($nrail-1)) $down = !$down;
+			} else {
+				$rail--;
+				if ($rail == 0) $down = !$down;
+			}
+		}
+
+		// Print all the rows
+		$s2 = "";                              
+		for ($i=0; $i < $nrail; $i++) $s2 .= $rails[$railseq[$i]];
+		return $s2;
+    }
+
+    public function decoderedefencetransposition ($msg, $nrail = 3, $offset, $railseq = null) {
+
+        // Create a table with nulls
+		for ($r = 0; $r < $nrail; $r++)
+			for ($c = 0; $c < strlen($msg); $c++)
+				$rails[$r][$c] = null;
+				
+		// Calculate right offset
+        $down = ($offset < $nrail - 1);
+        ($down) ? $rail = $offset : $rail = ($nrail - 1)*2 - $offset;
+
+        // Plot the positions that should contain the message
+		for ($i = 0; $i < strlen($msg); $i++) {
+			$rails[$rail][$i] = 'XX';
+			if ($down) {
+				$rail++;
+				if ($rail == ($nrail-1)) $down = !$down;
+			} else {
+				$rail--;
+				if ($rail == 0) $down = !$down;
+			}
+		}
+
+		// Fill the message
+		$idx = 0;
+		for ($r = 0; $r < $nrail; $r++)
+			for ($c = 0; $c < strlen($msg); $c++)
+				if ($rails[$railseq[$r]][$c] == 'XX')  $rails[$railseq[$r]][$c] = $msg[$idx++];
+
+		// Read col after col
+		$s = "";
+		for ($c = 0; $c < strlen($msg); $c++)
+			for ($r = 0; $r < $nrail; $r++)
+				if ($rails[$r][$c] != null)  $s .= $rails[$r][$c];
+		return $s;
+    }
 	
 	// Default functions must always be implemented
 	abstract function encode ($text);	
