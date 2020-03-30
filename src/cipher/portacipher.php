@@ -16,7 +16,7 @@ class portacipher extends cipher {
 	protected $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	protected $key = "";
 	protected $tableau = "";
-	
+
 	public function __construct ($alphabet, $key) {
 		parent::__construct ($alphabet);
 		$this->setkey($key);
@@ -33,7 +33,7 @@ class portacipher extends cipher {
 	public function settableau () {
 
 		// Set numeric key
-		$this->tableau = array();
+		$this->tableau = [];
 
 		// Generate the tableau
 		$tab = substr($this->alphabet, strlen($this->alphabet) / 2);

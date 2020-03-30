@@ -1,41 +1,41 @@
-<?php 
+<?php
 
 namespace cipher;
 
 // Polyalphabetic ciphers use a tableau of alphabets. The best known is the Vigenere cipher.
 class polyalphabeticcipher extends cipher {
-    
+
     protected $keyiterator;
     protected $iterkeylen;
     protected $keycipher;
     protected $keyplain;
     protected $plainalphabet = "";
     protected $cipheralphabet = "";
-    protected $tableau = array();
+    protected $tableau = [];
     protected $keycol="";
-    
+
     public function __construct ($alphabet = UPPER_ALPHABET, $keyiterator="", $keycipher="", $keyplain="", $keycol="") {
-        
+
         parent::__construct ($alphabet);
         $this->settableau ($keyiterator, $keycipher, $keyplain, $keycol);
     }
-    
+
     public function settableau ($keyiterator="", $keycipher="", $keyplain="", $keycol="") {
-        
+
         $this->keyiterator = $keyiterator;
         $this->iterkeylen  = strlen ($keyiterator);
         $this->keycipher   = $keycipher;
         $this->keyplain    = $keyplain;
         $this->keycol      = $keycol;
-        
+
         // Create plainalphabet
         $this->plainalphabet = $this->shufflealphabet ($keyplain, $this->alphabet);
-        
+
         // Create cipheralphabet
         $this->cipheralphabet = $this->shufflealphabet ($keycipher, $this->alphabet);
-        
+
         // Create a tableau - each row contains a shifted alphabet
-        $this->tableau = array();
+        $this->tableau = [];
         if ($keycol == "")
             $pos = 0;
             else {
@@ -48,9 +48,9 @@ class polyalphabeticcipher extends cipher {
                 $s = substr($s,1) . $s[0];
             }
     }
-    
+
     public function gettableau () { return $this->tableau; }
-    
+
     public function encode ($msg) {
         
         // For each letter
@@ -66,9 +66,9 @@ class polyalphabeticcipher extends cipher {
         }
         return $s;
     }
-    
+
     public function decode ($msg) {
-        
+
         // For each letter
         // Row uses index from iteratorkey
         // Col is position in tableau
@@ -82,7 +82,7 @@ class polyalphabeticcipher extends cipher {
         }
         return $s;
     }
-    
+
 }  // End of class
 
 ?>

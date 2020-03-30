@@ -4,13 +4,13 @@ namespace cipher;
 
 class alberticipher extends cipher {
 
-    protected $cipherdisc; 
+    protected $cipherdisc;
 	protected $nullchars;
-	
+
     public function __construct ($alphabet, $cipherdisc, $nullchars = "") {
-        parent::__construct ($alphabet);
-        $this->cipherdisc = $cipherdisc;
-		$this->nullchars  = $nullchars;
+      parent::__construct ($alphabet);
+      $this->cipherdisc = $cipherdisc;
+	    $this->nullchars  = $nullchars;
     }
 
     public function setcipherdisc ($cipherdisc) { $this->cipherdisc = $cipherdisc; }
@@ -22,15 +22,15 @@ class alberticipher extends cipher {
 	// Method 1 as documented on wikipedia and by Albert in Chapter XIV
 	// See https://en.wikipedia.org/wiki/Alberti_cipher_disk
 	// and https://en.wikipedia.org/wiki/Alberti_cipher
-	
+
 	// A character from the inner circle (cipher) is used as the index.
 	// The disc is rotated by adding an unencoded character (from the outer
 	// circle to the message. The first char in the message inits the disc.
 	//
-	// If one want to rotates the disc a character from the outer circle is added 
+	// If one want to rotates the disc a character from the outer circle is added
 	// to the encoded message. When decoding a character from the outer circle
 	// signals the rotation.
-	
+
 	function encodemethod1 ($msg, $index) {
 
 		// Move $index under $start
@@ -83,7 +83,7 @@ class alberticipher extends cipher {
 		}
 		return $s;
 	}
-	
+
 	// Method 2 as documented on wikipedia and by Albert in Chapter XV
 	// See https://en.wikipedia.org/wiki/Alberti_cipher_disk
 	// and https://en.wikipedia.org/wiki/Alberti_cipher
@@ -91,10 +91,10 @@ class alberticipher extends cipher {
 	// An character from the outer disc is used as an index. The inner disc
 	// is rotated so the index matches the inner circle. The first char in the
 	// message inits the disc.
-	
+
 	// When one wants to rotate the disc one inserts a character that matches
 	// a null character. The inner disc is then aligned with that character.
-	
+
 	function encodemethod2 ($msg, $index) {
 
 		// First character in message positions the index of the cipherdisc
@@ -152,7 +152,7 @@ class alberticipher extends cipher {
 
 	// Method 3 as implmented by dcode.fr
 	// Simply shift the cipherdisc after each period with incr positions clockwise
-	
+
 	function encodemethod3 ($msg, $index, $period, $incr) {
 
 		// Set alphabet with initial shift (or offset)
@@ -171,7 +171,7 @@ class alberticipher extends cipher {
 	}
 
 	function decodemethod3 ($msg, $index, $period, $incr) {
-	 
+
 		// Set alphabet with initial shift (or offset)
 		$cipherdisc = substr ($this->cipherdisc, $index) . substr ($this->cipherdisc, 0, $index);
 
@@ -187,7 +187,7 @@ class alberticipher extends cipher {
 		return $s;
 	}
 
-    function encode ($msg, $method = 1, $index = 0, $period = 0, $incr = 0) {
+  function encode ($msg, $method = 1, $index = 0, $period = 0, $incr = 0) {
 		switch ($method) {
 			case 1 :
 			case "1" :
@@ -200,10 +200,10 @@ class alberticipher extends cipher {
 			case 3 :
 			case "3" :
 				return $this->encodemethod3 ($msg, $index, $period, $incr);
-			default: 
+			default:
 				return "Invalid method";
 		}
-    }
+  }
 
 	function decode ($msg, $method = 1, $index = 0, $period = 0, $incr = 0) {
 		switch ($method) {
@@ -216,10 +216,10 @@ class alberticipher extends cipher {
 			case 3 :
 			case "3" :
 				return $this->decodemethod3 ($msg, $index, $period, $incr);
-			default: 
+			default:
 				return "Invalid method";
 		}
-    }
+  }
 
 }  // class alberticipher
 

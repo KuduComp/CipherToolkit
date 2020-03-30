@@ -24,14 +24,14 @@ class hillcipher extends cipher {
 		$this->setkeys ($keys);
 	}
 
-	function modinvers ($a, $m) {   
-        $a = $a % $m; 
-        for ($x=1; $x < $m; $x++) 
-           if (($a*$x) % $m == 1) 
-              return $x;
-        return 0;
-    }
-	
+	function modinvers ($a, $m) {
+    $a = $a % $m;
+    for ($x=1; $x < $m; $x++)
+    	if (($a*$x) % $m == 1)
+      	return $x;
+    return 0;
+  }
+
 	function coprime ($n1, $n2) {
 		while ($n1 != 0 && $n2 != 0) {
 			if ($n1 > $n2)
@@ -42,35 +42,35 @@ class hillcipher extends cipher {
 		$gcd = max ($n1, $n2);
 		return $gcd == 1;
 	}
-	
+
 	function setkeys ($keys) {
-		
+
 		$this->keymat = array();
 		$this->sz = sizeof($keys);
 		$ky = -1;
-		$mod = strlen($this->alphabet); 
-		
+		$mod = strlen($this->alphabet);
+
 		foreach ($keys as $k) {
 			$this->keymat[++$ky] = array();
 			for ($i = 0; $i < $this->sz; $i++) {
 				$this->keymat[$ky][$i] = $this->strpos2 ($this->alphabet, $k[$i]);
 			}
 		}
-		
+
 		// Calculate inverse matrix
 		// See: https://crypto.interactive-maths.com/hill-cipher.html#3x3decypt
-		// Step 1 find the determinant 
+		// Step 1 find the determinant
 		$det = \Matrix\determinant($this->keymat);
 		while ($det < 0) $det += $mod;
 		$det = $det % $mod;
-		
-		// In order to be a usable key, the matrix must have a non-zero determinant 
+
+		// In order to be a usable key, the matrix must have a non-zero determinant
 		// which is coprime to the length of the alphabet.
 		$this->validinv = ($det != 0) && $this->coprime($det,$mod);
-		
+
 		// find the multiplicative inverse of the determinant
 		$multinvdet = $this->modinvers ($det, $mod);
-		
+
 		// Step 2 find adjugate (or adjoint)
 		// % 26 for each of the matrix elements
 		$adj = \Matrix\adjoint ($this->keymat);
@@ -80,7 +80,7 @@ class hillcipher extends cipher {
 				while ($a[$r][$c] < 0) $a[$r][$c] += $mod;
 				$a[$r][$c] = $a[$r][$c] % $mod;
 			}
-		
+
 		// Step 3 multiply $adj with $multinvdet
 		// % 26 for each of the matrix elements
 		for ($r = 0; $r < $this->sz; $r++)
@@ -90,7 +90,7 @@ class hillcipher extends cipher {
 				$this->keyinv[$r][$c] = $a[$r][$c] % $mod;
 			}
 	}
-   
+
 	function getkeys () { return $this->keys; }
 
 	function encode ($msg) {
@@ -106,10 +106,10 @@ class hillcipher extends cipher {
 			// Convert chunk to vector
 			for ($i = 0; $i < strlen($v); $i++)
 				$va[$i] = $this->strpos2 ($this->alphabet, $v[$i]);
-			
+
 			// Multiply vector with matrix
 			$m3 = \Matrix\multiply($this->keymat, $va);
-			
+
 			// Convert result vector backup to characters
 			for ($i = 0; $i < $this->sz; $i++)
 				$s .= $this->alphabet[$m3->getValue ($i+1, 1) % strlen($this->alphabet)];
@@ -119,13 +119,13 @@ class hillcipher extends cipher {
 
 
 	function decode ($msg) {
-		
+
 		if (!$this->validinv) return "Cannot decode message, unusable key";
-		
+
 		$m1 = new \Matrix\Matrix ($this->keymat);
 		$m1 = \Matrix\inverse($m1);
 		$s = "";
-		
+
 		while ($msg != "") {
 
 			// Get chunk
@@ -135,10 +135,10 @@ class hillcipher extends cipher {
 			// Convert chunk to vector
 			for ($i = 0; $i < strlen($v); $i++)
 				$va[$i] = $this->strpos2 ($this->alphabet, $v[$i]);
-			
+
 			// Multiply vector with inverse matrix
 			$m3 = \Matrix\multiply($this->keyinv, $va);
-			
+
 			// Convert result vector backup to characters
 			for ($i = 0; $i < $this->sz; $i++)
 				$s .= $this->alphabet[$m3->getValue ($i+1, 1) % strlen($this->alphabet)];
