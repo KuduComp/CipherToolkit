@@ -1,27 +1,27 @@
-<?php 
+<?php
 
 namespace cipher;
 
 class multisubstitutioncipher extends cipher {
-    
+
     protected $codelen = 0;          // If codelen = 0 codes varies (e.g. morse) and chars should be separated with a known code
                                      // If codelen > 0 separators are optional
     protected $codetable = array();
-    
+
     public function __Construct ($codelen, $validcodes, $codetable) {
         $this->codelen = $codelen;
         $this->codetable = $codetable;
         $s="";
-        foreach ($this->codetable as $m) $s .= $m;
+        foreach ($this->codetable as $key => $m) $s .= $key;
         parent::__construct($s, $validcodes);
     }
-    
+
     public function encode ($msg) {
        return $this->arraysubstitution ($msg, $this->codetable);
     }
-    
+
     public function decode ($msg) {
-        
+
         // Decode
         $msgarr = array();
         $i = 0;
@@ -50,11 +50,11 @@ class multisubstitutioncipher extends cipher {
                 $i++;
             }
         }
-		
+
 		// Create reverse codetable
 		return $this->arraysubstitution ($msgarr, array_flip($this->codetable));
     }
-    
+
 } // multisubstitutioncipher
 
 ?>

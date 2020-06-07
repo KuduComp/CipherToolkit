@@ -17,7 +17,7 @@ class BaseconvertorTest extends TestCase
 
         $c->setcharacters ("ABCDEFGHIJ");
         $pt = "BCDEFGFEDC BCDE BCBCCB";
-		    $ct = "4995f938 4d2 1d985";
+	    $ct = "4995f938 4d2 1d985";
 
         $res = $c->encode ($pt, 10, 16);
         $this->assertEquals($ct, $res, "Error encoding baseconvertor with other characters");
