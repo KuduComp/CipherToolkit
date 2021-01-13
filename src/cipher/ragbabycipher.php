@@ -12,14 +12,12 @@ class ragbabycipher extends cipher {
 	protected $alphabet = "ABCDEFHIKLMNOPQRSTUVWYZ";
 	protected $key = "";
 	protected $cipher = "";
-	protected $initoffs = 25;
 
-	public function __construct ($alphabet, $key, $initoffs) {
+	public function __construct ($alphabet, $key) {
 		parent::__construct ($alphabet);
-		$this->initoffs = $initoffs;
 		$this->setkey ($key);
 	}
-	
+
 	public function setkey ($key) {
 
 		// Set numeric key
@@ -28,7 +26,7 @@ class ragbabycipher extends cipher {
 		// Set substitution alphabet
 		$this->cipher = implode ("", array_unique(str_split($key . $this->alphabet)));
 	}
-	
+
 	public function getkey () { return $this->key; }
 
 	public function encode ($msg) {
@@ -67,7 +65,7 @@ class ragbabycipher extends cipher {
 				$s .= $this->cipher[ (strlen($this->cipher) + $pos - $offset) % strlen($this->cipher)];
 				$offset++;
 			}
-		}	
+		}
 		return $s;
 	}
 

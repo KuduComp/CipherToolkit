@@ -1,41 +1,41 @@
-<?php 
+<?php
 
 namespace cipher;
 
 // Polyalphabetic ciphers use a tableau of alphabets. The best known is the Vigenere cipher.
 class polyalphabeticcipher extends cipher {
-    
+
     protected $keyiterator;
     protected $iterkeylen;
     protected $keycipher;
     protected $keyplain;
     protected $plainalphabet = "";
     protected $cipheralphabet = "";
-    protected $tableau = array();
+    protected $tableau = [];
     protected $keycol="";
-    
+
     public function __construct ($alphabet = UPPER_ALPHABET, $keyiterator="", $keycipher="", $keyplain="", $keycol="") {
-        
+
         parent::__construct ($alphabet);
         $this->settableau ($keyiterator, $keycipher, $keyplain, $keycol);
     }
-    
+
     public function settableau ($keyiterator="", $keycipher="", $keyplain="", $keycol="") {
-        
+
         $this->keyiterator = $keyiterator;
         $this->iterkeylen  = strlen ($keyiterator);
         $this->keycipher   = $keycipher;
         $this->keyplain    = $keyplain;
         $this->keycol      = $keycol;
-        
+
         // Create plainalphabet
         $this->plainalphabet = $this->shufflealphabet ($keyplain, $this->alphabet);
-        
+
         // Create cipheralphabet
         $this->cipheralphabet = $this->shufflealphabet ($keycipher, $this->alphabet);
-        
+
         // Create a tableau - each row contains a shifted alphabet
-        $this->tableau = array();
+        $this->tableau = [];
         if ($keycol == "")
             $pos = 0;
             else {
@@ -48,41 +48,46 @@ class polyalphabeticcipher extends cipher {
                 $s = substr($s,1) . $s[0];
             }
     }
-    
+
     public function gettableau () { return $this->tableau; }
-    
+
     public function encode ($msg) {
-        
+
         // For each letter
         // Row uses index from iteratorkey
         // Col is position in plainalphabet
+
         $s = "";
+        $iterrow = 0;
         for ($i = 0; $i < strlen($msg); $i++) {
             $pos = $this->strpos2($this->plainalphabet, $msg[$i]);
             if ($pos !== FALSE) {
-                $row =($i % $this->iterkeylen);
+                $row =($iterrow % $this->iterkeylen);
+                $iterrow++;
                 $s .= $this->tableau[$this->keyiterator[$row]][$pos];
             }
         }
         return $s;
     }
-    
+
     public function decode ($msg) {
-        
+
         // For each letter
         // Row uses index from iteratorkey
         // Col is position in tableau
         $s = "";
+        $iterrow = 0;
         for ($i = 0; $i < strlen($msg); $i++) {
-            $row =($i % $this->iterkeylen);
+            $row =($iterrow % $this->iterkeylen);
             $pos = $this->strpos2($this->tableau[$this->keyiterator[$row]], $msg[$i]);
             if ($pos !== FALSE) {
                 $s .= $this->plainalphabet[$pos];
+                $iterrow++;
             }
         }
         return $s;
     }
-    
+
 }  // End of class
 
 ?>

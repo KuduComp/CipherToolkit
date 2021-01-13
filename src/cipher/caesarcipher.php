@@ -4,18 +4,21 @@ namespace cipher;
 
 // Classic caesar cipher, default using standard alphabet and ROT13
 class caesarcipher extends cipher {
-	
-    public function __construct ($a = UPPER_ALPHABET) {
+
+	protected $rot = 13;
+
+    public function __construct ($a = UPPER_ALPHABET, $rot = 13) {
 		parent::__Construct ($a);
+		$this->rot = ($rot % strlen($this->alphabet));
 	}
-	
-	public function encode ($text, $rot=13) {
-		$newalphabet = substr($this->alphabet, $rot) . substr($this->alphabet,0, $rot);
+
+	public function encode ($text) {
+		$newalphabet = substr($this->alphabet, $this->rot) . substr($this->alphabet,0, $this->rot);
 		return $this->simplesubstitution ($text, $newalphabet);
 	}
-	
-	public function decode ($text, $rot=13) {
-		$newalphabet = substr($this->alphabet, strlen($this->alphabet) - $rot, $rot) . substr($this->alphabet, 0, strlen($this->alphabet) - $rot);
+
+	public function decode ($text) {
+		$newalphabet = substr($this->alphabet, strlen($this->alphabet) - $this->rot, $this->rot) . substr($this->alphabet, 0, strlen($this->alphabet) - $this->rot);
 		return $this->simplesubstitution ($text, $newalphabet);
 	}
 

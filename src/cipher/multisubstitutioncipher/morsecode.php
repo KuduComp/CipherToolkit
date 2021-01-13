@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 namespace cipher\multisubstitutioncipher;
 
 class morsecode extends \cipher\multisubstitutioncipher {
-    
+
     protected $morsecodelen = 0;
     protected $morsevalidcodes = ".-";
     protected $morsecode = array (
@@ -20,22 +20,22 @@ class morsecode extends \cipher\multisubstitutioncipher {
         '9' => '----.',
         '.' => '.-.-.-', ',' => '--..--', '?' => '..--..',
         '!' => '-.-.--', '-' => '-....-', '/'  => '-..-.',
-        ':' => '---...', "'" => '.----.', 
+        ':' => '---...', "'" => '.----.',
         ')' => '-.--.-', ';'  => '-.-.-', '('  => '-.--.',
         '=' => '-....-', '@' => '.--.-.', '&'  => '.-...'
     );
-    
+
     public function __Construct() {
         parent::__Construct ($this->morsecodelen, $this->morsevalidcodes, $this->morsecode);
-        $this->setsep('/');
+        $this->setsep(' ');
     }
-    
+
     public function encode ($msg) {
 		// Morsecode should always have a separator
-		if ($this->sep == "") $this->sep = "/";
+		if ($this->sep == "") $this->sep = " ";
         return $this->arraysubstitution ($msg, $this->morsecode);
     }
-    
+
 } // End of morsecode
 
 ?>

@@ -33,9 +33,12 @@ Abstract class containing common functions, functions encode and decode should b
 - Ragbaby cipher (more advanced substitution taking into account position)
 - Vatsyayana or kamasutra cipher (13 paired letters)
 
-###### Codes (not really ciphers)
+###### Codes or alphabets (not really ciphers)
 - Base91 code (similar to Base64 or uuencode)
 - Bibi-binary numbers
+- Geocaching base31 code (used by geocaching.com translates integers into gc codes
+- Goldbug alphabet (as used by Edgar Allen Poe)
+- Graycode (alternative binary coding of integers)
 - Kenny code (as if Kenny from Southpark is talking)
 - Morse code
 - Shadok numbers (funny transcription of numbers based on a French cartoon)
@@ -51,6 +54,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Straddling checkerboard (with a light version of fractionation)
 
 ###### Polygraphic substitution (substitutes more than one character at a time)
+- Alberti cipher disc (uses two circle discs, 3 different methods implemented)
 - Condi cipher (substitution working on consecutive digrams)
 - Digrafid cipher (digrams with fractionation)
 - Foursquare cipher (replaces digrams)
@@ -63,10 +67,12 @@ Abstract class containing common functions, functions encode and decode should b
 - Autokey cipher
 - Beaufort cipher
 - Chaocipher (a cipher with dynamically changing alphabets)
+- Gromark cipher
 - Gronsfield cipher
 - Jefferson wheel cipher
 - Keyed vigenere cipher
 - Quagmire I, II, III and IV
+- Periodic gromark cipher
 - Phillips cipher (uses 8 Polybius squares)
 - Pollux cipher (morse code encoded as digits/letters)
 - Porta cipher (reciprocal cipher using 13 alphabets)
@@ -74,11 +80,14 @@ Abstract class containing common functions, functions encode and decode should b
 - Zygazyfa (a cipher with dynamically changing alphabets) 
 
 ###### Transposition ciphers
+- Burrows Wheeler transposition
 - Cadenus cipher
 - Columnar transposition cipher
 - Double transposition cipher
 - Myszkowski transposition (a variant on columnar transposition)
 - Nihilist transposition (transposition of columns followed by rows)
+- Railfence cipher
+- Redefence cipher
 - Skytale (rows become columns, very easy)
 - Swagman cipher
 

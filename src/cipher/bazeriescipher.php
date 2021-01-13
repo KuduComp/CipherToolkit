@@ -30,13 +30,18 @@ class bazeriescipher extends cipher {
 		else
 			$this->sq1 = $this->fillsquare ($this->alphabet, "VER", "TL");
 		$this->key2 = $key2;
-        if ($key2 != "")
+    if ($key2 != "")
 			$this->sq2  = $this->shufflealphabet ($this->alphabet, $key2);
-        else {
-            $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
-            $s = $f->format($this->n);
-            $s = strtoupper ($this->cleaninput($s));
-            $this->sq2  = $this->shufflealphabet ($this->alphabet, $s);
+    else {
+      $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
+      $s = $f->format($this->n);
+			$save = $this->getremove();
+
+			// Temp set remove to true for cleaning the square
+			$this->setremove(true);
+      $s = strtoupper ($this->cleaninput($s));
+			$this->setremove($save);
+      $this->sq2  = $this->shufflealphabet ($this->alphabet, $s);
 		}
 	}
 
@@ -50,7 +55,7 @@ class bazeriescipher extends cipher {
 
 	public function setn ($n = 1) {
 		$this->n = $n;
-		$this->chunk = str_split ( (string) $n); 
+		$this->chunk = str_split ( (string) $n);
 	}
 
 	public function getkeys () { return array($this->key1, $this->key2); }

@@ -14,35 +14,34 @@ class cadenuscipher extends cipher {
 
 	protected $keystr = "";
 	protected $key;
-	
+
 	public function __construct ($alphabet, $key) {
 		parent::__construct ($alphabet);
 		$this->setkey ($key);
 	}
-	
+
 	public function setkey ($key) {
 		$this->keystr = $key;
 		$this->key = $this->createtranspositionkey($key);
 	}
-	
+
 	public function encode ($msg = "") {
 
-		$alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		// Checks
 		if ($this->key == null) return "No key specified";
 		if ($this->keystr == "") return "No key specified";
 		if ($msg == "") return "Nothing to encode";
 
-		// Message should be a multiple of 25 long
-		for ($i = 0; $i < (strlen($msg) % 25); $i++) $msg .= $this->alphabet[rand(0,strlen($this->alphabet))];
+		// Message should be 25 * key length long
+		for ($i = strlen($msg); $i < 25 * sizeof($this->key); $i++) $msg .= $this->alphabet[rand(0,strlen($this->alphabet))];
 
 		// Write row after row
 		$ncol = sizeof($this->key);
 		$nrow = intdiv(strlen($msg), $ncol);
-		$table = array();
+		$table = [];
 
 		for ($r = 0; $r < $nrow; $r++) {
-			$table[$r] = array();
+			$table[$r] = [];
 			for ($c = 0; $c < $ncol; $c++)
 				$table[$r][$c] = $msg[$r * $ncol + $c];
 		}
@@ -73,11 +72,11 @@ class cadenuscipher extends cipher {
 
 		$ncol = sizeof($this->key);
 		$nrow = intdiv(strlen($msg), $ncol);
-		$table = array();
+		$table = [];
 
 		// Write row after row
 		for ($r = 0; $r < $nrow; $r++)
-			$table[$r] = array();
+			$table[$r] = [];
 		for ($r = 0; $r < $nrow; $r++)
 			for ($c = 0; $c < $ncol; $c++) {
 				$col = array_search($c, $this->key);
