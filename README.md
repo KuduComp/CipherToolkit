@@ -28,6 +28,7 @@ Abstract class containing common functions, functions encode and decode should b
 - Generic version using an alphabet
 - Atbash cipher (reversed alphabet)
 - Affine cipher (uses function y = ax + b)
+- Bacon cipher
 - Bazeries cipher (split message, reverse chunks and then substitute)
 - Caesar cipher (shifted alphabet, default 13)
 - Ragbaby cipher (more advanced substitution taking into account position)
