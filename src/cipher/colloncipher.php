@@ -3,29 +3,39 @@
 namespace cipher;
 
 class colloncipher extends cipher {
-    
+
     protected $ncol;
     protected $nrow;
     protected $square;
-    
-    public function __construct ($alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ", $key = "", $ncol = 5, $nrow = 5) {
+    protected $method;
+    protected $period;
+
+    public function __construct ($alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ", $method= "RFCL", $key = "", $period=3, $ncol = 5, $nrow = 5) {
         parent::__construct ($alphabet);
         $this->nrow = $nrow;
         $this->ncol = $ncol;
         $this->setkey ($key);
+        $this->setmethod ($method);
+        $this->setperiod ($period);
     }
-    
+
     public function setkey ($key = "") {
         $this->key = $key;
         $this->square = $this->shufflealphabet ($this->alphabet, $key);
     }
+    public function setmethod ($method = "RFCL") { $this->method = $method; }
+    public function setperiod ($period = 3) { $this->period = $period; }
     public function getkey () { return $this->key; }
-    
-    public function encode ($msg = "", $n = 3, $method = "RFCL") {
-        
+    public function getmethod () { return $this->method; }
+    public function getperiod () { return $this->period; }
+
+    public function encode ($msg = "") {
+
         // Method R = row, C = column, F = first, L = last
         // E.g. RFCL means First Character of row + Last Character of column
-        
+        $method = $this->method;
+        $n = $this->period;
+
         $res = "";
         for ($i = 0; $i < strlen($msg); $i += $n) {
         	$s = substr($msg, $i, $n);
@@ -52,11 +62,13 @@ class colloncipher extends cipher {
         }
         return $res;
     }
-    
-    public function decode ($msg = "", $n = 3, $method = "RFCL") {
-        
+
+    public function decode ($msg = "") {
+
         // Method R = row, C = column, F = first, L = last
         // E.g. RFCL means First Character of row + Last Character of column
+        $method = $this->method;
+        $n = $this->period;
 
         $res = "";
         for ($i = 0; $i < strlen($msg); $i += (2*$n)) {

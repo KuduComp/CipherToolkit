@@ -38,11 +38,11 @@ class foursquarecipher extends cipher {
         //Read string two characters at a time
         $s = "";
         for ($i = 0; $i < strlen($msg); $i += 2) {
-            $pos = strpos ($this->alphabet, $msg[$i]);
+            $pos = $this->strpos2 ($this->alphabet, $msg[$i]);
             if ($pos === FALSE) return $s .= " Illegal character found: " . $msg[$i];
             $r1 = intdiv ($pos, $this->size);
             $c1 = ($pos % $this->size);
-            $pos = strpos ($this->alphabet, $msg[$i+1]);
+            $pos = $this->strpos2 ($this->alphabet, $msg[$i+1]);
             if ($pos === FALSE) return $s .= " Illegal character found: " . $msg[$i+1];
             $r2 = intdiv ($pos, $this->size);
             $c2 = ($pos % $this->size);
@@ -60,11 +60,11 @@ class foursquarecipher extends cipher {
         //Read string two characters at a time
         $s = "";
         for ($i = 0; $i < strlen($msg); $i += 2) {
-            $pos = strpos ($this->square1, $msg[$i]);
+            $pos = $this->strpos2 ($this->square1, $msg[$i]);
             if ($pos === FALSE) return $s .= " Illegal character found: " . $msg[$i];
             $r1 = intdiv ($pos, $this->size);
             $c1 = ($pos % $this->size);
-            $pos = strpos ($this->square2, $msg[$i+1]);
+            $pos = $this->strpos2 ($this->square2, $msg[$i+1]);
             if ($pos === FALSE) return $s .= " Illegal character found: " . $msg[$i+1];
             $r2 = intdiv ($pos, $this->size);
             $c2 = ($pos % $this->size);

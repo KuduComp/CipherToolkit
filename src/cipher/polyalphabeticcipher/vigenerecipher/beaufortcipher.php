@@ -11,13 +11,13 @@ class beaufortcipher extends \cipher\polyalphabeticcipher\vigenerecipher {
         $this->keycipher   = $keycipher;
         $this->keyplain    = $keyplain;
         $this->keycol      = $keycol;
-        
+
         // Create plainalphabet
         $this->plainalphabet = $this->shufflealphabet ($keyplain, $this->alphabet);
-        
+
         // Create cipheralphabet
         $this->cipheralphabet = $this->shufflealphabet ($keycipher, $this->alphabet);
-        
+
         // Create a tableau - each row contains a shifted alphabet
         $this->tableau = array();
         if ($keycol == "")
@@ -28,11 +28,11 @@ class beaufortcipher extends \cipher\polyalphabeticcipher\vigenerecipher {
         }
         $s = $this->cipheralphabet;
         for ($i=0; $i<strlen($this->cipheralphabet); $i++) {
-            $this->tableau[$this->cipheralphabet[(strlen($this->cipheralphabet) - 1 + $i + $pos) % strlen($this->cipheralphabet) ]]= strrev($s);
+            $this->tableau[$this->cipheralphabet[(strlen($this->cipheralphabet) - 1 + $i + $pos) % strlen($this->cipheralphabet) ]] = strrev($s);
             $s = substr($s,1) . $s[0];
-        }          
+        }
   }
-  
+
 }
 
 ?>

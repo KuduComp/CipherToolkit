@@ -52,15 +52,18 @@ class polyalphabeticcipher extends cipher {
     public function gettableau () { return $this->tableau; }
 
     public function encode ($msg) {
-        
+
         // For each letter
         // Row uses index from iteratorkey
         // Col is position in plainalphabet
+
         $s = "";
+        $iterrow = 0;
         for ($i = 0; $i < strlen($msg); $i++) {
             $pos = $this->strpos2($this->plainalphabet, $msg[$i]);
             if ($pos !== FALSE) {
-                $row =($i % $this->iterkeylen);
+                $row =($iterrow % $this->iterkeylen);
+                $iterrow++;
                 $s .= $this->tableau[$this->keyiterator[$row]][$pos];
             }
         }
@@ -73,11 +76,13 @@ class polyalphabeticcipher extends cipher {
         // Row uses index from iteratorkey
         // Col is position in tableau
         $s = "";
+        $iterrow = 0;
         for ($i = 0; $i < strlen($msg); $i++) {
-            $row =($i % $this->iterkeylen);
+            $row =($iterrow % $this->iterkeylen);
             $pos = $this->strpos2($this->tableau[$this->keyiterator[$row]], $msg[$i]);
             if ($pos !== FALSE) {
                 $s .= $this->plainalphabet[$pos];
+                $iterrow++;
             }
         }
         return $s;

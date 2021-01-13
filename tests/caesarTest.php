@@ -16,10 +16,6 @@ class CaesarTest extends TestCase
         $this->assertEquals("gurdhvpxoebjasbkwhzcfbiregurynmlqbt",$res, "Error encoding caesar");
         $res = $c->decode ($res);
         $this->assertEquals("thequickbrownfoxjumpsoverthelazydog",$res, "Error decoding caesar");
-        $res = $c->encode ("thequickbrownfoxjumpsoverthelazydog",7);
-        $this->assertEquals("aolxbpjriyvdumveqbtwzvclyaolshgfkvn",$res, "Error encoding caesar");
-        $res = $c->decode ($res, 7);
-        $this->assertEquals("thequickbrownfoxjumpsoverthelazydog",$res, "Error decoding caesar");
         
         // Test atbash
         $c = new atbashcipher();

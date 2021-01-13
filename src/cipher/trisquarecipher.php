@@ -6,11 +6,10 @@ class trisquarecipher extends cipher {
 
 	protected $sq1, $sq2, $sq3 = "ABCDKLMNOEFGHIPQRSTUVWXYZ";
 	protected $sz  = 5;
-	
-	public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $sq1= UPPER_ALPHABET_REDUCED, 
-                                 $sq2= UPPER_ALPHABET_REDUCED, $sq3= UPPER_ALPHABET_REDUCED) {
+
+	public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $key1 = "", $key2 = "", $key3= "") {
         parent::__construct ($alphabet);
-	    $this->setsquares ($sq1, $sq2, $sq3);
+	    $this->setsquares ($this->shufflealphabet($alphabet, $key1), $this->shufflealphabet($alphabet, $key2), $this->shufflealphabet($alphabet, $key3));
 	}
     public function setsquares ($sq1, $sq2, $sq3) {
 	    $this->sq1 = $sq1;
@@ -18,7 +17,7 @@ class trisquarecipher extends cipher {
 	    $this->sq3 = $sq3;
 	    $this->size = (integer) ceil(sqrt(strlen($sq1)));
 	}
-	
+
 	public function getsquares () { return array ($this->sq1, $this->sq2, $this->sq3); }
 
 	public function encode ($msg) {

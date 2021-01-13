@@ -16,19 +16,15 @@ class myszkowskicipher extends cipher {
 	}
 
 	public function getkey () { return $this->key; }
-	
+
 	public function encode ($msg) {
 		return $this->encodemyszkowskitransposition ($msg, $this->key);
 	}
 
-    public function decode ($msg) {
+  public function decode ($msg) {
 		return $this->decodemyszkowskitransposition ($msg, $this->key);
-    }
-
-
+  }
 
 } // class
 
 ?>
-
- 

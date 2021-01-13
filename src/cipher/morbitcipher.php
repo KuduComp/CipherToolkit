@@ -19,25 +19,25 @@ class morbitcipher extends cipher {
         '9' => '----.',
         '.' => '.-.-.-', ',' => '--..--', '?' => '..--..',
         '!' => '-.-.--', '-' => '-....-', '/'  => '-..-.',
-        ':' => '---...', "'" => '.----.', 
+        ':' => '---...', "'" => '.----.',
         ')' => '-.--.-', ';'  => '-.-.-', '('  => '-.--.',
         '=' => '-....-', '@' => '.--.-.', '&'  => '.-...'
 		);
-	
+
 	// Morbit example
 	// W I S E C R A C K
 	// 9 5 8 4 2 7 1 3 6
 	// • • • – – – x x x
-	// • – x • – x • – x	
-	
+	// • – x • – x • – x
+
 	protected $key;     // the key used in the table above
 	protected $morbit;
-	
+
 	public function __construct ($alphabet = UPPER_ALPHABET, $key = "") {
 		parent::__construct ($alphabet);
 		$this->setkey ($key);
 	}
-	
+
 	public function setkey ($key = "") {
 		$this->key = $key;
 		$a = $this->createtranspositionkey ($key);
@@ -56,15 +56,16 @@ class morbitcipher extends cipher {
 			$this->morbit[$a[8]] = "xx";
 		}
 	}
-	
+
 	public function getkey() { return $this->key; }
-	
+
 	function encode ($msg = "") {
-		
+
 		// Translate msg with x between letters and xx between words
 		// Punctutation and numbers can be encoded or skipped (if in alphabet they are encoded)
 		// Print in 3 rows, encode each column with the fractionated morse table above
-		
+		if ($this->morbit == null) return "Invalid key, must be 9 letters";
+
 		$s = "";
 		$notwhitespace = FALSE;
 		for ($i = 0; $i < strlen($msg); $i++) {
@@ -74,15 +75,15 @@ class morbitcipher extends cipher {
 				$s .= 'x';
 			} else {
 				// Treat non characters in the alphabet as word dividers but only once
-				if (($msg[$i] == " ") && ($notwhitespace)) { 
+				if (($msg[$i] == " ") && ($notwhitespace)) {
 					$s .= 'x';
 					$notwhitespace = FALSE;
 				}
 			}
 		}
-		
+
 		$s = substr($s, 0, -1);
-		
+
 		// If not exactly 2 rows append 1 or 2 x
 		if ( strlen($s) % 2 == 1) $s .= 'x';
 
@@ -93,14 +94,16 @@ class morbitcipher extends cipher {
 
 		return $s2;
 	}
-	
+
 	function decode ($msg = "") {
-		
+
+		if ($this->morbit == null) return "Invalid key, must be 9 letters";
+
 		// Create the string
 		$s = "";
 		for ($i = 0; $i < strlen($msg); $i++) $s .= $this->morbit[$msg[$i]-1];
-		
-		// Scan the resulting string 
+
+		// Scan the resulting string
 		$s2 = "";
 		$i = 0;
 		while ($i < strlen($s)) {

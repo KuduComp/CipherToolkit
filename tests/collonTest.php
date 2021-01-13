@@ -10,56 +10,64 @@ class CollonTest extends TestCase
     {
         // Test colloncipher
         $pt = "THEQUICKBROWNFOXIUMPSOVERTHELAZYDOG";
-        $c = new colloncipher(UPPER_ALPHABET_REDUCED);
+        $c = new colloncipher(UPPER_ALPHABET_REDUCED, "RFCL", "", 3);
 
 		    $ct = "QFAYXZQQFVZYAFAXZWQLVWYWLFLXVYVFQXYZLLQWZXLVAYVZQQFWYXALAZVVVVAZYYLFYW";
-        $res = $c->encode ($pt, 3, "RFCL");
+        $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding colloncipher RFCL");
-        $res = $c->decode ($ct, 3, "RFCL");
+        $res = $c->decode ($ct);
         $this->assertEquals($pt,$res, "Error decoding colloncipher RFCL");
-                 
+
 		    $ct = "UKEYXZUUKVZYEKEXZWUPZWYWPKPXVYZKUXYZPPUWZXPZEYVZUUKWYXEPEZVVZZEZYYPKYW";
-        $res = $c->encode ($pt, 3, "RLCL");
+        $c->setmethod("RLCL");
+        $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding colloncipher RLCL");
-        $res = $c->decode ($ct, 3, "RLCL");
+        $res = $c->decode ($ct);
         $this->assertEquals($pt,$res, "Error decoding colloncipher RLCL");
-                 
+
 		    $ct = "QFADCEQQFAEDAFACEBQLVBDBLFLCADVFQCDELLQBECLVADAEQQFBDCALAEAAVVAEDDLFDB";
-        $res = $c->encode ($pt, 3, "RFCF");
+        $c->setmethod("RFCF");
+        $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding colloncipher RFCF");
-        $res = $c->decode ($ct, 3, "RFCF");
+        $res = $c->decode ($ct);
         $this->assertEquals($pt,$res, "Error decoding colloncipher RFCF");
-                 
+
 		    $ct = "UKEDCEUUKAEDEKECEBUPZBDBPKPCADZKUCDEPPUBECPZEDAEUUKBDCEPEEAAZZEEDDPKDB";
-        $res = $c->encode ($pt, 3, "RLCF");
+        $c->setmethod("RLCF");
+        $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding colloncipher RLCF");
-        $res = $c->decode ($ct, 3, "RLCF");
+        $res = $c->decode ($ct);
         $this->assertEquals($pt,$res, "Error decoding colloncipher RLCF");
-                  
+
 		    $ct = "YXZUKEVZYUUKXZWEKEWYWUPZXVYPKPXYZZKUWZXPPUYVZPZEWYXUUKZVVEPEZYYZZEYWPK";
-        $res = $c->encode ($pt, 3, "CLRL");
+        $c->setmethod("CLRL");
+        $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding colloncipher CLRL");
-        $res = $c->decode ($ct, 3, "CLRL");
+        $res = $c->decode ($ct);
         $this->assertEquals($pt,$res, "Error decoding colloncipher CLRL");
-       
+
 		    $ct = "YXZQFAVZYQQFXZWAFAWYWQLVXVYLFLXYZVFQWZXLLQYVZLVAWYXQQFZVVALAZYYVVAYWLF";
-        $res = $c->encode ($pt, 3, "CLRF");
+        $c->setmethod("CLRF");
+        $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding colloncipher CLRF");
-        $res = $c->decode ($ct, 3, "CLRF");
+        $res = $c->decode ($ct);
         $this->assertEquals($pt,$res, "Error decoding colloncipher CLRF");
-       
+
 		    $ct = "DCEQFAAEDQQFCEBAFABDBQLVCADLFLCDEVFQBECLLQDAELVABDCQQFEAAALAEDDVVADBLF";
-        $res = $c->encode ($pt, 3, "CFRF");
+        $c->setmethod("CFRF");
+        $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding colloncipher CFRF");
-        $res = $c->decode ($ct, 3, "CFRF");
+        $res = $c->decode ($ct);
         $this->assertEquals($pt,$res, "Error decoding colloncipher CFRF");
-       
+
 		    $ct = "DCEAEUKEUUDCEBBKEKEUDBCADPZPKPCDEBEZKUPPCDAEBUPZEUDCEAAUKEPEEDDDBZZEPK";
-        $res = $c->encode ($pt, 5, "CFRL");
+        $c->setmethod("CFRL");
+        $c->setperiod(5);
+        $res = $c->encode ($pt);
         $this->assertEquals($ct,$res, "Error encoding colloncipher CFRL n=5");
-        $res = $c->decode ($ct, 5, "CFRL");
+        $res = $c->decode ($ct);
         $this->assertEquals($pt,$res, "Error decoding colloncipher CFRL n=5");
-       
+
     }
 }
 

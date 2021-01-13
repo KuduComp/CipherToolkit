@@ -10,26 +10,29 @@ namespace cipher;
 class baseconvertor {
 
   protected $basemin = 2;
-  protected $basemax = 32;
+  protected $basemax = 36;
   protected $basestr = "0123456789abcdefhijklmnopqrstuvwxyz";
   protected $fromstr;
   protected $tostr;
 
-  public function __construct ($fromstr ="", $tostr="") {
+  public function __construct ($alphabet = "0123456789abcdefhijklmnopqrstuvwxyz", $fromstr ="", $tostr="") {
+    // Alphabet ignored included for compitability with all the ciphers
     $this->setcharacters($fromstr, $tostr);
   }
 
   public function setcharacters ($fromstr = "", $tostr = "") {
-    $this->fromstr = $fromstr;
-    $this->tostr = $tostr;
+    if ($fromstr == "") $this->fromstr = $this->basestr;
+      else $this->fromstr = $fromstr;
+    if ($tostr == "") $this->tostr = $this->basestr;
+      else $this->tostr = $tostr;
   }
 
   public function getcharacters() { return [$this->fromstr, $this->tostr]; }
 
   protected function base_convert2 ($input, $basefrom, $baseto, $fromstr, $tostr) {
 
-    if (($basefrom < $this->basemin) || ($basefrom > $this->basemax)) return "Base from too small or too big";
-    if (($baseto < $this->basemin) || ($baseto > $this->basemax)) return "Base to too small or too big";
+    if (($basefrom < $this->basemin) || ($basefrom > $this->basemax)) return "Base from too small or too big" . $basefrom . $fromstr;
+    if (($baseto < $this->basemin) || ($baseto > $this->basemax)) return "Base to too small or too big" . $baseto . $tostr;
 
     if ($fromstr !== "") {
       $inparr = [];
@@ -39,7 +42,6 @@ class baseconvertor {
     }
 
     $output = base_convert($input, $basefrom, $baseto);
-
     if ($tostr !== "") {
       $outparr = [];
       for ($i = 0; $i < strlen($output); $i++)
@@ -49,7 +51,11 @@ class baseconvertor {
     return $output;
   }
 
-  public function encode ($msg = "", $from = 10, $to = 10) {
+  public function encode ($msg = "", $from = 0, $to = 0) {
+
+    if ($from == 0) $from=strlen($this->fromstr);
+    if ($to == 0) $to=strlen($this->tostr);
+
     preg_match_all ('/(\b[^\s]+\b)/', $msg, $matches);
     $s = "";
 
@@ -60,7 +66,11 @@ class baseconvertor {
     return substr($s, 0, -1);
   }
 
-  public function decode ($msg = "", $from = 10, $to = 10) {
+  public function decode ($msg = "", $from = 0, $to = 0) {
+
+    if ($from == 0) $from=strlen($this->fromstr);
+    if ($to == 0) $to=strlen($this->tostr);
+
     preg_match_all ('/(\b[^\s]+\b)/', $msg, $matches);
     $s = "";
 

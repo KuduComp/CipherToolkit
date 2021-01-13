@@ -48,6 +48,10 @@ class portacipher extends cipher {
 
 	public function encode ($msg) {
 
+		//Checks
+		if ($this->keylen == 0) return "No key specified";
+		if ($msg == "") return "Nothing to encode or decode";
+
 		$s = "";
 		$cnt = 0;
 		for ($i = 0; $i<strlen($msg); $i++) {

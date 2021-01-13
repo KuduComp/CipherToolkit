@@ -5,9 +5,8 @@ namespace cipher;
 class railfencecipher extends cipher {
 
     protected $nrail = 3;
-    protected $startdown = TRUE;
     protected $offset = 0;
-    
+
     public function __construct ($alphabet, $nrail = 3, $offset = 0) {
         parent::__construct ($alphabet);
         $this->nrail = $nrail;
@@ -20,14 +19,14 @@ class railfencecipher extends cipher {
     public function getoffset () { return $this->offset; }
 
     function encode ($msg) {
-		for ($i = 0; $i < $this->nrail; $i++) $railseq[$i] = $i;
+		    for ($i = 0; $i < $this->nrail; $i++) $railseq[$i] = $i;
         return $this->encoderedefencetransposition ($msg, $this->nrail, $this->offset, $railseq);
     }
 
 	function decode ($msg) {
-		for ($i = 0; $i < $this->nrail; $i++) $railseq[$i] = $i;
-        return $this->decoderedefencetransposition ($msg, $this->nrail, $this->offset, $railseq);
-    }
+		  for ($i = 0; $i < $this->nrail; $i++) $railseq[$i] = $i;
+      return $this->decoderedefencetransposition ($msg, $this->nrail, $this->offset, $railseq);
+  }
 }  // class railfencecipher
 
 ?>

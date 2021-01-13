@@ -7,11 +7,12 @@ class digrafidcipher extends cipher {
 	protected $key1, $key2;
 	protected $alphabet1, $alphabet2;
 	protected $tableau;
-	protected $fraction = 9;
+	protected $fraction;
 
-	public function __construct ($alphabet, $key1, $key2) {
+	public function __construct ($alphabet, $key1, $key2, $frac = 3) {
 		parent::__construct ($alphabet);
 		$this->setkeys($key1, $key2);
+		$this->setFraction($frac);
 	}
 
 	function setkeys ($key1, $key2) {
@@ -21,7 +22,7 @@ class digrafidcipher extends cipher {
 		$this->alphabet1 = strtoupper ($this->alphabet);
 		$this->alphabet2 = strtolower ($this->alphabet);
 		$numbers   = [[1,2,3], [4,5,6], [7,8,9]];
-		
+
 		$this->tableau = array();
 		$this->alphabet1 = implode("", array_unique(str_split(strtoupper($key1) . $this->alphabet1)));
 		$this->alphabet2 = implode("", array_unique(str_split(strtolower($key2) . $this->alphabet2)));
