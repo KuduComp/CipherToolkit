@@ -86,6 +86,7 @@ $ciphertoclass = array (
 	'Reverse' => ['', 0],
 	'Reversewords' => ['', 0],
 	'Scytale' => ['cipher\skytalecipher', 1],
+	'Skip' =>  ['cipher\skipcipher', 2],
 	'Substitution' => ['cipher\genericsubstitutioncipher', 1],
 	'Trifid' => ['cipher\trifidcipher', 1],
 	'Trisquare' => ['cipher\trisquarecipher', 3],
