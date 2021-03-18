@@ -407,7 +407,7 @@ abstract class cipher {
 				$s = $s. strtoupper($repl[strtolower($m)]) . $this->sep;
 			} else {
 				// None of the case matched
-				if ($this->remove) $s = $s . $m . $this->sep;
+				if (!$this->remove) $s = $s . $m . $this->sep;
 			}
 		}
 
