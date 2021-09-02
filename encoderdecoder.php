@@ -17,9 +17,9 @@ header("Content-Type: application/json; charset=UTF-8");
 
 $json = file_get_contents("php://input");
 //For command line testing
-// $json = '{"cipher": "Zygazyfa",
+// $json = '{"cipher": "Tapir",
 // 	"enordecode": "encode",
-// 	"message": "Testbericht",
+// 	"message": "the1quick2brownfoxjumpsoverthelazydog",
 // 	"key1" : 47,
 // 	"key2" : 1,
 // 	"key3" : "123",
@@ -39,10 +39,6 @@ $ciphertoclass = array (
 	'Atbash' => ['cipher\atbashcipher', 0],
 	'Autokey' => ['cipher\polyalphabeticcipher\vigenerecipher\autokeycipher', 1],
 	'Bacon' => ['cipher\multisubstitutioncipher\baconcipher', 3],
-	'Base64' => ['', 99],
-	'Base91' => ['cipher\base91code', 0],
-	'Base16' => ['cipher\base16', 0],
-	'Base32' => ['cipher\base32', 0],
 	'Baseconvertor' => ['cipher\baseconvertor', 2],
 	'Bazeries' => ['cipher\bazeriescipher', 3],
 	'Beaufort' => ['cipher\polyalphabeticcipher\vigenerecipher\beaufortcipher', 1],
@@ -88,11 +84,12 @@ $ciphertoclass = array (
 	'Scytale' => ['cipher\skytalecipher', 1],
 	'Skip' =>  ['cipher\skipcipher', 2],
 	'Substitution' => ['cipher\genericsubstitutioncipher', 1],
+	'Tapir' => ['cipher\tapircipher', 0],
 	'Trifid' => ['cipher\trifidcipher', 1],
 	'Trisquare' => ['cipher\trisquarecipher', 3],
-	'UUencode' =>['', 99],
 	'Vigenere' => ['cipher\polyalphabeticcipher\vigenerecipher', 1],
 	'Vatsyayana' => ['cipher\vatsyayanacipher', 2],
+	'Zebra' => ['cipher\zebracipher', 0],
 	'Zygazyfa' => ['cipher\zygazyfacipher', 1]
 );
 
@@ -104,12 +101,6 @@ if ($name == "") {
 	if (strtolower($data->enordecode) == 'encode') {
 		if (strtolower($data->enordecode) == 'encode') {
 			switch ($data->cipher) {
-				case "Base64" :
-					$transmes = base64_encode($data->message);
-					break;
-				case "UUencode" :
-					$transmes = convert_uuencode($data->message);
-					break;
 				case "Reverse" :
 					$transmes = strrev($data->message);
 					break;
@@ -121,12 +112,6 @@ if ($name == "") {
 			}
 		} elseif (strtolower($data->enordecode) == 'decode') {
 			switch ($data->cipher) {
-				case "Base64" :
-					$mes = base64_decode($data->transmessage);
-					break;
-				case "UUencode" :
-					$mes = convert_uudecode($data->transmessage);
-					break;
 				case "Reverse" :
 					$transmes = strrev($data->transmessage);
 					break;

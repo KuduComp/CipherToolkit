@@ -33,9 +33,9 @@ Abstract class containing common functions, functions encode and decode should b
 - Caesar cipher (shifted alphabet, default 13)
 - Ragbaby cipher (more advanced substitution taking into account position)
 - Vatsyayana or kamasutra cipher (13 paired letters)
+- Tapir and Zebra cipher (East German secret service substitution tables)
 
 ###### Codes or alphabets (not really ciphers)
-- Base91 code (similar to Base64 or uuencode)
 - Bibi-binary numbers
 - Geocaching base31 code (used by geocaching.com translates integers into gc codes
 - Goldbug alphabet (as used by Edgar Allen Poe)
