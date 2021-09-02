@@ -70,15 +70,19 @@ class tapircipher extends cipher {
 
     preg_match_all($regex, $text, $codes);
 
-    // This doesn't work when not in nummode 00, 11, 22, 33 are double A E I N
-
     foreach ($codes[0] as $c) {
 
-      if (array_search($c, $this->table) !== false) {
+      // Key known
+      if ($c == $this->tonums) { 
+        $nummode = true;
+        continue;
+      }
+      if ($c == $this->tolets) {
+        $nummode = false;
+        continue;
+      }
 
-        // Key known
-        if ($c == $this->tonums) $nummode = true;
-        if ($c == $this->tolets) $nummode = false;
+      if (array_search($c, $this->table) !== false) {
 
         // Space and carriage return work in both modes
         if ($c == "80" && $c == "83") 

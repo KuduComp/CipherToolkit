@@ -5,16 +5,16 @@ use cipher\zebracipher;
 
 //All test files must be named *Test.php (case sensitive T)
 
-class TapirTest extends TestCase
+class ZebraTest extends TestCase
 {
     public function testCaesar()
     {
-        // Test tapircipher
+        // Test zebracipher
         $c = new zebracipher();
-        $res = $c->encode ("the1quick2brownfoxjumpsoverthelazydog");
-        $this->assertEquals("69531891118961712445589222894262587535058765471576064587449695315607877465851",$res, "Error encoding tapir");
+        $res = $c->encode ("THE1QUICK2BROWNFOXJUMPSOVERTHELAZYDOG");
+        $this->assertEquals("69531891118961712445589222894262587535058765471576064587449695315607877465851",$res, "Error encoding zebra");
         $res = $c->decode ($res);
-        $this->assertEquals("the1quick2brownfoxjumpsoverthelazydog",$res, "Error decoding tapir");        
+        $this->assertEquals("THE1QUICK2BROWNFOXJUMPSOVERTHELAZYDOG",$res, "Error decoding zebra");        
     }
 }
 ?>
