@@ -16,10 +16,10 @@ header("Content-Type: application/json; charset=UTF-8");
 // header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}") origin = null!
 
 $json = file_get_contents("php://input");
-//For command line testing
-// $json = '{"cipher": "Tapir",
+// For command line testing
+// $json = '{"cipher": "Atomtom",
 // 	"enordecode": "encode",
-// 	"message": "the1quick2brownfoxjumpsoverthelazydog",
+// 	"message": "thequickbrownfoxjumpsoverthelazydog",
 // 	"key1" : 47,
 // 	"key2" : 1,
 // 	"key3" : "123",
@@ -37,6 +37,7 @@ $ciphertoclass = array (
 	'Affine' => ['cipher\affinecipher', 2],
 	'Amsco' => ['cipher\amscocipher', 1],
 	'Atbash' => ['cipher\atbashcipher', 0],
+	'Atomtom' => ['cipher\multisubstitutioncipher\atomtomcipher', 0],
 	'Autokey' => ['cipher\polyalphabeticcipher\vigenerecipher\autokeycipher', 1],
 	'Bacon' => ['cipher\multisubstitutioncipher\baconcipher', 3],
 	'Baseconvertor' => ['cipher\baseconvertor', 2],
@@ -58,7 +59,6 @@ $ciphertoclass = array (
 	'Foursquare' =>['cipher\foursquarecipher', 2],
 	'GCId' =>['cipher\gcidcode', 0],
 	'Goldbug' =>['cipher\goldbugcipher', 0],
-	'Graycode' =>['cipher\graycode', 1],
 	'Gronsfeld' => ['cipher\polyalphabeticcipher\vigenerecipher\gronsfieldcipher', 1],
 	'Gromark' => ['cipher\gromarkcipher', 2],
 	'Kennycode' => ['cipher\multisubstitutioncipher\kennycode', 0],
