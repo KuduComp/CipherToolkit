@@ -23,7 +23,8 @@ class syllabarycipher extends cipher {
     protected $keys = [];
     private $re = '/(AND|ARE|ATE|ATI|COM|ENT|ERE|ERS|EST|HAS|ION|ING|IVE|RED|RES|STO|TED|TER|THE|THI|THR|AL|AN|AR|AS|AT|BE|CA|CE|CO|DA|DE|EA|ED|EN|ER|ES|HE|IN|IS|IT|LA|LE|ME|ND|ND|NE|NT|OF|ON|OR|OU|RA|RE|RI|RO|SE|SH|ST|TE|TH|TI|TO|VE|WE|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|1|2|3|4|5|6|7|8|9|0)/mi';
 
-    public function __construct ($key = "A", $coordrows = "0123456789", $coordcols = "0123456789") {
+    public function __construct ($alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", $key = "A", $coordrows = "0123456789", $coordcols = "0123456789") {
+        parent::__construct ($alphabet);
         $this->setkey($key);
         $this->setcoordinates($coordrows, $coordcols);
     }
