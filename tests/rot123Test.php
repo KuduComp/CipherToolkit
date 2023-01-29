@@ -14,7 +14,7 @@ class ROT123Test extends TestCase
         $res = $c->encode ("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG");
         $this->assertEquals("UJHUZOJSKBZIATDNAMFJNKSCQTIGOEEEKWP",$res, "Error encoding ROT123");
         $res = $c->decode ($res);
-        $this->assertEquals("THEQUXCKBROWNFOXJUMPSOVERTHELAZYDOG",$res, "Error decoding ROT123");
+        $this->assertEquals("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG",$res, "Error decoding ROT123");
         
     }
 }
