@@ -30,7 +30,7 @@ class redefencecipher extends cipher {
                 $this->railseq = $railseq;
                 break;
               case "integer"  :
-                $s = sprintf("%d", $s);
+                $s = sprintf("%d", $railseq);
                 for ($i = 0; $i <strlen($s); $i++) $this->railseq[] = $s[$i] - 1;
                 break;
               case "string"   :

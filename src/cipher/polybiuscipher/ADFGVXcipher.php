@@ -8,11 +8,11 @@ class ADFGVXcipher extends \cipher\polybiuscipher {
     protected $keylen = 0;
     protected $permkey = [];
 
-    public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $colkey) {
+    public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $key, $colkey) {
         if (strlen($alphabet) == 25) {
-            parent::__construct ($alphabet, "ADFGX", "ADFGX");
+            parent::__construct ($alphabet, $key, "ADFGX", "ADFGX");
         } elseif (strlen($alphabet) == 36) {
-            parent::__construct ($alphabet, "ADFGVX", "ADFGVX");
+            parent::__construct ($alphabet, $key, "ADFGVX", "ADFGVX");
         }
         $this->setcolkey($colkey);
     }

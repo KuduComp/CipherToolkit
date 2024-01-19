@@ -3,14 +3,17 @@
 namespace cipher;
 
 // Classic atbash cipher, encoding using reversed alphabet
-class newscipher extends cipher {
+class neswcipher extends cipher {
 
     protected $alphabet;
     protected $size;
+    protected $key;
     
-    public function __construct ($a = UPPER_ALPHABET_REDUCED, $size = 5) {
+    public function __construct ($a = UPPER_ALPHABET_REDUCED, $key = "") {
         parent::__Construct ($a);
-        $this->size = $size;
+        $this->alphabet = $this->shufflealphabet ($a, $key);
+        $this->key = $key;
+        $this->size = sqrt(strlen($this->alphabet));
     }
     
     public function decode ($t = "") {
@@ -136,4 +139,3 @@ class newscipher extends cipher {
     
 } // End of newscipher
 
-?>

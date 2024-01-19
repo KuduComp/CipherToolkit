@@ -9,8 +9,7 @@ class nihilistcipher extends \cipher\polybiuscipher {
     protected $addkeyarr;
 
     public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $key = "", $addkey = "") {
-      parent::__construct ($alphabet);
-      $this->setkey($key);
+      parent::__construct ($alphabet, $key);
       $this->setaddkey ($addkey);
       $this->addkeylen = strlen($addkey);
     }

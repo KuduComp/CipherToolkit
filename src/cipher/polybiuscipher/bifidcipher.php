@@ -5,8 +5,7 @@ namespace cipher\polybiuscipher;
 class bifidcipher extends \cipher\polybiuscipher {
     
     public function __construct ($alphabet = UPPER_ALPHABET_REDUCED, $key = "") {
-        parent::__construct ($alphabet);
-        $this->setkey ($key);
+        parent::__construct ($alphabet, $key);
     }
     
     public function encode ($msg) {

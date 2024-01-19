@@ -18,7 +18,7 @@ class rot123cipher extends cipher {
 	}
 
   function setkey($key) { $this->key = $key; }
-  function getkey($key) { return $this-> key; }
+  function getkey() { return $this-> key; }
 
 	function encode ($text = "") {
     $msg = "";
